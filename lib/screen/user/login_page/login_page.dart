@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:glossy_flossy/provider/login_provider.dart';
-import 'package:glossy_flossy/screen/home_screen.dart/home_screen.dart';
-import 'package:glossy_flossy/screen/main_screen.dart/main_screen.dart';
-import 'package:glossy_flossy/screen/register_page/register_page.dart';
+import 'package:glossy_flossy/screen/user/home_screen.dart/home_screen.dart';
+import 'package:glossy_flossy/screen/user/main_screen.dart/main_screen.dart';
+import 'package:glossy_flossy/screen/user/register_page/register_page.dart';
 import 'package:glossy_flossy/utils/images.dart';
 import 'package:provider/provider.dart';
 

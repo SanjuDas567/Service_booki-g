@@ -8,4 +8,7 @@ class Images {
   static const String SOFA_CLEANING = 'assets/images/sofa-cleaning.png';
   static const String WINDOW_CLEANIG = 'assets/images/window-cleaning.jpg';
   static const String GLOSSY_FLOSSY_LOGO = 'assets/images/logo.png';
+  static const String WORKER_iCON_USER_SELECTION = 'assets/images/cleaning.jpg';
+  static const String USER_iCON_USER_SELECTION = 'assets/images/cliant.jpg';
+  static const String ADMIN_ICON_USER_SELECTION = 'assets/images/admine.jpg';
 }

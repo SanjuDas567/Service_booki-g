@@ -1,6 +1,6 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
-import 'package:glossy_flossy/screen/vehicle_wash_booking/service_selection_check_box.dart';
+import 'package:glossy_flossy/screen/user/vehicle_wash_booking/widgets/service_selection_check_box.dart';
 import 'package:glossy_flossy/utils/images.dart';
 
 class VehicleWashBooking extends StatelessWidget {

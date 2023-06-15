@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:glossy_flossy/screen/home_screen.dart/widgets/image_slider.dart';
-import 'package:glossy_flossy/screen/home_screen.dart/widgets/location_container.dart';
-import 'package:glossy_flossy/screen/housekeeping_booking/house_keeping_booking.dart';
-import 'package:glossy_flossy/screen/vehicle_wash_booking/vehicle_wash_booking.dart';
+import 'package:glossy_flossy/screen/user/home_screen.dart/widgets/image_slider.dart';
+import 'package:glossy_flossy/screen/user/home_screen.dart/widgets/location_container.dart';
+import 'package:glossy_flossy/screen/user/housekeeping_booking/house_keeping_booking.dart';
+import 'package:glossy_flossy/screen/user/vehicle_wash_booking/vehicle_wash_booking.dart';
 import 'package:glossy_flossy/widgets/custom_app_bar.dart';
 
 class HomeScreen extends StatelessWidget {

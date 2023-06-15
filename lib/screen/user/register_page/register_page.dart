@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:glossy_flossy/screen/register_page/widgets/date_picker.dart';
+import 'package:glossy_flossy/screen/user/register_page/widgets/date_picker.dart';
 // import 'package:glossy_flossy/widgets/custom_password_field.dart';
 import 'package:glossy_flossy/widgets/custom_text_form_field.dart';
 import 'package:intl/intl.dart';

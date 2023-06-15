@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:glossy_flossy/screen/chat_screen/chat_screen.dart';
-import 'package:glossy_flossy/screen/home_screen.dart/home_screen.dart';
-import 'package:glossy_flossy/screen/profile_screen/profile_screen.dart';
+import 'package:glossy_flossy/screen/user/chat_screen/chat_screen.dart';
+import 'package:glossy_flossy/screen/user/home_screen.dart/home_screen.dart';
+import 'package:glossy_flossy/screen/user/profile_screen/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({super.key});
