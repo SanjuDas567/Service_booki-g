@@ -1,11 +1,11 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
-import 'package:glossy_flossy/provider/house_keeping_provider.dart';
-import 'package:glossy_flossy/screen/user/housekeeping_booking/widgets/check_box.dart';
+import 'package:glossy_flossy/provider/user/house_keeping_provider.dart';
 import 'package:glossy_flossy/screen/user/housekeeping_booking/widgets/service_selection.dart';
 import 'package:glossy_flossy/utils/images.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class HouseKeepingBookingScreen extends StatelessWidget {
   HouseKeepingBookingScreen({super.key});
 

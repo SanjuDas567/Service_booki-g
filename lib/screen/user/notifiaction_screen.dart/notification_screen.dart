@@ -5,6 +5,10 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('Notification screen');
+    return Scaffold(
+      body: Center(
+        child: Text('Notification screen'),
+      ),
+    );
   }
 }

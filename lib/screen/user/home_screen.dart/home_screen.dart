@@ -3,6 +3,7 @@ import 'package:glossy_flossy/screen/user/home_screen.dart/widgets/image_slider.
 import 'package:glossy_flossy/screen/user/home_screen.dart/widgets/location_container.dart';
 import 'package:glossy_flossy/screen/user/housekeeping_booking/house_keeping_booking.dart';
 import 'package:glossy_flossy/screen/user/vehicle_wash_booking/vehicle_wash_booking.dart';
+import 'package:glossy_flossy/utils/images.dart';
 import 'package:glossy_flossy/widgets/custom_app_bar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -12,37 +13,14 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      drawer: Drawer(
-        backgroundColor: Colors.black,
-        child: ListView(
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(color: Colors.yellow),
-              child: Text('Drawer Header'),
-            ),
-            ListTile(
-              title: Text(
-                'Item 1',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            ListTile(
-              title: Text(
-                'Item 2',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          ],
-        ),
-      ),
       body: SafeArea(
         child: CustomScrollView(
           shrinkWrap: true,
           slivers: [
-            CustomAppBar(
-              isBackButton: 0,
-              isNotification: 0,
-            ),
+            // CustomAppBar(
+            //   isBackButton: 0,
+            //   isNotification: 0,
+            // ),
             SliverToBoxAdapter(
               child: PictureSlideShow(),
             ),

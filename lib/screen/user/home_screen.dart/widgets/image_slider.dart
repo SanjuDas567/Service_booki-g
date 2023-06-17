@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:glossy_flossy/provider/home_screen_provider.dart';
+import 'package:glossy_flossy/provider/user/home_screen_provider.dart';
 import 'package:provider/provider.dart';
 
 class PictureSlideShow extends StatefulWidget {

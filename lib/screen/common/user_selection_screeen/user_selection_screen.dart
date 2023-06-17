@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:glossy_flossy/screen/admin/login_screen/login_screen_admin.dart';
 import 'package:glossy_flossy/screen/user/login_page/login_page.dart';
+import 'package:glossy_flossy/screen/worker/login_screen_worker/login_screen_worker.dart';
 import 'package:glossy_flossy/utils/images.dart';
 
 class UserSelectionScreen extends StatelessWidget {
@@ -24,12 +26,14 @@ class UserSelectionScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.yellow,
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(
                   height: 30,
                 ),
+
+                //user login container
                 Container(
                   height: 170,
                   width: MediaQuery.of(context).size.width,
@@ -42,7 +46,7 @@ class UserSelectionScreen extends StatelessWidget {
                       const SizedBox(
                         width: 20,
                       ),
-                      CircleAvatar(
+                      const CircleAvatar(
                         radius: 50,
                         backgroundImage:
                             AssetImage(Images.USER_iCON_USER_SELECTION),
@@ -90,6 +94,8 @@ class UserSelectionScreen extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
+
+                //worker login container
                 Container(
                   height: 170,
                   width: MediaQuery.of(context).size.width,
@@ -101,7 +107,7 @@ class UserSelectionScreen extends StatelessWidget {
                       const SizedBox(
                         width: 20,
                       ),
-                      CircleAvatar(
+                      const CircleAvatar(
                         radius: 50,
                         backgroundImage:
                             AssetImage(Images.WORKER_iCON_USER_SELECTION),
@@ -119,17 +125,27 @@ class UserSelectionScreen extends StatelessWidget {
                           const SizedBox(
                             width: 20,
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  style: BorderStyle.solid,
-                                  width: 1,
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginPageWorker(),
                                 ),
-                                borderRadius: BorderRadius.circular(8)),
-                            child: const Padding(
-                              padding: EdgeInsets.all(4),
-                              child: Text('Continue ->'),
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    style: BorderStyle.solid,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: const Padding(
+                                padding: EdgeInsets.all(4),
+                                child: Text('Continue ->'),
+                              ),
                             ),
                           ),
                         ],
@@ -140,6 +156,8 @@ class UserSelectionScreen extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
+
+                //admin login container
                 Container(
                   height: 170,
                   width: MediaQuery.of(context).size.width,
@@ -151,7 +169,7 @@ class UserSelectionScreen extends StatelessWidget {
                       const SizedBox(
                         width: 20,
                       ),
-                      CircleAvatar(
+                      const CircleAvatar(
                         radius: 50,
                         backgroundImage:
                             AssetImage(Images.ADMIN_ICON_USER_SELECTION),
@@ -169,17 +187,27 @@ class UserSelectionScreen extends StatelessWidget {
                           const SizedBox(
                             width: 20,
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  style: BorderStyle.solid,
-                                  width: 1,
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginPageAdmin(),
                                 ),
-                                borderRadius: BorderRadius.circular(8)),
-                            child: const Padding(
-                              padding: EdgeInsets.all(4),
-                              child: Text('Continue ->'),
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    style: BorderStyle.solid,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: const Padding(
+                                padding: EdgeInsets.all(4),
+                                child: Text('Continue ->'),
+                              ),
                             ),
                           ),
                         ],

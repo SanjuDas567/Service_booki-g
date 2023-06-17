@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:glossy_flossy/provider/user/login_provider.dart';
+import 'package:glossy_flossy/provider/admin/login_provider_admin.dart';
 import 'package:glossy_flossy/screen/user/main_screen.dart/main_screen.dart';
-import 'package:glossy_flossy/screen/user/register_page/register_page.dart';
 import 'package:glossy_flossy/utils/images.dart';
 import 'package:provider/provider.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class LoginPageAdmin extends StatelessWidget {
+  LoginPageAdmin({super.key});
 
   final _passwordController = TextEditingController();
 
@@ -21,8 +20,8 @@ class LoginPage extends StatelessWidget {
       body: SafeArea(
         child: Form(
           key: _formKey,
-          child: Consumer<LoginProvider>(
-            builder: (context, loginProvider, child) {
+          child: Consumer<LoginProviderAdmin>(
+            builder: (context, loginProviderAdmin, child) {
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,7 +110,8 @@ class LoginPage extends StatelessWidget {
                                     ),
                                     child: TextFormField(
                                       controller: _passwordController,
-                                      obscureText: loginProvider.obscureValue,
+                                      obscureText:
+                                          loginProviderAdmin.obscureValue,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
                                         labelText: 'Your password',
@@ -125,30 +125,32 @@ class LoginPage extends StatelessWidget {
                                 Positioned(
                                   right: 15,
                                   child: InkWell(
-                                      onTap: () {
-                                        // _controller.clear();
+                                    onTap: () {
+                                      // _controller.clear();
 
-                                        if (loginProvider.obscureValue ==
-                                            true) {
-                                          loginProvider
-                                              .changeValueOfObscureText(false);
-                                        } else {
-                                          loginProvider
-                                              .changeValueOfObscureText(true);
-                                        }
+                                      if (loginProviderAdmin.obscureValue ==
+                                          true) {
+                                        loginProviderAdmin
+                                            .changeValueOfObscureText(false);
+                                      } else {
+                                        loginProviderAdmin
+                                            .changeValueOfObscureText(true);
+                                      }
 
-                                        print(_emailController.text.trim());
-                                        print(_passwordController.text.trim());
-                                      },
-                                      child: loginProvider.obscureValue == true
-                                          ? const Icon(
-                                              Icons.visibility,
-                                              color: Colors.black54,
-                                            )
-                                          : const Icon(
-                                              Icons.visibility_off,
-                                              color: Colors.black54,
-                                            )),
+                                      print(_emailController.text.trim());
+                                      print(_passwordController.text.trim());
+                                    },
+                                    child:
+                                        loginProviderAdmin.obscureValue == true
+                                            ? const Icon(
+                                                Icons.visibility,
+                                                color: Colors.black54,
+                                              )
+                                            : const Icon(
+                                                Icons.visibility_off,
+                                                color: Colors.black54,
+                                              ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -161,23 +163,16 @@ class LoginPage extends StatelessWidget {
                             child: InkWell(
                               onTap: () {
                                 print('sign up button pressed');
-                                if (_emailController.text.trim() == 'sanju' &&
+                                if (_emailController.text.trim() == 'admin' &&
                                     _passwordController.text.trim() ==
-                                        'sanju') {
+                                        'admin') {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => MainScreen(),
                                     ),
                                   );
-                                } else {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => RegisterPage(),
-                                    ),
-                                  );
-                                }
+                                } else {}
                               },
                               child: Container(
                                 height: 40,
@@ -199,57 +194,6 @@ class LoginPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const Center(
-                      child: Text(
-                        'or',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: InkWell(
-                        onTap: () {
-                          print('google icon pressed');
-                        },
-                        child: Image.asset(
-                          Images.GOOGLE_IMAGE_LOGIN,
-                          height: 40,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "Don't have account?",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => RegisterPage(),
-                              ),
-                            );
-                            print(
-                              'create new account button presed',
-                            );
-                          },
-                          child: const Text(
-                            ' create a new account',
-                            style: TextStyle(color: Colors.yellow),
-                          ),
-                        )
-                      ],
-                    )
                   ],
                 ),
               );

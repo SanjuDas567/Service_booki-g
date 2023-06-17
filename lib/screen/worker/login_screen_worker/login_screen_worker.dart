@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:glossy_flossy/provider/user/login_provider.dart';
-import 'package:glossy_flossy/screen/user/main_screen.dart/main_screen.dart';
-import 'package:glossy_flossy/screen/user/register_page/register_page.dart';
+import 'package:glossy_flossy/provider/worker/login_provider_worker.dart';
+import 'package:glossy_flossy/screen/worker/main_screen/main_screen_worker.dart';
+import 'package:glossy_flossy/screen/worker/register_screen/register_screeen_worker.dart';
 import 'package:glossy_flossy/utils/images.dart';
 import 'package:provider/provider.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class LoginPageWorker extends StatelessWidget {
+  LoginPageWorker({super.key});
 
   final _passwordController = TextEditingController();
 
@@ -21,8 +21,8 @@ class LoginPage extends StatelessWidget {
       body: SafeArea(
         child: Form(
           key: _formKey,
-          child: Consumer<LoginProvider>(
-            builder: (context, loginProvider, child) {
+          child: Consumer<LoginProviderWorker>(
+            builder: (context, loginProviderWorker, child) {
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,7 +111,8 @@ class LoginPage extends StatelessWidget {
                                     ),
                                     child: TextFormField(
                                       controller: _passwordController,
-                                      obscureText: loginProvider.obscureValue,
+                                      obscureText:
+                                          loginProviderWorker.obscureValue,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
                                         labelText: 'Your password',
@@ -125,30 +126,32 @@ class LoginPage extends StatelessWidget {
                                 Positioned(
                                   right: 15,
                                   child: InkWell(
-                                      onTap: () {
-                                        // _controller.clear();
+                                    onTap: () {
+                                      // _controller.clear();
 
-                                        if (loginProvider.obscureValue ==
-                                            true) {
-                                          loginProvider
-                                              .changeValueOfObscureText(false);
-                                        } else {
-                                          loginProvider
-                                              .changeValueOfObscureText(true);
-                                        }
+                                      if (loginProviderWorker.obscureValue ==
+                                          true) {
+                                        loginProviderWorker
+                                            .changeValueOfObscureText(false);
+                                      } else {
+                                        loginProviderWorker
+                                            .changeValueOfObscureText(true);
+                                      }
 
-                                        print(_emailController.text.trim());
-                                        print(_passwordController.text.trim());
-                                      },
-                                      child: loginProvider.obscureValue == true
-                                          ? const Icon(
-                                              Icons.visibility,
-                                              color: Colors.black54,
-                                            )
-                                          : const Icon(
-                                              Icons.visibility_off,
-                                              color: Colors.black54,
-                                            )),
+                                      print(_emailController.text.trim());
+                                      print(_passwordController.text.trim());
+                                    },
+                                    child:
+                                        loginProviderWorker.obscureValue == true
+                                            ? const Icon(
+                                                Icons.visibility,
+                                                color: Colors.black54,
+                                              )
+                                            : const Icon(
+                                                Icons.visibility_off,
+                                                color: Colors.black54,
+                                              ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -161,20 +164,21 @@ class LoginPage extends StatelessWidget {
                             child: InkWell(
                               onTap: () {
                                 print('sign up button pressed');
-                                if (_emailController.text.trim() == 'sanju' &&
+                                if (_emailController.text.trim() == 'worker' &&
                                     _passwordController.text.trim() ==
-                                        'sanju') {
+                                        'worker') {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => MainScreen(),
+                                      builder: (context) => MainScreenWorker(),
                                     ),
                                   );
                                 } else {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => RegisterPage(),
+                                      builder: (context) =>
+                                          RegisterScreenWorker(),
                                     ),
                                   );
                                 }
@@ -236,7 +240,7 @@ class LoginPage extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => RegisterPage(),
+                                builder: (context) => RegisterScreenWorker(),
                               ),
                             );
                             print(

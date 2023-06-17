@@ -11,4 +11,5 @@ class Images {
   static const String WORKER_iCON_USER_SELECTION = 'assets/images/cleaning.jpg';
   static const String USER_iCON_USER_SELECTION = 'assets/images/cliant.jpg';
   static const String ADMIN_ICON_USER_SELECTION = 'assets/images/admine.jpg';
+  static const String PROFILE_IMAGE = 'assets/images/profile.jpg';
 }
