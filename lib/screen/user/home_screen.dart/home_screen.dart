@@ -63,10 +63,17 @@ class HomeScreen extends StatelessWidget {
                                   height:
                                       MediaQuery.of(context).size.height * 0.08,
                                   decoration: BoxDecoration(
-                                    color: Colors.white54,
+                                    color: Colors.white.withOpacity(.2),
                                     borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(color: Colors.yellow),
                                   ),
-                                  child: const Icon(Icons.wash_outlined),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: Image.asset(
+                                      Images.CAR_WASHING_IMAGE,
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
                                 ),
                               ),
                               SizedBox(
@@ -75,7 +82,7 @@ class HomeScreen extends StatelessWidget {
                               Text(
                                 'Vehicle Wash',
                                 style: TextStyle(color: Colors.white),
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -88,8 +95,9 @@ class HomeScreen extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            HouseKeepingBookingScreen()),
+                                      builder: (context) =>
+                                          HouseKeepingBookingScreen(),
+                                    ),
                                   );
                                 },
                                 child: Container(
@@ -98,10 +106,17 @@ class HomeScreen extends StatelessWidget {
                                   height:
                                       MediaQuery.of(context).size.height * 0.08,
                                   decoration: BoxDecoration(
-                                    color: Colors.white54,
+                                    color: Colors.white.withOpacity(.2),
                                     borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(color: Colors.yellow),
                                   ),
-                                  child: const Icon(Icons.wash_outlined),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: Image.asset(
+                                      Images.HOME_CLEANING_IMAGES,
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
                                 ),
                               ),
                               SizedBox(

@@ -11,29 +11,9 @@ class CustomAppBar extends StatelessWidget {
     return SliverAppBar(
       backgroundColor: Colors.black,
       iconTheme: IconThemeData(color: Colors.white),
-      // leading: InkWell(
-      //   onTap: () {
-      //     // Drawer(
-      //     //   child: Column(
-      //     //     children: <Widget>[
-      //     //       DrawerHeader(
-      //     //         child: Text(' I am Drawer'),
-      //     //         curve: SawTooth(12),
-      //     //       ),
-      //     //     ],
-      //     //   ),
-      //     // );
-      //   },
-      //   child: Icon(
-      //     isBackButton == 0 ? Icons.menu : Icons.arrow_back_ios,
-      //     color: Colors.yellow,
-      //   ),
-      // ),
-      title: Center(
-        child: Image.asset(
-          Images.GLOSSY_FLOSSY_LOGO,
-          height: 35,
-        ),
+      title: Image.asset(
+        Images.GLOSSY_FLOSSY_LOGO,
+        height: 35,
       ),
       // flexibleSpace: const FlexibleSpaceBar(
       //   title: Text(
@@ -41,6 +21,7 @@ class CustomAppBar extends StatelessWidget {
       //     style: TextStyle(color: Colors.yellow),
       //   ),
       // ),
+      centerTitle: true,
       actions: <Widget>[
         isNotification == 0
             ? Stack(

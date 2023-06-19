@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:glossy_flossy/screen/user/chat_screen/chat_list_selection_screen.dart';
 import 'package:glossy_flossy/screen/user/chat_screen/chat_screen.dart';
 import 'package:glossy_flossy/screen/user/home_screen.dart/home_screen.dart';
+import 'package:glossy_flossy/screen/user/notifiaction_screen.dart/notification_screen.dart';
 import 'package:glossy_flossy/screen/user/profile_screen/profile_screen.dart';
 import 'package:glossy_flossy/utils/images.dart';
 import 'package:glossy_flossy/widgets/custom_app_bar.dart';
@@ -17,7 +19,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final List _screens = [
     {"screen": const HomeScreen()},
-    {"screen": const ChatScreen()},
+    // {"screen": const ChatScreen()},
     {"screen": const ProfileScreen()}
   ];
 
@@ -50,8 +52,20 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ),
             ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChatListScreen(),
+                  ),
+                );
+              },
+              leading: Icon(
+                Icons.chat,
+                color: Colors.white,
+              ),
               title: Text(
-                'Item 1',
+                'Chat',
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -76,7 +90,14 @@ class _MainScreenState extends State<MainScreen> {
               IconButton(
                 icon: const Icon(Icons.notifications),
                 tooltip: 'Notification',
-                onPressed: () {/* ... */},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NotificationScreen(),
+                    ),
+                  );
+                },
               ),
               const Positioned(
                 right: 12,
@@ -119,15 +140,15 @@ class _MainScreenState extends State<MainScreen> {
               activeIcon: Icon(Icons.home_rounded),
               backgroundColor: Colors.white24,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.chat_bubble_outline,
-                color: Colors.white,
-              ),
-              activeIcon: Icon(Icons.chat_outlined),
-              label: 'Chat',
-              backgroundColor: Colors.white24,
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(
+            //     Icons.chat_bubble_outline,
+            //     color: Colors.white,
+            //   ),
+            //   activeIcon: Icon(Icons.chat_outlined),
+            //   label: 'Chat',
+            //   backgroundColor: Colors.white24,
+            // ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.person_outline_sharp,

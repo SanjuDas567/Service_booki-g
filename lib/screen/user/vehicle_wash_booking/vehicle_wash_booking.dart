@@ -58,18 +58,66 @@ class VehicleWashBooking extends StatelessWidget {
             SliverToBoxAdapter(
               child: CheckBoxDemo(),
             ),
-            // SliverList(
-            //   delegate: SliverChildBuilderDelegate((context, index) {
-            //     return ListTile(
-            //       title: Text(
-            //         'Item $index',
-            //         style: TextStyle(
-            //           color: Colors.white,
-            //         ),
-            //       ),
-            //     );
-            //   }, childCount: 10),
-            // ),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 30,
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: InkWell(
+                onTap: () {
+                  showDialog<void>(
+                    context: context,
+                    barrierDismissible: false, // user must tap button!
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        backgroundColor: Colors.yellow.shade400,
+                        title: const Text('Continue booking'),
+                        content: SingleChildScrollView(
+                          child: ListBody(
+                            children: const <Widget>[
+                              Text('Are you sure want to book vehicle wash?'),
+                            ],
+                          ),
+                        ),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text('No'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          TextButton(
+                            child: const Text('Yes'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                  // Navigator.push(
+                  //   context, MaterialPageRoute(
+                  //   builder: (context)=> ),);
+                },
+                child: Container(
+                  height: 40,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.yellow),
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'Book wash',
+                      style: TextStyle(color: Colors.yellow),
+                    ),
+                  ),
+                ),
+              ),
+            )
           ],
         ));
   }

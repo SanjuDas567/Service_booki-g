@@ -12,4 +12,7 @@ class Images {
   static const String USER_iCON_USER_SELECTION = 'assets/images/cliant.jpg';
   static const String ADMIN_ICON_USER_SELECTION = 'assets/images/admine.jpg';
   static const String PROFILE_IMAGE = 'assets/images/profile.jpg';
+  static const String CAR_WASH_ICON = 'assets/images/car.png';
+  static const String CAR_WASHING_IMAGE = 'assets/images/car wash.jpg';
+  static const String HOME_CLEANING_IMAGES = 'assets/images/home cleaning.jpg';
 }
