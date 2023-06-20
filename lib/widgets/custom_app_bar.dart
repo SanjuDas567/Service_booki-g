@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:glossy_flossy/utils/images.dart';
 
 class CustomAppBar extends StatelessWidget {
-  int isNotification;
-  int isBackButton;
+  final int isNotification;
+  final int isBackButton;
   CustomAppBar({required this.isBackButton, required this.isNotification});
 
   @override

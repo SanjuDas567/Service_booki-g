@@ -4,7 +4,7 @@ import 'package:glossy_flossy/screen/user/home_screen.dart/widgets/location_cont
 import 'package:glossy_flossy/screen/user/housekeeping_booking/house_keeping_booking.dart';
 import 'package:glossy_flossy/screen/user/vehicle_wash_booking/vehicle_wash_booking.dart';
 import 'package:glossy_flossy/utils/images.dart';
-import 'package:glossy_flossy/widgets/custom_app_bar.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

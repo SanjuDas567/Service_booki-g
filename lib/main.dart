@@ -3,6 +3,7 @@ import 'package:glossy_flossy/provider/admin/login_provider_admin.dart';
 import 'package:glossy_flossy/provider/user/home_screen_provider.dart';
 import 'package:glossy_flossy/provider/user/house_keeping_provider.dart';
 import 'package:glossy_flossy/provider/user/login_provider.dart';
+import 'package:glossy_flossy/provider/worker/home_screen_worker_provider.dart';
 import 'package:glossy_flossy/provider/worker/login_provider_worker.dart';
 import 'package:glossy_flossy/splash_screen.dart';
 import 'package:glossy_flossy/screen/common/user_selection_screeen/user_selection_screen.dart';
@@ -43,6 +44,9 @@ void main() {
       
       ChangeNotifierProvider(
         create: (context) => LoginProviderWorker(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => HomeScreenProviderWorker(),
       ),
       ////
       ////
