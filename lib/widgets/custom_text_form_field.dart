@@ -29,18 +29,18 @@ class AppTextFormField extends StatelessWidget {
       decoration: InputDecoration(
           hintText: hintText,
           label: Text(hintText.toString()),
-          hintStyle: const TextStyle(color: Colors.grey),
-          labelStyle: const TextStyle(color: Colors.black54),
+          hintStyle: TextStyle(color: Colors.yellow.shade300),
+          labelStyle: const TextStyle(color: Colors.yellowAccent),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Colors.black),
+            borderSide: const BorderSide(color: Colors.yellow),
           ),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Colors.grey))),
+              borderSide: const BorderSide(color: Colors.yellow))),
     );
   }
 }

@@ -50,7 +50,8 @@ class _HomeScreenWorkerState extends State<HomeScreenWorker> {
                   ? showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                              title: Text("Choose a date to continue"),
+                              title: Text("Message"),
+                              content: Text('Choose a date to continue'),
                               backgroundColor: Colors.yellow.shade400,
                               // description: "This will save all your profile settings.",
                               actions: [

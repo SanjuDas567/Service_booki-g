@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:glossy_flossy/screen/user/register_page/widgets/date_picker.dart';
+import 'package:glossy_flossy/utils/images.dart';
 // import 'package:glossy_flossy/widgets/custom_password_field.dart';
 import 'package:glossy_flossy/widgets/custom_text_form_field.dart';
 import 'package:intl/intl.dart';
@@ -47,8 +48,14 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.black,
+        title: Image.asset(
+          Images.GLOSSY_FLOSSY_LOGO,
+          height: 35,
+        ),
+        centerTitle: true,
       ),
       body: Form(
           key: _formKey,
@@ -62,7 +69,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       Text(
                         'Create A New Account',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.white),
                       ),
                     ],
                   ),
@@ -72,6 +81,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   AppTextFormField(
                     hintText: 'First Name',
                     ctrl: _firstNameController,
+                    focusNode: _firstNameFocus,
                     onFieldSubmitted: () {
                       FocusScope.of(context).requestFocus(_lastNameFocus);
                     },
@@ -161,7 +171,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       height: 40,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        color: Colors.teal,
+                        color: Colors.yellow,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Center(

@@ -3,7 +3,7 @@ import 'package:glossy_flossy/screen/worker/home_screen/home_screen_worker.dart'
 import 'package:glossy_flossy/screen/worker/notification_screen/notification_screen_worker.dart';
 import 'package:glossy_flossy/screen/worker/profile_screen/profile_screen_worker.dart';
 import 'package:glossy_flossy/screen/worker/servise_history/service_history_worker.dart';
-import 'package:glossy_flossy/screen/worker/work_screen/work_screen.dart';
+import 'package:glossy_flossy/screen/worker/work_screen/work_locaton_screen.dart';
 import 'package:glossy_flossy/utils/images.dart';
 
 class MainScreenWorker extends StatefulWidget {
@@ -17,10 +17,10 @@ class _MainScreenWorkerState extends State<MainScreenWorker> {
   int _selectedScreenIndex = 0;
 
   final List _screens = [
-    {"screen":  HomeScreenWorker()},
+    {"screen": HomeScreenWorker()},
     // {"screen": const ChatScreen()},
     {"screen": const ServiceHistoryWorker()},
-    {"screen": const WorkScreenWorker()},
+    {"screen": const WorkLocationScreen()},
     {"screen": const ProfileScreenWorker()},
   ];
 

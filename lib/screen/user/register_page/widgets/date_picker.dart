@@ -34,23 +34,23 @@ class _DatePickerDemoState extends State<DatePickerDemo> {
         controller: controller,
         decoration: InputDecoration(
           hintText: widget.hintText,
-          label: widget.controller!.text == null
+          label: widget.controller!.text == ''
               ? Text(
                   widget.hintText.toString(),
                 )
               : Text(widget.controller!.text.toString()),
-          hintStyle: const TextStyle(color: Colors.grey),
-          labelStyle: const TextStyle(color: Colors.black54),
+          hintStyle: TextStyle(color: Colors.yellow.shade300),
+          labelStyle: const TextStyle(color: Colors.yellow),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Colors.black),
+            borderSide: const BorderSide(color: Colors.yellow),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Colors.grey),
+            borderSide: const BorderSide(color: Colors.yellow),
           ),
         ),
         onTap: () {
