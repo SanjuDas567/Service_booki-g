@@ -15,4 +15,6 @@ class Images {
   static const String CAR_WASH_ICON = 'assets/images/car.png';
   static const String CAR_WASHING_IMAGE = 'assets/images/car wash.jpg';
   static const String HOME_CLEANING_IMAGES = 'assets/images/home cleaning.jpg';
+  static const String COMMERCIAL_CLEANING_IMAGES =
+      'assets/images/commercial1.jpg';
 }

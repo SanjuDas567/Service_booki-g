@@ -5,7 +5,6 @@ import 'package:glossy_flossy/screen/user/housekeeping_booking/house_keeping_boo
 import 'package:glossy_flossy/screen/user/vehicle_wash_booking/vehicle_wash_booking.dart';
 import 'package:glossy_flossy/utils/images.dart';
 
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -53,6 +52,50 @@ class HomeScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
+                                          HouseKeepingBookingScreen(),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.18,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.08,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(.2),
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(color: Colors.yellow),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: Image.asset(
+                                      Images.HOME_CLEANING_IMAGES,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Housekeeping',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.white),
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
                                           VehicleWashBooking(),
                                     ),
                                   );
@@ -71,7 +114,7 @@ class HomeScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(15),
                                     child: Image.asset(
                                       Images.CAR_WASHING_IMAGE,
-                                      fit: BoxFit.fill,
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
                                 ),
@@ -113,8 +156,8 @@ class HomeScreen extends StatelessWidget {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(15),
                                     child: Image.asset(
-                                      Images.HOME_CLEANING_IMAGES,
-                                      fit: BoxFit.fill,
+                                      Images.COMMERCIAL_CLEANING_IMAGES,
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
                                 ),
@@ -123,9 +166,11 @@ class HomeScreen extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                'Housekeeping',
+                                'Commercial',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
                               )
                             ],
                           ),
@@ -137,6 +182,9 @@ class HomeScreen extends StatelessWidget {
                         Text(
                           'Service',
                           style: TextStyle(color: Colors.yellow),
+                        ),
+                        SizedBox(
+                          height: 20,
                         ),
                       ],
                     )

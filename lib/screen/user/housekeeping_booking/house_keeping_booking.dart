@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:glossy_flossy/provider/user/house_keeping_provider.dart';
@@ -58,7 +60,7 @@ class HouseKeepingBookingScreen extends StatelessWidget {
                 onDateSelected: (date) => print(date),
                 leftMargin: 20,
                 monthColor: Colors.blueGrey,
-                dayColor: Colors.teal[200],
+                dayColor: Colors.white,
                 activeDayColor: Colors.black,
                 activeBackgroundDayColor: Colors.yellow,
                 dotsColor: const Color(0xFF333A47),
@@ -74,12 +76,31 @@ class HouseKeepingBookingScreen extends StatelessWidget {
                     height: 10,
                   ),
                   Text('Choose service you need',
-                      style: TextStyle(color: Colors.white)),
+                      style: TextStyle(color: Colors.yellow)),
                 ],
               ),
             ),
             SliverToBoxAdapter(
-              child: CheckboxImageUploadWidget(),
+              child: Consumer<HouseKeepingProviderUser>(
+                builder: (context, provider, child) {
+                  File? image1 = provider.selectedImage1;
+                  File? image2 = provider.selectedImage2;
+                  File? image3 = provider.selectedImage3;
+                  File? image4 = provider.selectedImage4;
+                  File? image5 = provider.selectedImage5;
+                  File? image6 = provider.selectedImage6;
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: 20,
+                      ),
+                      CheckboxImageUploadWidget(
+                        uploadImage: image1,
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
             // SliverToBoxAdapter(
             //   child: Column(

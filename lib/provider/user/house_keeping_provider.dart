@@ -15,17 +15,36 @@ class HouseKeepingProviderUser extends ChangeNotifier {
   bool isCheckBoxChecked6 = false;
   bool isCheckBoxChecked = false;
 
-   List<File?> images = List.generate(6, (index) => null);
+  File? _image;
+
+  File? get image => _image;
+
+  Future<void> getImage() async {
+    final picker = ImagePicker();
+    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      _selectedImage1 = File(pickedImage.path);
+      notifyListeners();
+    }
+  }
+
+  void removeImage() {
+    _selectedImage1 = null;
+    notifyListeners();
+  }
+
+  List<File?> images = List.generate(6, (index) => null);
 
   void setImage(File image, int index) {
     images[index] = image;
     notifyListeners();
   }
 
-  void removeImage(int index) {
-    images[index] = null;
-    notifyListeners();
-  }
+  // void removeImage(int index) {
+  //   images[index] = null;
+  //   notifyListeners();
+  // }
 
   List<bool> checkboxes = List.generate(6, (index) => false);
 
@@ -36,11 +55,12 @@ class HouseKeepingProviderUser extends ChangeNotifier {
 
   void selectImage(ImageSource source, int index) async {
     final picker = ImagePicker();
-    final pickedImage = await picker.getImage(source: source);
+    final pickedImage = await picker.pickImage(source: source);
     if (pickedImage != null) {
       images[index] = File(pickedImage.path);
       notifyListeners();
     }
+    notifyListeners();
   }
 
   // void toggleCheckbox() {

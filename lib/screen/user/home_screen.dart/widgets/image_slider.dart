@@ -22,10 +22,12 @@ class _PictureSlideShowState extends State<PictureSlideShow> {
                   return Container(
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.all(0.5),
+                    clipBehavior: Clip.hardEdge,
                     // decoration:
                     //     BoxDecoration(color: Colors.lightBlue[100 * (i % 5)]),
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(15)),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     child: Center(
                       child: Image.asset(
                         i,

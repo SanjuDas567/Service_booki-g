@@ -38,13 +38,13 @@ class UserSelectionScreen extends StatelessWidget {
                   height: 170,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                      color: Colors.yellow.shade400,
+                      color: Colors.yellow,
                       borderRadius: BorderRadius.circular(15)),
                   child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       const SizedBox(
-                        width: 20,
+                        width: 10,
                       ),
                       const CircleAvatar(
                         radius: 50,
@@ -100,12 +100,13 @@ class UserSelectionScreen extends StatelessWidget {
                   height: 170,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                      color: Colors.deepOrangeAccent.shade100,
+                      color: Colors.yellow,
                       borderRadius: BorderRadius.circular(15)),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       const SizedBox(
-                        width: 20,
+                        width: 10,
                       ),
                       const CircleAvatar(
                         radius: 50,
@@ -162,12 +163,13 @@ class UserSelectionScreen extends StatelessWidget {
                   height: 170,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                      color: Colors.cyan.shade100,
+                      color: Colors.yellow,
                       borderRadius: BorderRadius.circular(15)),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       const SizedBox(
-                        width: 20,
+                        width: 10,
                       ),
                       const CircleAvatar(
                         radius: 50,
