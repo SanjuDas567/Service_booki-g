@@ -21,7 +21,7 @@ class HouseKeepingProviderUser extends ChangeNotifier {
 
   Future<void> getImage() async {
     final picker = ImagePicker();
-    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+    final pickedImage = await picker.pickImage(source: ImageSource.camera);
 
     if (pickedImage != null) {
       _selectedImage1 = File(pickedImage.path);

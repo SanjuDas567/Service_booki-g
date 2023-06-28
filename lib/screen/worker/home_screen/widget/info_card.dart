@@ -19,14 +19,14 @@ class InfoCard extends StatefulWidget {
       required this.onMoreTap,
       this.subIcon = const CircleAvatar(
         child: Icon(
-          Icons.timer,
-          color: Colors.white,
+          Icons.date_range_outlined,
+          color: Colors.black,
         ),
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.yellow,
         radius: 25,
       ),
       this.subInfoText = "Select time",
-      this.subInfoTitle = "Choose suitable time",
+      this.subInfoTitle = "Date And Time",
       Key? key})
       : super(key: key);
 
@@ -42,10 +42,10 @@ class _InfoCardState extends State<InfoCard> {
   String time = "";
 
   @override
-  void dispose() {
-    homeScreenProviderWorker.setTime('');
-    super.dispose();
-  }
+  // void dispose() {
+  //   homeScreenProviderWorker.setTime('');
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +64,8 @@ class _InfoCardState extends State<InfoCard> {
             )
           ],
           gradient: RadialGradient(
-            colors: [Colors.orangeAccent, Colors.orange],
-            focal: Alignment.topCenter,
+            colors: [Colors.yellow.shade800, Colors.yellow],
+            focal: Alignment.bottomCenter,
             radius: .85,
           )),
       child: Column(
@@ -78,7 +78,7 @@ class _InfoCardState extends State<InfoCard> {
               Text(
                 widget.title,
                 style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 26,
                     fontWeight: FontWeight.bold),
               ),
@@ -88,7 +88,7 @@ class _InfoCardState extends State<InfoCard> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100.0),
                   gradient: LinearGradient(
-                      colors: [Colors.white, Colors.white],
+                      colors: [Colors.black, Colors.black],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter),
                 ),
@@ -97,7 +97,7 @@ class _InfoCardState extends State<InfoCard> {
                   child: Center(
                       child: Text(
                     "Accept",
-                    style: TextStyle(color: Colors.orange),
+                    style: TextStyle(color: Colors.white),
                   )),
                 ),
               ),
@@ -107,7 +107,7 @@ class _InfoCardState extends State<InfoCard> {
           Text(
             widget.body,
             style:
-                TextStyle(color: Colors.white.withOpacity(.75), fontSize: 14),
+                TextStyle(color: Colors.black.withOpacity(.75), fontSize: 14),
           ),
           SizedBox(height: 15),
           Consumer<HomeScreenProviderWorker>(
@@ -117,13 +117,14 @@ class _InfoCardState extends State<InfoCard> {
                 height: 75,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25.0),
+                  border: Border.all(color: Colors.black),
                   color: Colors.white,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
                     onTap: () {
-                      showDialogTimePicker(context);
+                      // showDialogTimePicker(context);
                     },
                     child: Row(
                       children: [
@@ -133,11 +134,16 @@ class _InfoCardState extends State<InfoCard> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(widget.subInfoTitle),
                             Text(
-                              homeScreenProviderWorker.time,
+                              widget.subInfoTitle,
                               style: TextStyle(
-                                color: Colors.orange,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              "30/06/2023 - 02:30 ",
+                              style: TextStyle(
+                                color: Colors.black,
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -156,34 +162,34 @@ class _InfoCardState extends State<InfoCard> {
     );
   }
 
-  void showDialogTimePicker(BuildContext context) {
-    selectedTime = showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-      builder: (BuildContext context, Widget? child) {
-        return Theme(
-          data: ThemeData.light().copyWith(
-            colorScheme: ColorScheme.light(
-              // primary: MyColors.primary,
-              // primary: Theme.of(context).colorScheme.primary,
-              onPrimary: Colors.black,
-              surface: Colors.white,
-              onSurface: Colors.black,
-            ),
-            //.dialogBackgroundColor:Colors.blue[900],
-          ),
-          child: child!,
-        );
-      },
-    );
-    selectedTime.then((value) {
-      time = "${value?.hour} : ${value?.minute}";
-      Provider.of<HomeScreenProviderWorker>(context, listen: false)
-          .setTime(time);
-    }, onError: (error) {
-      if (kDebugMode) {
-        print(error);
-      }
-    });
-  }
+  // void showDialogTimePicker(BuildContext context) {
+  //   selectedTime = showTimePicker(
+  //     context: context,
+  //     initialTime: TimeOfDay.now(),
+  //     builder: (BuildContext context, Widget? child) {
+  //       return Theme(
+  //         data: ThemeData.light().copyWith(
+  //           colorScheme: ColorScheme.light(
+  //             // primary: MyColors.primary,
+  //             // primary: Theme.of(context).colorScheme.primary,
+  //             onPrimary: Colors.black,
+  //             surface: Colors.white,
+  //             onSurface: Colors.black,
+  //           ),
+  //           //.dialogBackgroundColor:Colors.blue[900],
+  //         ),
+  //         child: child!,
+  //       );
+  //     },
+  //   );
+  //   selectedTime.then((value) {
+  //     time = "${value?.hour} : ${value?.minute}";
+  //     Provider.of<HomeScreenProviderWorker>(context, listen: false)
+  //         .setTime(time);
+  //   }, onError: (error) {
+  //     if (kDebugMode) {
+  //       print(error);
+  //     }
+  //   });
+  // }
 }

@@ -16,6 +16,8 @@ class CustomTextField extends StatelessWidget {
   final Color? fillcolor;
   final Widget? suffixIcon;
   final bool? readOnly;
+  final bool? obscureText;
+  final TextStyle? lableStyle;
 
   const CustomTextField(
       {super.key,
@@ -32,7 +34,9 @@ class CustomTextField extends StatelessWidget {
       this.fillcolor,
       this.suffixIcon,
       this.readOnly,
-      this.textInputAction});
+      this.textInputAction,
+      this.obscureText,
+      this.lableStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +64,7 @@ class CustomTextField extends StatelessWidget {
         textCapitalization: capitalization ?? TextCapitalization.none,
         maxLength: isPhoneNumber ?? false ? 15 : null,
         focusNode: focusNode,
+        obscureText: obscureText!,
         keyboardType: textInputType ?? TextInputType.text,
         initialValue: null,
         textInputAction: textInputAction ?? TextInputAction.next,
@@ -85,6 +90,9 @@ class CustomTextField extends StatelessWidget {
         decoration: InputDecoration(
           suffixIcon: suffixIcon ?? null,
           labelText: hintText ?? '',
+          labelStyle: TextStyle(
+            color: Colors.grey.shade600,
+          ),
           filled: fillcolor != null,
           fillColor: fillcolor,
           contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 15),

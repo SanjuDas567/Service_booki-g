@@ -40,6 +40,9 @@ dependencies:
   carousel_slider: ^4.2.1
   calendar_timeline: ^1.1.2
   image_picker: ^0.8.4+4
+  dio: ^5.2.1
+  shared_preferences: ^2.1.2
+  get_it: ^7.6.0
 
 dev_dependencies:
   flutter_test:

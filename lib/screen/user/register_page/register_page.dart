@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:glossy_flossy/screen/user/register_page/widgets/date_picker.dart';
+// import 'package:glossy_flossy/screen/user/register_page/widgets/date_picker.dart';
 import 'package:glossy_flossy/utils/images.dart';
 // import 'package:glossy_flossy/widgets/custom_password_field.dart';
 import 'package:glossy_flossy/widgets/custom_text_form_field.dart';
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 
-class RegisterPage extends StatefulWidget {
+class RegisterPage extends StatelessWidget {
   RegisterPage({super.key});
 
-  @override
-  State<RegisterPage> createState() => _RegisterPageState();
-}
-
-class _RegisterPageState extends State<RegisterPage> {
   DateTime selectedDate = DateTime.now();
-  final _formKey = GlobalKey<FormState>();
 
+  final _formKey = GlobalKey<FormState>();
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -28,23 +23,12 @@ class _RegisterPageState extends State<RegisterPage> {
   final _firstNameFocus = FocusNode();
   final _lastNameFocus = FocusNode();
   final _emailFocus = FocusNode();
+  final _phoneNumberFocus = FocusNode();
+  final _dateFocus = FocusNode();
+  final _passwordFocus = FocusNode();
+  final _confirmPasswordFocus = FocusNode();
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(1970),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        // selectedDate = picked;
-        _dateController.text = DateFormat('dd-MM-yyyy').format(picked);
-        ;
-      });
-    }
-  }
-
+  // Future<void> _selectDate(BuildContext context) async {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,12 +50,15 @@ class _RegisterPageState extends State<RegisterPage> {
                 children: [
                   const Column(
                     children: [
-                      Text(
-                        'Create A New Account',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.white),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'Create A New Account',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.white),
+                        ),
                       ),
                     ],
                   ),
@@ -82,6 +69,17 @@ class _RegisterPageState extends State<RegisterPage> {
                     hintText: 'First Name',
                     ctrl: _firstNameController,
                     focusNode: _firstNameFocus,
+                    validator: (input) {
+                      if (_firstNameController.text == '' ||
+                          RegExp(r'^[a-z A-Z]+$').hasMatch(input)) {
+                        return "Please enter your first name";
+                      } else if (_firstNameController.text
+                          .contains(RegExp(r'^[a-z A-Z]+$'))) {
+                        return null;
+                      } else {
+                        return null;
+                      }
+                    },
                     onFieldSubmitted: () {
                       FocusScope.of(context).requestFocus(_lastNameFocus);
                     },
@@ -123,13 +121,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     // focusNode: ,
                     keyboardType: TextInputType.number,
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  DatePickerDemo(
-                    controller: _dateController,
-                    hintText: 'Select Date Of Birth',
-                  ),
+                  // const SizedBox(
+                  //   height: 10,
+                  // ),
+                  // DatePickerDemo(
+                  //   controller: _dateController,
+                  //   hintText: 'Select Date Of Birth',
+                  // ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -162,20 +160,32 @@ class _RegisterPageState extends State<RegisterPage> {
                       print(
                           "phone number : ${_phoneNumberController.text.trim()}");
                       print("address : ${_addressController.text.trim()}");
-                      print("DOB : ${_dateController.text.trim()}");
+                      // print("DOB : ${_dateController.text.trim()}");
                       print("password : ${_passwordController.text.trim()}");
                       print(
                           "confirm password : ${_confirmPasswordController.text.trim()}");
+
+                      // if (_formKey.currentState!.validate()) {
+                      //   final snackBar =
+                      //       SnackBar(content: Text('Signup completed'));
+                      //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      // }
                     },
                     child: Container(
                       height: 40,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.yellow,
+                        ),
                         color: Colors.yellow,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Center(
-                        child: const Text('Sign Up'),
+                        child: const Text(
+                          'Sign Up',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ),

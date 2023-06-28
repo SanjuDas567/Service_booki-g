@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:glossy_flossy/provider/user/login_provider.dart';
+import 'package:glossy_flossy/provider/user/login_provider_user.dart';
 import 'package:glossy_flossy/screen/user/main_screen.dart/main_screen.dart';
 import 'package:glossy_flossy/screen/user/register_page/register_page.dart';
 import 'package:glossy_flossy/utils/images.dart';
@@ -20,8 +20,9 @@ class LoginPage extends StatelessWidget {
       backgroundColor: Colors.black,
       body: SafeArea(
         child: Form(
+          autovalidateMode: AutovalidateMode.always,
           key: _formKey,
-          child: Consumer<LoginProvider>(
+          child: Consumer<AuthProvider>(
             builder: (context, loginProvider, child) {
               return SingleChildScrollView(
                 child: Column(
@@ -89,6 +90,16 @@ class LoginPage extends StatelessWidget {
                                       color: Colors.grey.shade600,
                                     ),
                                   ),
+                                  validator: (value) {
+                                    if (value == null ||
+                                        value.isEmpty ||
+                                        !value.contains('@') ||
+                                        !value.contains('.')) {
+                                      return 'Invalid Email';
+                                    }
+                                    return null;
+                                  },
+                                  //email regexp in flutter?
                                 ),
                               ),
                             ),
