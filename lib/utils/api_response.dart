@@ -1,25 +1,43 @@
-class ApiResponse<T> {
-  bool success;
-  T? data;
-  String? errorMessage;
+import 'package:dio/dio.dart';
 
-  ApiResponse({
-    required this.success,
-    this.data,
-    this.errorMessage,
-  });
+class ApiResponse {
+  final Response? response;
+  final dynamic error;
+  ApiResponse(this.response, this.error);
 
-  factory ApiResponse.withSuccess(T data) {
-    return ApiResponse<T>(
-      success: true,
-      data: data,
-    );
-  }
+  ApiResponse.withError(dynamic errorValue)
+      : response = null,
+        error = errorValue;
 
-  factory ApiResponse.withError(String errorMessage) {
-    return ApiResponse<T>(
-      success: false,
-      errorMessage: errorMessage,
-    );
-  }
+  ApiResponse.withSuccess(dynamic responseValue)
+      : response = responseValue,
+        error = null;
 }
+
+
+
+// class ApiResponse<T> {
+//   bool success;
+//   T? data;
+//   String? errorMessage;
+
+//   ApiResponse({
+//     required this.success,
+//     this.data,
+//     this.errorMessage,
+//   });
+
+//   factory ApiResponse.withSuccess(T data) {
+//     return ApiResponse<T>(
+//       success: true,
+//       data: data,
+//     );
+//   }
+
+//   factory ApiResponse.withError(String errorMessage) {
+//     return ApiResponse<T>(
+//       success: false,
+//       errorMessage: errorMessage,
+//     );
+//   }
+// }

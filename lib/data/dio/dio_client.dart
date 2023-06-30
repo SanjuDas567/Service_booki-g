@@ -13,32 +13,33 @@ class DioClient {
   late String token;
 
   DioClient(
-    this.baseUrl,
-    Dio dioC, {
+    this.baseUrl, {
     this.loggingInterseptor,
     this.sharedPreferences,
   }) {
-    // dio = dioC;
-    dio
-      ..options.baseUrl = Endpoints.baseUrl
-      ..options.connectTimeout = Endpoints.connectionTimeout
-      ..options.receiveTimeout = Endpoints.receiveTimeout
-      ..httpClientAdapter
-      ..options.headers = {
-        'Content-Type': 'application/json; charset=UTF-8',
-      };
+    dio = Dio(
+      BaseOptions(
+        baseUrl: baseUrl!,
+         connectTimeout: Duration(milliseconds: Endpoints.connectionTimeout),
+         receiveTimeout: Duration(milliseconds: Endpoints.receiveTimeout),
+      ),
+    );
 
-    if (sharedPreferences != null) {
-      final token = sharedPreferences!.getToken();
-      print("NNNN $token");
-      dio.options.headers['Authorization'] = 'Bearer $token';
-    }
+    dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) {
+        options.headers['Content-Type'] = 'application/json; charset=UTF-8';
+        if (sharedPreferences != null) {
+          final token = sharedPreferences!.getToken();
+          options.headers['Authorization'] = 'Bearer $token';
+        }
+        return handler.next(options);
+      },
+    ));
 
     if (loggingInterseptor != null) {
       dio.interceptors.add(loggingInterseptor!);
     }
   }
-
   // DioClient(
   //   this.baseUrl,
   //   Dio dioC, {

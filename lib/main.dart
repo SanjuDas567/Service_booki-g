@@ -11,9 +11,9 @@ import 'package:glossy_flossy/splash_screen.dart';
 import 'package:glossy_flossy/screen/common/user_selection_screeen/user_selection_screen.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  // WidgetsFlutterBinding.ensureInitialized();
-  di.setup();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+ await di.setup();
   runApp(MultiProvider(
     providers: [
       //user provider:----------------------------------------------------------
@@ -22,7 +22,7 @@ void main() {
       // ChangeNotifierProvider(
       //   create: (context) => AuthProvider(),
       // ),
-      ChangeNotifierProvider(
+      ChangeNotifierProvider<AuthProvider>(
         create: (context) => di.sl<AuthProvider>(),
       ),
       ChangeNotifierProvider(

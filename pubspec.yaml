@@ -43,6 +43,7 @@ dependencies:
   dio: ^5.2.1
   shared_preferences: ^2.1.2
   get_it: ^7.6.0
+  nb_utils: ^5.0.8
 
 dev_dependencies:
   flutter_test:

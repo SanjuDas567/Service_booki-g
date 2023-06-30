@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glossy_flossy/models/user/login_model.dart';
 import 'package:glossy_flossy/provider/user/login_provider_user.dart';
 import 'package:glossy_flossy/screen/user/main_screen.dart/main_screen.dart';
 import 'package:glossy_flossy/screen/user/register_page/register_page.dart';
@@ -16,15 +17,14 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   final authProvider = Provider.of<AuthProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
         child: Form(
           autovalidateMode: AutovalidateMode.always,
           key: _formKey,
-          child: Consumer<AuthProvider>(
-            builder: (context, loginProvider, child) {
-              return SingleChildScrollView(
+          child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -122,7 +122,7 @@ class LoginPage extends StatelessWidget {
                                     ),
                                     child: TextFormField(
                                       controller: _passwordController,
-                                      obscureText: loginProvider.obscureValue,
+                                      obscureText: authProvider.obscureValue,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
                                         labelText: 'Your password',
@@ -139,19 +139,18 @@ class LoginPage extends StatelessWidget {
                                       onTap: () {
                                         // _controller.clear();
 
-                                        if (loginProvider.obscureValue ==
-                                            true) {
-                                          loginProvider
+                                        if (authProvider.obscureValue == true) {
+                                          authProvider
                                               .changeValueOfObscureText(false);
                                         } else {
-                                          loginProvider
+                                          authProvider
                                               .changeValueOfObscureText(true);
                                         }
 
                                         print(_emailController.text.trim());
                                         print(_passwordController.text.trim());
                                       },
-                                      child: loginProvider.obscureValue == true
+                                      child: authProvider.obscureValue == true
                                           ? const Icon(
                                               Icons.visibility,
                                               color: Colors.black54,
@@ -263,9 +262,8 @@ class LoginPage extends StatelessWidget {
                     )
                   ],
                 ),
-              );
-            },
-          ),
+              ),
+          
         ),
       ),
     );

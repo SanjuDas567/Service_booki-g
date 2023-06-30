@@ -6,20 +6,23 @@ import 'package:glossy_flossy/data/shared_preference/shared_preference.dart';
 import 'package:glossy_flossy/provider/user/login_provider_user.dart';
 import 'package:glossy_flossy/provider/user/repo/auth_repo_user.dart';
 import 'package:glossy_flossy/utils/app_constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 GetIt sl = GetIt.instance;
 
 Future<void> setup() async {
-  // sl.registerSingleton(Dio(sl()));
-  sl.registerSingleton(() => Dio());
-  sl.registerLazySingleton(() => DioClient(AppConstants.apiBaseURL, sl(),
-          loggingInterseptor: sl(), sharedPreferences: sl())
-      .get);
-  sl.registerLazySingleton<LoggingInterseptor>(() => LoggingInterseptor());
-  sl.registerLazySingleton(() => SharedPreferencesProvider());
+  sl.registerLazySingleton(() => DioClient(AppConstants.BASE_URL,
+      loggingInterseptor: sl(), sharedPreferences: sl()));
+
+  // External:------------------------------------------------------------------
+  final sharedPreferences = await SharedPreferences.getInstance();
+  sl.registerLazySingleton(() => sharedPreferences);
+  sl.registerLazySingleton(() => Dio());
+  sl.registerLazySingleton(() => LoggingInterseptor());
 
   // User:----------------------------------------------------------------------
-  sl.registerLazySingleton(() => AuthProvider());
-  sl.registerFactory(
-      () => AuthRepoUser(dioClient: sl(), sharedPreferences: sl()));
+  sl.registerLazySingleton(() => AuthProvider(authRepoUser: sl()));
+  sl.registerLazySingleton(() => AuthRepoUser(dioClient: sl(), sharedPreferences: sl()));
+  sl.registerLazySingleton(() => SharedPreferencesProvider());
+
 }
