@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:glossy_flossy/provider/worker/worker_details_provider_worker.dart';
-import 'package:glossy_flossy/screen/worker/work_screen/widget/check_box_worker.dart';
 import 'package:provider/provider.dart';
 import 'widget/image_adding_widget.dart';
 

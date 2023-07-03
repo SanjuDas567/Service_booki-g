@@ -17,7 +17,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    // final authProvider = Provider.of<AuthProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -25,7 +25,9 @@ class LoginPage extends StatelessWidget {
           autovalidateMode: AutovalidateMode.always,
           key: _formKey,
           child: SingleChildScrollView(
-                child: Column(
+            child: Consumer<AuthProvider>(
+              builder: (context, authProvider, child) {
+                return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(
@@ -166,46 +168,57 @@ class LoginPage extends StatelessWidget {
                           const SizedBox(
                             height: 30,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: InkWell(
-                              onTap: () {
-                                print('sign up button pressed');
-                                if (_emailController.text.trim() == 'sanju' &&
-                                    _passwordController.text.trim() ==
-                                        'sanju') {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => MainScreen(),
-                                    ),
-                                  );
-                                } else {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => RegisterPage(),
-                                    ),
-                                  );
-                                }
-                              },
-                              child: Container(
-                                height: 40,
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.yellow),
-                                  color: Colors.black,
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: const Center(
-                                  child: Text(
-                                    'Sign In',
-                                    style: TextStyle(color: Colors.yellow),
+                          authProvider.isLoading
+                              ? Center(
+                                  child: CircularProgressIndicator(
+                                    color: Colors.yellow,
                                   ),
-                                ),
-                              ),
-                            ),
-                          )
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: InkWell(
+                                    onTap: () {
+                                      print('sign up button pressed');
+                                      // loginFunction(context);
+                                      if (_emailController.text.trim() ==
+                                              'sanju' &&
+                                          _passwordController.text.trim() ==
+                                              'sanju') {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => MainScreen(),
+                                          ),
+                                        );
+                                      } else {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                RegisterPage(),
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    child: Container(
+                                      height: 40,
+                                      width: MediaQuery.of(context).size.width,
+                                      decoration: BoxDecoration(
+                                        border:
+                                            Border.all(color: Colors.yellow),
+                                        color: Colors.black,
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: const Center(
+                                        child: Text(
+                                          'Sign In',
+                                          style:
+                                              TextStyle(color: Colors.yellow),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
                         ],
                       ),
                     ),
@@ -261,11 +274,19 @@ class LoginPage extends StatelessWidget {
                       ],
                     )
                   ],
-                ),
-              ),
-          
+                );
+              },
+            ),
+          ),
         ),
       ),
     );
+  }
+
+  void loginFunction(BuildContext context) {
+    LoginModel loginData = LoginModel();
+    loginData.email = _emailController.text.trim();
+    loginData.password = _passwordController.text.trim();
+    Provider.of<AuthProvider>(context, listen: false).login(loginData);
   }
 }

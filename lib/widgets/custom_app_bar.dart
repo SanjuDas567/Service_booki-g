@@ -11,6 +11,7 @@ class CustomAppBar extends StatelessWidget {
     return SliverAppBar(
       backgroundColor: Colors.black,
       iconTheme: IconThemeData(color: Colors.white),
+      pinned: true,
       title: Image.asset(
         Images.GLOSSY_FLOSSY_LOGO,
         height: 35,

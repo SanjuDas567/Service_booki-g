@@ -20,7 +20,14 @@ class AuthProvider extends ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  Future login(LoginModel loginBody, Function callback) async {
+  Future login(
+    LoginModel loginBody,
+    // Function callback
+  ) async {
+    print('******');
+    print(loginBody.email);
+    print(loginBody.password);
+    print('******');
     _isLoading = true;
     notifyListeners();
     ApiResponse apiResponse = await authRepoUser.login(loginBody);
@@ -28,6 +35,7 @@ class AuthProvider extends ChangeNotifier {
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
       print('inside 200');
+      print(apiResponse.response!.data);
       // Map map = apiResponse.response!.data;
       // String token = map["token"];
       // authRepoUser.saveUserToken(token);
