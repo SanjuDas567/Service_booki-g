@@ -17,8 +17,10 @@ class _CheckBoxDemoState extends State<CheckBoxDemo> {
     return Column(
       children: [
         CheckboxListTile(
-          activeColor: Colors.yellow,
           checkColor: Colors.black,
+          activeColor: Colors.yellow,
+          fillColor:
+              MaterialStateProperty.resolveWith((states) => Colors.yellow),
           title: const Text(
             'Wash and Wax',
             style: TextStyle(color: Colors.white),
@@ -33,6 +35,8 @@ class _CheckBoxDemoState extends State<CheckBoxDemo> {
         CheckboxListTile(
           checkColor: Colors.black,
           activeColor: Colors.yellow,
+          fillColor:
+              MaterialStateProperty.resolveWith((states) => Colors.yellow),
           title: const Text(
             'Full Valet',
             style: TextStyle(color: Colors.white),
@@ -47,6 +51,8 @@ class _CheckBoxDemoState extends State<CheckBoxDemo> {
         CheckboxListTile(
           checkColor: Colors.black,
           activeColor: Colors.yellow,
+          fillColor:
+              MaterialStateProperty.resolveWith((states) => Colors.yellow),
           title: const Text(
             'Interior Valet',
             style: TextStyle(color: Colors.white),
@@ -61,6 +67,8 @@ class _CheckBoxDemoState extends State<CheckBoxDemo> {
         CheckboxListTile(
           checkColor: Colors.black,
           activeColor: Colors.yellow,
+          fillColor:
+              MaterialStateProperty.resolveWith((states) => Colors.yellow),
           title: const Text(
             'Full Detail',
             style: TextStyle(color: Colors.white),
@@ -73,8 +81,10 @@ class _CheckBoxDemoState extends State<CheckBoxDemo> {
           },
         ),
         CheckboxListTile(
-          activeColor: Colors.yellow,
           checkColor: Colors.black,
+          activeColor: Colors.yellow,
+          fillColor:
+              MaterialStateProperty.resolveWith((states) => Colors.yellow),
           title: const Text(
             'Engine Steam Wash',
             style: TextStyle(color: Colors.white),

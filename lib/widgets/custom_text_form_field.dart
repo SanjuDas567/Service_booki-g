@@ -32,14 +32,14 @@ class AppTextFormField extends StatelessWidget {
           hintStyle: TextStyle(color: Colors.yellow.shade300),
           labelStyle: const TextStyle(color: Colors.yellowAccent),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(18),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(18),
             borderSide: const BorderSide(color: Colors.yellow),
           ),
           enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(18),
               borderSide: const BorderSide(color: Colors.yellow))),
     );
   }

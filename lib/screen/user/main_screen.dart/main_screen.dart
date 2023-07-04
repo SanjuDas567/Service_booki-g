@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:glossy_flossy/screen/user/add_vehicle_screen/add_vehicle_screen.dart';
 import 'package:glossy_flossy/screen/user/chat_screen/chat_list_selection_screen.dart';
-import 'package:glossy_flossy/screen/user/chat_screen/chat_screen.dart';
 import 'package:glossy_flossy/screen/user/home_screen.dart/home_screen.dart';
 import 'package:glossy_flossy/screen/user/notifiaction_screen.dart/notification_screen.dart';
 import 'package:glossy_flossy/screen/user/profile_screen/profile_screen.dart';
+import 'package:glossy_flossy/screen/user/review_screen/review_screen.dart';
 import 'package:glossy_flossy/utils/images.dart';
-import 'package:glossy_flossy/widgets/custom_app_bar.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({super.key});
@@ -70,8 +70,37 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ),
             ListTile(
+              leading: Image.asset(
+                Images.CAR_WASH_ICON,
+                color: Colors.white,
+                width: 30,
+              ),
               title: Text(
-                'Item 2',
+                'Add Vehicle',
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AddVehicleScreen()),
+                );
+              },
+            ),
+            ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ReviewScreen(),
+                  ),
+                );
+              },
+              leading: Icon(
+                Icons.reviews_outlined,
+                color: Colors.white,
+              ),
+              title: Text(
+                'Review Screen',
                 style: TextStyle(color: Colors.white),
               ),
             ),
