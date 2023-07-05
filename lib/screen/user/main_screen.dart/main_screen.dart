@@ -5,6 +5,7 @@ import 'package:glossy_flossy/screen/user/home_screen.dart/home_screen.dart';
 import 'package:glossy_flossy/screen/user/notifiaction_screen.dart/notification_screen.dart';
 import 'package:glossy_flossy/screen/user/profile_screen/profile_screen.dart';
 import 'package:glossy_flossy/screen/user/review_screen/review_screen.dart';
+import 'package:glossy_flossy/screen/user/service_history_screen/service_history_screen.dart';
 import 'package:glossy_flossy/utils/images.dart';
 
 class MainScreen extends StatefulWidget {
@@ -101,6 +102,24 @@ class _MainScreenState extends State<MainScreen> {
               ),
               title: Text(
                 'Review Screen',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ServiceHistoryScreen(),
+                  ),
+                );
+              },
+              leading: Icon(
+                Icons.history,
+                color: Colors.white,
+              ),
+              title: Text(
+                'Service History',
                 style: TextStyle(color: Colors.white),
               ),
             ),
