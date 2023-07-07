@@ -45,6 +45,7 @@ dependencies:
   get_it: ^7.6.0
   nb_utils:
   reviews_slider:
+  file_picker: ^5.3.2
 
 dev_dependencies:
   flutter_test:

@@ -8,6 +8,7 @@ import 'package:glossy_flossy/provider/user/login_provider_user.dart';
 import 'package:glossy_flossy/provider/user/review_screen_provider.dart';
 import 'package:glossy_flossy/provider/worker/home_screen_worker_provider.dart';
 import 'package:glossy_flossy/provider/worker/login_provider_worker.dart';
+import 'package:glossy_flossy/provider/worker/register_screen_provider_worker.dart';
 import 'package:glossy_flossy/provider/worker/worker_details_provider_worker.dart';
 import 'package:glossy_flossy/splash_screen.dart';
 import 'package:glossy_flossy/screen/common/user_selection_screeen/user_selection_screen.dart';
@@ -65,6 +66,9 @@ void main() async {
       ChangeNotifierProvider(
         create: (context) => WorkerDetailsProvider(),
       ),
+      ChangeNotifierProvider(
+        create: (context) => RegisterWorkerProvider(),
+        )
       ////
       ////
     ],
