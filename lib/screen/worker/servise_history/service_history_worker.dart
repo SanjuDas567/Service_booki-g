@@ -10,18 +10,23 @@ class ServiceHistoryWorker extends StatelessWidget {
       backgroundColor: Colors.black,
       body: CustomScrollView(
         slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Work History',
-                style: TextStyle(
-                    color: Colors.yellow,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18),
-              ),
-            ),
+          SliverAppBar(
+            pinned: true,
+            backgroundColor: Colors.black,
+            title: Text('Work History'),
           ),
+          // SliverToBoxAdapter(
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(8.0),
+          //     child: Text(
+          //       'Work History',
+          //       style: TextStyle(
+          //           color: Colors.yellow,
+          //           fontWeight: FontWeight.bold,
+          //           fontSize: 18),
+          //     ),
+          //   ),
+          // ),
           SliverList.separated(
             itemCount: 20,
             itemBuilder: (context, index) {

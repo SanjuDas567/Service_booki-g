@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:glossy_flossy/screen/worker/home_screen/home_screen_worker.dart';
+import 'package:glossy_flossy/screen/worker/income_screen/income_screen.dart';
 import 'package:glossy_flossy/screen/worker/notification_screen/notification_screen_worker.dart';
 import 'package:glossy_flossy/screen/worker/profile_screen/profile_screen_worker.dart';
 import 'package:glossy_flossy/screen/worker/servise_history/service_history_worker.dart';
@@ -19,7 +20,7 @@ class _MainScreenWorkerState extends State<MainScreenWorker> {
   final List _screens = [
     {"screen": HomeScreenWorker()},
     // {"screen": const ChatScreen()},
-    {"screen": const ServiceHistoryWorker()},
+    {"screen": const IncomeScreen()},
     {"screen": const WorkLocationScreen()},
     {"screen": const ProfileScreenWorker()},
   ];
@@ -70,10 +71,22 @@ class _MainScreenWorkerState extends State<MainScreenWorker> {
                 style: TextStyle(color: Colors.white),
               ),
             ),
-            const ListTile(
+            ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ServiceHistoryWorker(),
+                  ),
+                );
+              },
               title: Text(
-                'Item 2',
+                'Work Hiistory',
                 style: TextStyle(color: Colors.white),
+              ),
+              leading: Icon(
+                Icons.history,
+                color: Colors.white,
               ),
             ),
           ],
@@ -146,7 +159,7 @@ class _MainScreenWorkerState extends State<MainScreenWorker> {
               color: Colors.white,
             ),
             activeIcon: Icon(Icons.miscellaneous_services_outlined),
-            label: 'Working History',
+            label: 'Payment',
             // backgroundColor: Colors.white24,
           ),
           BottomNavigationBarItem(
