@@ -20,7 +20,7 @@ class AuthProvider extends ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  Future login(
+  Future<void> login(
     LoginModel loginBody,
     // Function callback
   ) async {

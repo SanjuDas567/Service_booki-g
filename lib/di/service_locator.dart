@@ -4,7 +4,9 @@ import 'package:glossy_flossy/data/dio/dio_client.dart';
 import 'package:glossy_flossy/data/login_interceptor/loginInterceptor.dart';
 import 'package:glossy_flossy/data/shared_preference/shared_preference.dart';
 import 'package:glossy_flossy/provider/user/login_provider_user.dart';
+import 'package:glossy_flossy/provider/user/register_provider_user.dart';
 import 'package:glossy_flossy/provider/user/repo/auth_repo_user.dart';
+import 'package:glossy_flossy/provider/user/repo/register_repo.dart';
 import 'package:glossy_flossy/utils/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,7 +24,9 @@ Future<void> setup() async {
 
   // User:----------------------------------------------------------------------
   sl.registerLazySingleton(() => AuthProvider(authRepoUser: sl()));
-  sl.registerLazySingleton(() => AuthRepoUser(dioClient: sl(), sharedPreferences: sl()));
+  sl.registerLazySingleton(
+      () => AuthRepoUser(dioClient: sl(), sharedPreferences: sl()));
   sl.registerLazySingleton(() => SharedPreferencesProvider());
-
+  sl.registerFactory(() => UserProvider(registerRepo: sl()));
+  sl.registerLazySingleton(() => RegisterRepo(dioClient: sl()));
 }

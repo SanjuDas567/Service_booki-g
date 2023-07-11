@@ -20,8 +20,8 @@ class DioClient {
     dio = Dio(
       BaseOptions(
         baseUrl: baseUrl!,
-         connectTimeout: Duration(milliseconds: Endpoints.connectionTimeout),
-         receiveTimeout: Duration(milliseconds: Endpoints.receiveTimeout),
+        connectTimeout: Duration(milliseconds: Endpoints.connectionTimeout),
+        receiveTimeout: Duration(milliseconds: Endpoints.receiveTimeout),
       ),
     );
 

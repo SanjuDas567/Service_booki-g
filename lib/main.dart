@@ -5,6 +5,7 @@ import 'package:glossy_flossy/provider/user/add_vehicle_provider.dart';
 import 'package:glossy_flossy/provider/user/home_screen_provider.dart';
 import 'package:glossy_flossy/provider/user/house_keeping_provider.dart';
 import 'package:glossy_flossy/provider/user/login_provider_user.dart';
+import 'package:glossy_flossy/provider/user/register_provider_user.dart';
 import 'package:glossy_flossy/provider/user/review_screen_provider.dart';
 import 'package:glossy_flossy/provider/worker/home_screen_worker_provider.dart';
 import 'package:glossy_flossy/provider/worker/login_provider_worker.dart';
@@ -16,7 +17,7 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- await di.setup();
+  await di.setup();
   runApp(MultiProvider(
     providers: [
       //user provider:----------------------------------------------------------
@@ -39,6 +40,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => ReviewProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => di.sl<UserProvider>(),
       ),
       ////
       ////
@@ -68,7 +72,7 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => RegisterWorkerProvider(),
-        )
+      )
       ////
       ////
     ],
