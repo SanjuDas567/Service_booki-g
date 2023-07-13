@@ -26,8 +26,8 @@ class LoginModel {
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['email'] = this.email;
-    data['password'] = this.password;
+    data['email'] = email;
+    data['user_pasword'] = password;
     return data;
   }
 }

@@ -28,4 +28,46 @@ class AuthRepoUser {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
+
+  Future<void> saveUserToken(String token) async {
+    dioClient.token = token;
+    dioClient.dio.options.headers = {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer $token'
+    };
+
+    try {
+      await sharedPreferences.setString(AppConstants.TOKEN, token);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  String getUserToken() {
+    return sharedPreferences.getString(AppConstants.TOKEN) ?? "";
+  }
+
+   Future<void> saveUserName(String userName) {
+    return sharedPreferences.setString(AppConstants.USER_NAME, userName);
+  }
+
+  String getUserName(){
+    return sharedPreferences.getString(AppConstants.USER_NAME) ?? "";
+  }
+
+  Future<void> saveUserId(String userId) {
+    return sharedPreferences.setString(AppConstants.USER_ID.toString(), userId);
+  }
+
+  String getUserId(){
+    return sharedPreferences.getString(AppConstants.USER_ID.toString()) ?? "";
+  }
+
+  Future<bool> clearAllData() async {
+    sharedPreferences.remove(AppConstants.TOKEN);
+    sharedPreferences.remove(AppConstants.USER_ID);
+    // sharedPreferences.remove(AppConstants.IS_BUYER);
+    return true;
+  }
+
 }

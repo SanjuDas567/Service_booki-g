@@ -27,7 +27,7 @@ class AppTextFormField extends StatelessWidget {
       focusNode: focusNode,
       style: TextStyle(color: Colors.white),
       onFieldSubmitted: (value) => onFieldSubmitted!(value),
-      validator: (input) => validator!(input),
+      // validator: (input) => validator!(input),
       decoration: InputDecoration(
           hintText: hintText,
           label: Text(hintText.toString()),

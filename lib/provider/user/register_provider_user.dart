@@ -14,7 +14,7 @@ class UserProvider extends ChangeNotifier {
 
   UserRegisterResponseModel? responseData;
 
-  Future userRegistration(UserRegistrationModel userRegistrationModel) async {
+  Future userRegistration(UserRegistrationModel userRegistrationModel, Function callback) async {
     _isLoading = true;
     notifyListeners();
     print('registration provider');
@@ -26,8 +26,10 @@ class UserProvider extends ChangeNotifier {
       final data = apiResponse.response!.data;
       print(data);
       final userRegisterResponse = UserRegisterResponseModel.fromJson(data);
-      // responseData = userRegisterResponse;
-      print(userRegisterResponse.message.toString());
+      responseData = userRegisterResponse;
+      // print(userRegisterResponse.message.toString());
+      callback(true, responseData!.message.toString());
+      notifyListeners();
     } else {
       print(apiResponse.error.toString());
     }

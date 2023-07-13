@@ -6,14 +6,29 @@ import 'package:glossy_flossy/screen/user/register_page/register_page.dart';
 import 'package:glossy_flossy/utils/images.dart';
 import 'package:provider/provider.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
 
   final _emailController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  final emailRegex = RegExp(
+    r'^[a-zA-Z0-9.!#$%&*+-/=?^_`{|}~]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$',
+  );
+  @override
+  void dispose() {
+    print('inside dispose');
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,15 +107,15 @@ class LoginPage extends StatelessWidget {
                                       color: Colors.grey.shade600,
                                     ),
                                   ),
-                                  validator: (value) {
-                                    if (value == null ||
-                                        value.isEmpty ||
-                                        !value.contains('@') ||
-                                        !value.contains('.')) {
-                                      return 'Invalid Email';
-                                    }
-                                    return null;
-                                  },
+                                  // validator: (value) {
+                                  //   if (value == null ||
+                                  //       value.isEmpty ||
+                                  //       !value.contains('@') ||
+                                  //       !value.contains('.')) {
+                                  //     return 'Invalid Email';
+                                  //   }
+                                  //   return null;
+                                  // },
                                   //email regexp in flutter?
                                 ),
                               ),
@@ -179,26 +194,26 @@ class LoginPage extends StatelessWidget {
                                   child: InkWell(
                                     onTap: () {
                                       print('sign up button pressed');
-                                      // loginFunction(context);
-                                      if (_emailController.text.trim() ==
-                                              'sanju' &&
-                                          _passwordController.text.trim() ==
-                                              'sanju') {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => MainScreen(),
-                                          ),
-                                        );
-                                      } else {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                RegisterPage(),
-                                          ),
-                                        );
-                                      }
+                                      loginUser(context);
+                                      // if (_emailController.text.trim() ==
+                                      //         'sanju' &&
+                                      //     _passwordController.text.trim() ==
+                                      //         'sanju') {
+                                      //   Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //       builder: (context) => MainScreen(),
+                                      //     ),
+                                      //   );
+                                      // } else {
+                                      //   Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //       builder: (context) =>
+                                      //           RegisterPage(),
+                                      //     ),
+                                      //   );
+                                      // }
                                     },
                                     child: Container(
                                       height: 40,
@@ -283,10 +298,66 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  void loginFunction(BuildContext context) {
-    LoginModel loginData = LoginModel();
-    loginData.email = _emailController.text.trim();
-    loginData.password = _passwordController.text.trim();
-    Provider.of<AuthProvider>(context, listen: false).login(loginData);
+  // login function
+  void loginUser(BuildContext context) async {
+    if (_formKey.currentState!.validate()) {
+      FocusManager.instance.primaryFocus?.unfocus();
+      _formKey.currentState!.save();
+
+      String email = _emailController.text.trim();
+      String password = _passwordController.text.trim();
+
+      if (email.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Email must be required'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (password.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must be required'),
+          backgroundColor: Colors.red,
+        ));
+      } else {
+        // if (Provider.of<AuthProviderBuyer>(context, listen: false).isRemember) {
+        //   Provider.of<AuthProviderBuyer>(context, listen: false)
+        //       .saveUserEmail(_email, _password);
+        // } else {
+        //   Provider.of<AuthProviderBuyer>(context, listen: false)
+        //       .clearUserEmailAndPassword();
+        // }
+        LoginModel loginData = LoginModel();
+        loginData.email = email;
+        loginData.password = password;
+         await Provider.of<AuthProvider>(context, listen: false)
+            .login(loginData, route);
+      }
+    }
+  }
+// page route 
+  route(bool isRoute, String errorMessage) async {
+    print('inside route');
+    print(errorMessage);
+
+    if (isRoute) {
+      // await Provider.of<ProfileProviderBuyer>(context, listen: false)
+      //     .getBuyerInfo(context);
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MainScreen(),
+        ),
+      );
+      final token =
+          Provider.of<AuthProvider>(context, listen: false).getUserToken();
+      print("token inside route : $token");
+      final name =
+          Provider.of<AuthProvider>(context, listen: false).getUserName();
+      print("name inside route : $name");
+
+       final Id =
+          Provider.of<AuthProvider>(context, listen: false).getUserId();
+      print("name inside route : $Id");
+    }
   }
 }

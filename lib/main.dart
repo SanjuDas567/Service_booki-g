@@ -11,6 +11,7 @@ import 'package:glossy_flossy/provider/worker/home_screen_worker_provider.dart';
 import 'package:glossy_flossy/provider/worker/login_provider_worker.dart';
 import 'package:glossy_flossy/provider/worker/register_screen_provider_worker.dart';
 import 'package:glossy_flossy/provider/worker/worker_details_provider_worker.dart';
+import 'package:glossy_flossy/screen/user/main_screen.dart/main_screen.dart';
 import 'package:glossy_flossy/splash_screen.dart';
 import 'package:glossy_flossy/screen/common/user_selection_screeen/user_selection_screen.dart';
 import 'package:provider/provider.dart';
@@ -23,14 +24,11 @@ void main() async {
       //user provider:----------------------------------------------------------
       ////
       ////
-      // ChangeNotifierProvider(
-      //   create: (context) => AuthProvider(),
-      // ),
       ChangeNotifierProvider<AuthProvider>(
         create: (context) => di.sl<AuthProvider>(),
       ),
       ChangeNotifierProvider(
-        create: (context) => HomeScreenProvider(),
+        create: (context) => di.sl<HomeScreenProvider>(),
       ),
       ChangeNotifierProvider(
         create: (context) => HouseKeepingProviderUser(),
@@ -86,12 +84,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final token =
+        Provider.of<AuthProvider>(context, listen: false).getUserToken();
     return MaterialApp(
       title: 'Glossy Flossy',
       debugShowCheckedModeBanner: false,
       home: SplashScreen(
         duration: 3, // Duration in seconds for splash screen to be displayed
-        navigateAfterSplash: UserSelectionScreen(), // Your main app screen
+        navigateAfterSplash: token == ''
+            ? UserSelectionScreen()
+            : MainScreen(), // Your main app screen
       ),
     );
   }

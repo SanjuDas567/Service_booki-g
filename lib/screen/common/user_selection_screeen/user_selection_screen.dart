@@ -8,45 +8,50 @@ class UserSelectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.black,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  'Select \nuser type',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: const Scaffold(
+        backgroundColor: Colors.black,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 30,
                   ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
+                  Text(
+                    'Select \nuser type',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
 
-                //user login container:-----------------------------------------
-                UserSelectionContainer(),
-                SizedBox(
-                  height: 20,
-                ),
+                  //user login container:-----------------------------------------
+                  UserSelectionContainer(),
+                  SizedBox(
+                    height: 20,
+                  ),
 
-                //worker login container:---------------------------------------
-                WorkerSelectionContainer(),
-                SizedBox(
-                  height: 20,
-                ),
+                  //worker login container:---------------------------------------
+                  WorkerSelectionContainer(),
+                  SizedBox(
+                    height: 20,
+                  ),
 
-                //admin login container:----------------------------------------
-                AdminSelectionContainer(),
-              ],
+                  //admin login container:----------------------------------------
+                  AdminSelectionContainer(),
+                ],
+              ),
             ),
           ),
         ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:glossy_flossy/models/user/user_registration_model.dart';
 import 'package:glossy_flossy/provider/user/register_provider_user.dart';
+import 'package:glossy_flossy/provider/user/repo/auth_repo_user.dart';
+import 'package:glossy_flossy/screen/user/login_page/login_page.dart';
+import 'package:glossy_flossy/utils/app_constants.dart';
 // import 'package:glossy_flossy/screen/user/register_page/widgets/date_picker.dart';
 import 'package:glossy_flossy/utils/images.dart';
 // import 'package:glossy_flossy/widgets/custom_password_field.dart';
@@ -8,30 +11,52 @@ import 'package:glossy_flossy/widgets/custom_text_form_field.dart';
 import 'package:provider/provider.dart';
 // import 'package:intl/intl.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   RegisterPage({super.key});
 
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   DateTime selectedDate = DateTime.now();
 
   final _formKey = GlobalKey<FormState>();
+
   final _firstNameController = TextEditingController();
+
   final _lastNameController = TextEditingController();
+
   final _emailController = TextEditingController();
+
   final _phoneNumberController = TextEditingController();
+
   // final _dateController = TextEditingController();
   final _passwordController = TextEditingController();
+
   // final _confirmPasswordController = TextEditingController();
   final _addressController = TextEditingController();
 
   final _firstNameFocus = FocusNode();
-  final _lastNameFocus = FocusNode();
-  final _emailFocus = FocusNode();
-  // final _phoneNumberFocus = FocusNode();
-  // final _dateFocus = FocusNode();
-  // final _passwordFocus = FocusNode();
-  // final _confirmPasswordFocus = FocusNode();
 
-  // Future<void> _selectDate(BuildContext context) async {
+  final _lastNameFocus = FocusNode();
+
+  final _emailFocus = FocusNode();
+
+  // final _phoneNumberFocus = FocusNode();
+
+  @override
+  void dispose() {
+    print('inside dispose');
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _passwordController.dispose();
+    _addressController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,47 +182,33 @@ class RegisterPage extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      InkWell(
-                        onTap: () async {
-                          String userFname = _firstNameController.text.trim();
-                          String userLname = _lastNameController.text.trim();
-                          String email =
-                              _emailController.text.trim().toLowerCase();
-                          String phone = _phoneNumberController.text.trim();
-                          String address = _addressController.text.trim();
-                          String userPassword = _passwordController.text.trim();
-                          UserRegistrationModel userRegistrationModel =
-                              UserRegistrationModel(
-                            userFname: userFname,
-                            userLname: userLname,
-                            email: email,
-                            phone: phone,
-                            address: address,
-                            userPassword: userPassword,
-                          );
-
-                          print(userRegistrationModel.address);
-                          Provider.of<UserProvider>(context, listen: false)
-                              .userRegistration(userRegistrationModel);
-                        },
-                        child: Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            border: Border.all(
+                      userProvider.isLoading
+                          ? CircularProgressIndicator(
                               color: Colors.yellow,
+                            )
+                          : InkWell(
+                              onTap: () async {
+                                _controllerValidator();
+                              },
+                              child: Container(
+                                height: 40,
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.yellow,
+                                  ),
+                                  color: Colors.yellow,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Center(
+                                  child: const Text(
+                                    'Sign Up',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
                             ),
-                            color: Colors.yellow,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Center(
-                            child: const Text(
-                              'Sign Up',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                      ),
                     ],
                   );
                 },
@@ -207,8 +218,83 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-
   void _controllerValidator() async {
-    if (_formKey.currentState!.validate()) {}
+    if (_formKey.currentState!.validate()) {
+      FocusManager.instance.primaryFocus?.unfocus();
+      _formKey.currentState!.save();
+
+      String userFname = _firstNameController.text.trim();
+      String userLname = _lastNameController.text.trim();
+      String email = _emailController.text.trim().toLowerCase();
+      String phone = _phoneNumberController.text.trim();
+      String address = _addressController.text.trim();
+      String userPassword = _passwordController.text.trim();
+
+      if (userFname.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('First name must be required'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (userLname.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('last name must be required'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (email.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Email must be required'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (phone.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Phone number must be required'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (address.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Address must be required'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (userPassword.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must be required'),
+          backgroundColor: Colors.red,
+        ));
+      } else {
+        UserRegistrationModel userRegistrationModel = UserRegistrationModel(
+          userFname: userFname,
+          userLname: userLname,
+          email: email,
+          phone: phone,
+          address: address,
+          userPassword: userPassword,
+        );
+
+        print(userRegistrationModel.address);
+        Provider.of<UserProvider>(context, listen: false)
+            .userRegistration(userRegistrationModel, route);
+      }
+    }
+  }
+
+  route(bool isRoute, String errorMessage) async {
+    print('inside route');
+    print(errorMessage);
+
+    if (isRoute) {
+      // await Provider.of<ProfileProviderBuyer>(context, listen: false)
+      //     .getBuyerInfo(context);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(errorMessage),
+        backgroundColor: Colors.green,
+      ));
+
+      await Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginPage(),
+        ),
+      );
+    }
   }
 }
