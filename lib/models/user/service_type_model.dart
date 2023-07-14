@@ -10,7 +10,7 @@ String serviceTypeModelToJson(ServiceTypeModel data) => json.encode(data.toJson(
 
 class ServiceTypeModel {
     int success;
-    List<Datum> data;
+    List<ServiceData> data;
 
     ServiceTypeModel({
         required this.success,
@@ -19,7 +19,7 @@ class ServiceTypeModel {
 
     factory ServiceTypeModel.fromJson(Map<String, dynamic> json) => ServiceTypeModel(
         success: json["success"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<ServiceData>.from(json["data"].map((x) => ServiceData.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -28,16 +28,16 @@ class ServiceTypeModel {
     };
 }
 
-class Datum {
+class ServiceData {
     int typeSlno;
     String serviceType;
 
-    Datum({
+    ServiceData({
         required this.typeSlno,
         required this.serviceType,
     });
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    factory ServiceData.fromJson(Map<String, dynamic> json) => ServiceData(
         typeSlno: json["type_slno"],
         serviceType: json["service_type"],
     );

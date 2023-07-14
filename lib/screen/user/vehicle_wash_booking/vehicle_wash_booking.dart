@@ -1,16 +1,24 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
+
+import 'package:glossy_flossy/models/user/service_type_model.dart';
 import 'package:glossy_flossy/screen/user/vehicle_wash_booking/widgets/service_selection_check_box.dart';
 import 'package:glossy_flossy/utils/images.dart';
 
 class VehicleWashBooking extends StatelessWidget {
-  VehicleWashBooking({super.key});
+  ServiceData data;
+  VehicleWashBooking({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
 
   final _controller = ScrollController();
   DateTime selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
+    print(data.typeSlno);
     return Scaffold(
         backgroundColor: Colors.black,
         body: CustomScrollView(

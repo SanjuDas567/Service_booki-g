@@ -3,10 +3,12 @@ import 'package:get_it/get_it.dart';
 import 'package:glossy_flossy/data/dio/dio_client.dart';
 import 'package:glossy_flossy/data/login_interceptor/loginInterceptor.dart';
 import 'package:glossy_flossy/data/shared_preference/shared_preference.dart';
+import 'package:glossy_flossy/provider/user/commercial_providder.dart';
 import 'package:glossy_flossy/provider/user/home_screen_provider.dart';
 import 'package:glossy_flossy/provider/user/login_provider_user.dart';
 import 'package:glossy_flossy/provider/user/register_provider_user.dart';
 import 'package:glossy_flossy/provider/user/repo/auth_repo_user.dart';
+import 'package:glossy_flossy/provider/user/repo/commercial_repo.dart';
 import 'package:glossy_flossy/provider/user/repo/home_screen_repo.dart';
 import 'package:glossy_flossy/provider/user/repo/register_repo.dart';
 import 'package:glossy_flossy/utils/app_constants.dart';
@@ -33,4 +35,6 @@ Future<void> setup() async {
   sl.registerLazySingleton(() => RegisterRepo(dioClient: sl()));
   sl.registerFactory(() => HomeScreenProvider(homeScreenRepo: sl()));
   sl.registerLazySingleton(() => HomeScreenRepo(dioClient: sl()));
+  sl.registerFactory(() => CommercialBookingProvider(commercialRepo: sl()));
+  sl.registerLazySingleton(() => CommercialRepo(dioClient: sl()));
 }

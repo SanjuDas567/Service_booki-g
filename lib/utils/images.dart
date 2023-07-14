@@ -17,4 +17,8 @@ class Images {
   static const String HOME_CLEANING_IMAGES = 'assets/images/home cleaning.jpg';
   static const String COMMERCIAL_CLEANING_IMAGES =
       'assets/images/commercial1.jpg';
+  static const String COMMERCIAL_BOOKING_SCREEN_IMAGE =
+      'assets/images/commercial-cl.jpg';
+  static const String COMMERCIAL_BOOKING_IMAGE_1 =
+      'assets/images/commercial-cl1.jpg';
 }

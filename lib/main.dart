@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:glossy_flossy/di/service_locator.dart' as di;
 import 'package:glossy_flossy/provider/admin/login_provider_admin.dart';
 import 'package:glossy_flossy/provider/user/add_vehicle_provider.dart';
+import 'package:glossy_flossy/provider/user/commercial_providder.dart';
 import 'package:glossy_flossy/provider/user/home_screen_provider.dart';
 import 'package:glossy_flossy/provider/user/house_keeping_provider.dart';
 import 'package:glossy_flossy/provider/user/login_provider_user.dart';
@@ -41,6 +42,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => di.sl<UserProvider>(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => di.sl<CommercialBookingProvider>(),
       ),
       ////
       ////
