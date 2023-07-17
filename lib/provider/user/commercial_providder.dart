@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:glossy_flossy/models/common/commercial_service_type_model.dart';
 import 'package:glossy_flossy/provider/user/repo/commercial_repo.dart';
 import 'package:glossy_flossy/utils/api_response.dart';
 import 'package:image_picker/image_picker.dart';
@@ -77,7 +78,40 @@ class CommercialBookingProvider extends ChangeNotifier {
 
 // clear image list fuction :---------------------------------------------------
 
-  // image upload field  :-------------------------------------------------------
+// Oncheck : -------------------------------------------------------------------
+  int? sofaId;
+  int? carpetId;
+  int? stainId;
+  int? windowId;
+  int? gutterId;
+  int? drivewayId;
+
+  void setSofaId(int value) {
+    sofaId = value;
+  }
+
+  void setCarpetId(int value) {
+    carpetId = value;
+  }
+
+  void setStainId(int value) {
+    stainId = value;
+  }
+
+  void setWindowId(int value) {
+    windowId = value;
+  }
+
+  void setGutterId(int value) {
+    gutterId = value;
+  }
+
+  void setDrivewayId(int value) {
+    drivewayId = value;
+  }
+// Oncheck : -------------------------------------------------------------------
+
+// image upload field  :--------------------------------------------------------
 
   List<File> _sofaValetImages = [];
   List<File> get sofaValetImages => _sofaValetImages;
@@ -154,6 +188,8 @@ class CommercialBookingProvider extends ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
+  ServiceTypeModel? commercialServiceTypeModel;
+
   Future<void> getServiceName(String serviceId) async {
     _isLoading = true;
     notifyListeners();
@@ -164,6 +200,11 @@ class CommercialBookingProvider extends ChangeNotifier {
         apiResponse.response!.statusCode == 200) {
       print('inside commercial 200');
       print(apiResponse.response!.data);
+
+      final commercialServiceType =
+          ServiceTypeModel.fromJson(apiResponse.response!.data);
+      commercialServiceTypeModel = commercialServiceType;
     }
+    notifyListeners();
   }
 }

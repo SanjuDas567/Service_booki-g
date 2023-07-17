@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 class CommercialBooking extends StatelessWidget {
   ServiceData data;
-   CommercialBooking({required this.data});
+  CommercialBooking({required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +28,7 @@ class CommercialBooking extends StatelessWidget {
       commercialProvider.clearGuteringCleaningImages();
       commercialProvider.clearDrivewayImages();
 
-      commercialProvider.getServiceName(
-        data.toString()
-      );
+      commercialProvider.getServiceName(data.typeSlno.toString());
     });
     return Scaffold(
       backgroundColor: Colors.black,
