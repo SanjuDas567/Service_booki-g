@@ -1,102 +1,98 @@
 import 'package:flutter/material.dart';
+import 'package:glossy_flossy/provider/user/vehicle_booking_provider.dart';
+import 'package:provider/provider.dart';
 
-class CheckBoxDemo extends StatefulWidget {
-  @override
-  _CheckBoxDemoState createState() => _CheckBoxDemoState();
-}
-
-class _CheckBoxDemoState extends State<CheckBoxDemo> {
-  bool checkbox1 = false;
-  bool checkbox2 = false;
-  bool checkbox3 = false;
-  bool checkbox4 = false;
-  bool checkbox5 = false;
-
+class CheckBoxVehicle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CheckboxListTile(
-          checkColor: Colors.black,
-          activeColor: Colors.yellow,
-          fillColor:
-              MaterialStateProperty.resolveWith((states) => Colors.yellow),
-          title: const Text(
-            'Wash and Wax',
-            style: TextStyle(color: Colors.white),
-          ),
-          value: checkbox1,
-          onChanged: (value) {
-            setState(() {
-              checkbox1 = value!;
-            });
-          },
-        ),
-        CheckboxListTile(
-          checkColor: Colors.black,
-          activeColor: Colors.yellow,
-          fillColor:
-              MaterialStateProperty.resolveWith((states) => Colors.yellow),
-          title: const Text(
-            'Full Valet',
-            style: TextStyle(color: Colors.white),
-          ),
-          value: checkbox2,
-          onChanged: (value) {
-            setState(() {
-              checkbox2 = value!;
-            });
-          },
-        ),
-        CheckboxListTile(
-          checkColor: Colors.black,
-          activeColor: Colors.yellow,
-          fillColor:
-              MaterialStateProperty.resolveWith((states) => Colors.yellow),
-          title: const Text(
-            'Interior Valet',
-            style: TextStyle(color: Colors.white),
-          ),
-          value: checkbox3,
-          onChanged: (value) {
-            setState(() {
-              checkbox3 = value!;
-            });
-          },
-        ),
-        CheckboxListTile(
-          checkColor: Colors.black,
-          activeColor: Colors.yellow,
-          fillColor:
-              MaterialStateProperty.resolveWith((states) => Colors.yellow),
-          title: const Text(
-            'Full Detail',
-            style: TextStyle(color: Colors.white),
-          ),
-          value: checkbox4,
-          onChanged: (value) {
-            setState(() {
-              checkbox4 = value!;
-            });
-          },
-        ),
-        CheckboxListTile(
-          checkColor: Colors.black,
-          activeColor: Colors.yellow,
-          fillColor:
-              MaterialStateProperty.resolveWith((states) => Colors.yellow),
-          title: const Text(
-            'Engine Steam Wash',
-            style: TextStyle(color: Colors.white),
-          ),
-          value: checkbox5,
-          onChanged: (value) {
-            setState(() {
-              checkbox5 = value!;
-            });
-          },
-        ),
-      ],
+    return Consumer<VehicleBookingProvider>(
+      builder: (context, vehicleProvider, child) {
+        return vehicleProvider.isLoading
+            ? Center(
+                child: CircularProgressIndicator(
+                  color: Colors.yellow,
+                ),
+              )
+            : Column(
+                children: [
+                  CheckboxListTile(
+                    checkColor: Colors.black,
+                    activeColor: Colors.yellow,
+                    fillColor: MaterialStateProperty.resolveWith(
+                        (states) => Colors.yellow),
+                    title: Text(
+                      vehicleProvider
+                          .vehicleServiceTypeModel!.data[0].serviceName,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    value: vehicleProvider.checkbox1,
+                    onChanged: (value) {
+                      vehicleProvider.updateCheckbox1(value!);
+                    },
+                  ),
+                  CheckboxListTile(
+                    checkColor: Colors.black,
+                    activeColor: Colors.yellow,
+                    fillColor: MaterialStateProperty.resolveWith(
+                        (states) => Colors.yellow),
+                    title: Text(
+                      vehicleProvider
+                          .vehicleServiceTypeModel!.data[1].serviceName,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    value: vehicleProvider.checkbox2,
+                    onChanged: (value) {
+                      vehicleProvider.updateCheckbox2(value!);
+                    },
+                  ),
+                  CheckboxListTile(
+                    checkColor: Colors.black,
+                    activeColor: Colors.yellow,
+                    fillColor: MaterialStateProperty.resolveWith(
+                        (states) => Colors.yellow),
+                    title: Text(
+                      vehicleProvider
+                          .vehicleServiceTypeModel!.data[2].serviceName,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                   value: vehicleProvider.checkbox3,
+                    onChanged: (value) {
+                      vehicleProvider.updateCheckbox3(value!);
+                    },
+                  ),
+                  CheckboxListTile(
+                    checkColor: Colors.black,
+                    activeColor: Colors.yellow,
+                    fillColor: MaterialStateProperty.resolveWith(
+                        (states) => Colors.yellow),
+                    title: Text(
+                      vehicleProvider
+                          .vehicleServiceTypeModel!.data[3].serviceName,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    value: vehicleProvider.checkbox4,
+                    onChanged: (value) {
+                      vehicleProvider.updateCheckbox4(value!);
+                    },
+                  ),
+                  CheckboxListTile(
+                    checkColor: Colors.black,
+                    activeColor: Colors.yellow,
+                    fillColor: MaterialStateProperty.resolveWith(
+                        (states) => Colors.yellow),
+                    title: Text(
+                      vehicleProvider
+                          .vehicleServiceTypeModel!.data[4].serviceName,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    value: vehicleProvider.checkbox5,
+                    onChanged: (value) {
+                      vehicleProvider.updateCheckbox5(value!);
+                    },
+                  ),
+                ],
+              );
+      },
     );
   }
 }

@@ -1,148 +1,211 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:glossy_flossy/models/user/house_keeping_model.dart';
+import 'package:glossy_flossy/utils/api_response.dart';
 import 'package:image_picker/image_picker.dart';
 
-class HouseKeepingProviderUser extends ChangeNotifier {
-  bool _isChecked = false;
-  bool get isChecked => _isChecked;
-  bool checkBox = false;
-  bool isCheckBoxChecked1 = false;
-  bool isCheckBoxChecked2 = false;
-  bool isCheckBoxChecked3 = false;
-  bool isCheckBoxChecked4 = false;
-  bool isCheckBoxChecked5 = false;
-  bool isCheckBoxChecked6 = false;
-  bool isCheckBoxChecked = false;
+import 'repo/house_keeping_repo.dart';
 
-  File? _image;
+class HouseKeepingProvider extends ChangeNotifier {
+  final HouseKeepingRepo houseKeepingRepo;
+  HouseKeepingProvider({required this.houseKeepingRepo});
 
-  File? get image => _image;
+  bool checkbox1 = false;
+  bool checkbox2 = false;
+  bool checkbox3 = false;
+  bool checkbox4 = false;
+  bool checkbox5 = false;
+  bool checkbox6 = false;
 
-  Future<void> getImage() async {
-    final picker = ImagePicker();
-    final pickedImage = await picker.pickImage(source: ImageSource.camera);
+// update fuction :-------------------------------------------------------------
+  void updateCheckbox1(bool value) {
+    checkbox1 = value;
+    notifyListeners();
+  }
 
-    if (pickedImage != null) {
-      _selectedImage1 = File(pickedImage.path);
+  void updateCheckbox2(bool value) {
+    checkbox2 = value;
+    notifyListeners();
+  }
+
+  void updateCheckbox3(bool value) {
+    checkbox3 = value;
+    notifyListeners();
+  }
+
+  void updateCheckbox4(bool value) {
+    checkbox4 = value;
+    notifyListeners();
+  }
+
+  void updateCheckbox5(bool value) {
+    checkbox5 = value;
+    notifyListeners();
+  }
+
+  void updateCheckbox6(bool value) {
+    checkbox6 = value;
+    notifyListeners();
+  }
+
+// update fuction :-------------------------------------------------------------
+
+// clear image list fuction :---------------------------------------------------
+
+  void clearSofaValetImage() {
+    _sofaValetImages = [];
+  }
+
+  void clearcarpetImages() {
+    _carpetCleanImages = [];
+  }
+
+  void clearStainImages() {
+    _stainRemovalImages = [];
+  }
+
+  void clearWindowImages() {
+    _windowCleaningImages = [];
+  }
+
+  void clearGuteringCleaningImages() {
+    _guteringCleaningImages = [];
+  }
+
+  void clearDrivewayImages() {
+    _drivewayImages = [];
+  }
+
+// clear image list fuction :---------------------------------------------------
+
+// Oncheck : -------------------------------------------------------------------
+  int? sofaId;
+  int? carpetId;
+  int? stainId;
+  int? windowId;
+  int? gutterId;
+  int? drivewayId;
+
+  void setSofaId(int value) {
+    sofaId = value;
+  }
+
+  void setCarpetId(int value) {
+    carpetId = value;
+  }
+
+  void setStainId(int value) {
+    stainId = value;
+  }
+
+  void setWindowId(int value) {
+    windowId = value;
+  }
+
+  void setGutterId(int value) {
+    gutterId = value;
+  }
+
+  void setDrivewayId(int value) {
+    drivewayId = value;
+  }
+// Oncheck : -------------------------------------------------------------------
+
+// image upload field  :--------------------------------------------------------
+
+  List<File> _sofaValetImages = [];
+  List<File> get sofaValetImages => _sofaValetImages;
+
+  Future<void> selectImages() async {
+    final List<XFile>? selectedFiles = await ImagePicker().pickMultiImage();
+    if (selectedFiles != null) {
+      _sofaValetImages = selectedFiles.map((file) => File(file.path)).toList();
       notifyListeners();
     }
   }
 
-  void removeImage() {
-    _selectedImage1 = null;
-    notifyListeners();
-  }
+  List<File> _carpetCleanImages = [];
+  List<File> get carpetCleanImages => _carpetCleanImages;
 
-  List<File?> images = List.generate(6, (index) => null);
-
-  void setImage(File image, int index) {
-    images[index] = image;
-    notifyListeners();
-  }
-
-  // void removeImage(int index) {
-  //   images[index] = null;
-  //   notifyListeners();
-  // }
-
-  List<bool> checkboxes = List.generate(6, (index) => false);
-
-  void toggleCheckbox(int index) {
-    checkboxes[index] = !checkboxes[index];
-    notifyListeners();
-  }
-
-  void selectImage(ImageSource source, int index) async {
-    final picker = ImagePicker();
-    final pickedImage = await picker.pickImage(source: source);
-    if (pickedImage != null) {
-      images[index] = File(pickedImage.path);
+  Future<void> selectcarpetImages() async {
+    final List<XFile>? selectedFiles = await ImagePicker().pickMultiImage();
+    if (selectedFiles != null) {
+      _carpetCleanImages =
+          selectedFiles.map((file) => File(file.path)).toList();
       notifyListeners();
     }
-    notifyListeners();
   }
 
-  // void toggleCheckbox() {
-  //   _isChecked = !_isChecked;
-  //   notifyListeners();
-  // }
+  List<File> _stainRemovalImages = [];
+  List<File> get stainRemovalImages => _stainRemovalImages;
 
-  File? _selectedImage1;
-  File? get selectedImage1 => _selectedImage1;
-
-  File? _selectedImage2;
-  File? get selectedImage2 => _selectedImage2;
-
-  File? _selectedImage3;
-  File? get selectedImage3 => _selectedImage3;
-
-  File? _selectedImage4;
-  File? get selectedImage4 => _selectedImage4;
-
-  File? _selectedImage5;
-  File? get selectedImage5 => _selectedImage5;
-
-  File? _selectedImage6;
-  File? get selectedImage6 => _selectedImage6;
-
-  void setImage1(File image) {
-    _selectedImage1 = image;
-    notifyListeners();
+  Future<void> selectStainImages() async {
+    final List<XFile>? selectedFiles = await ImagePicker().pickMultiImage();
+    if (selectedFiles != null) {
+      _stainRemovalImages =
+          selectedFiles.map((file) => File(file.path)).toList();
+      notifyListeners();
+    }
   }
 
-  void setImage2(File image) {
-    _selectedImage2 = image;
-    notifyListeners();
+  List<File> _windowCleaningImages = [];
+  List<File> get windowCleaningImages => _windowCleaningImages;
+
+  Future<void> selectWindowImages() async {
+    final List<XFile>? selectedFiles = await ImagePicker().pickMultiImage();
+    if (selectedFiles != null) {
+      _windowCleaningImages =
+          selectedFiles.map((file) => File(file.path)).toList();
+      notifyListeners();
+    }
   }
 
-  void setImage3(File image) {
-    _selectedImage3 = image;
-    notifyListeners();
+  List<File> _guteringCleaningImages = [];
+  List<File> get guteringCleaningImages => _guteringCleaningImages;
+
+  Future<void> selectGuteringCleaningImages() async {
+    final List<XFile>? selectedFiles = await ImagePicker().pickMultiImage();
+    if (selectedFiles != null) {
+      _guteringCleaningImages =
+          selectedFiles.map((file) => File(file.path)).toList();
+      notifyListeners();
+    }
   }
 
-  void setImage4(File image) {
-    _selectedImage4 = image;
-    notifyListeners();
+  List<File> _drivewayImages = [];
+  List<File> get drivewayImages => _drivewayImages;
+
+  Future<void> selectDrivewayImages() async {
+    final List<XFile>? selectedFiles = await ImagePicker().pickMultiImage();
+    if (selectedFiles != null) {
+      _drivewayImages = selectedFiles.map((file) => File(file.path)).toList();
+      notifyListeners();
+    }
   }
 
-  void setImage5(File image) {
-    _selectedImage5 = image;
-    notifyListeners();
-  }
+  // Api calling :--------------------------------------------------------------
 
-  void setImage6(File image) {
-    _selectedImage6 = image;
-    notifyListeners();
-  }
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
 
-  void setCheckBoxValue1() {
-    isCheckBoxChecked1 = !isCheckBoxChecked1;
-    notifyListeners();
-  }
+  HouseKeepingTypeModel? houseServiceTypeModel;
 
-  void setCheckBoxValue2() {
-    isCheckBoxChecked2 = !isCheckBoxChecked2;
+  Future<void> getServiceName(String serviceId) async {
+    _isLoading = true;
     notifyListeners();
-  }
+    ApiResponse apiResponse = await houseKeepingRepo.getServiceName(serviceId);
+    _isLoading = false;
 
-  void setCheckBoxValue3() {
-    isCheckBoxChecked2 = !isCheckBoxChecked3;
-    notifyListeners();
-  }
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      print('inside commercial 200');
+      print(apiResponse.response!.data);
 
-  void setCheckBoxValue4() {
-    isCheckBoxChecked4 = !isCheckBoxChecked4;
-    notifyListeners();
-  }
-
-  void setCheckBoxValue5() {
-    isCheckBoxChecked5 = !isCheckBoxChecked5;
-    notifyListeners();
-  }
-
-  void setCheckBoxValue6() {
-    isCheckBoxChecked6 = !isCheckBoxChecked6;
+      final commercialServiceType =
+          HouseKeepingTypeModel.fromJson(apiResponse.response!.data);
+      houseServiceTypeModel = commercialServiceType;
+    }
     notifyListeners();
   }
 }

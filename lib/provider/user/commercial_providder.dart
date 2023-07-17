@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:glossy_flossy/models/common/commercial_service_type_model.dart';
+import 'package:glossy_flossy/models/user/commercial_service_type_model.dart';
 import 'package:glossy_flossy/provider/user/repo/commercial_repo.dart';
 import 'package:glossy_flossy/utils/api_response.dart';
 import 'package:image_picker/image_picker.dart';

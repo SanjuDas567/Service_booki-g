@@ -3,8 +3,10 @@ import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
 
 import 'package:glossy_flossy/models/user/service_type_model.dart';
+import 'package:glossy_flossy/provider/user/vehicle_booking_provider.dart';
 import 'package:glossy_flossy/screen/user/vehicle_wash_booking/widgets/service_selection_check_box.dart';
 import 'package:glossy_flossy/utils/images.dart';
+import 'package:provider/provider.dart';
 
 class VehicleWashBooking extends StatelessWidget {
   ServiceData data;
@@ -18,6 +20,12 @@ class VehicleWashBooking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final vehicleProvider =
+          Provider.of<VehicleBookingProvider>(context, listen: false);
+
+      vehicleProvider.getServiceName(data.typeSlno.toString());
+    });
     print(data.typeSlno);
     return Scaffold(
         backgroundColor: Colors.black,
@@ -64,7 +72,7 @@ class VehicleWashBooking extends StatelessWidget {
               locale: 'en_ISO',
             )),
             SliverToBoxAdapter(
-              child: CheckBoxDemo(),
+              child: CheckBoxVehicle(),
             ),
             SliverToBoxAdapter(
               child: SizedBox(
@@ -125,7 +133,7 @@ class VehicleWashBooking extends StatelessWidget {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ));
   }

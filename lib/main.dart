@@ -8,6 +8,7 @@ import 'package:glossy_flossy/provider/user/house_keeping_provider.dart';
 import 'package:glossy_flossy/provider/user/login_provider_user.dart';
 import 'package:glossy_flossy/provider/user/register_provider_user.dart';
 import 'package:glossy_flossy/provider/user/review_screen_provider.dart';
+import 'package:glossy_flossy/provider/user/vehicle_booking_provider.dart';
 import 'package:glossy_flossy/provider/worker/home_screen_worker_provider.dart';
 import 'package:glossy_flossy/provider/worker/login_provider_worker.dart';
 import 'package:glossy_flossy/provider/worker/register_screen_provider_worker.dart';
@@ -32,7 +33,7 @@ void main() async {
         create: (context) => di.sl<HomeScreenProvider>(),
       ),
       ChangeNotifierProvider(
-        create: (context) => HouseKeepingProviderUser(),
+        create: (context) => di.sl<HouseKeepingProvider>(),
       ),
       ChangeNotifierProvider(
         create: (context) => AddNewVehicleProvider(),
@@ -45,6 +46,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => di.sl<CommercialBookingProvider>(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => di.sl<VehicleBookingProvider>(),
       ),
       ////
       ////

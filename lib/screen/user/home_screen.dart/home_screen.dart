@@ -132,7 +132,9 @@ class HomeScreen extends StatelessWidget {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      HouseKeepingBookingScreen(),
+                                                      HouseKeepingBookingScreen(
+                                                        data: serviceType.data[1],
+                                                      ),
                                                 ),
                                               );
                                             },

@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:glossy_flossy/provider/user/house_keeping_provider.dart';
+import 'package:glossy_flossy/screen/user/housekeeping_booking/widgets/check_box_code.dart';
+import 'package:provider/provider.dart';
 
-class CheckboxWithTitle extends StatelessWidget {
-  final bool isChecked;
-  final ValueChanged? onChanged;
-  final String title;
-
-  const CheckboxWithTitle({
-    required this.isChecked,
-    required this.onChanged,
-    required this.title,
-  });
+class HouseKeepingCheckBox extends StatelessWidget {
+  const HouseKeepingCheckBox({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return CheckboxListTile(
-        activeColor: Colors.yellow,
-        checkColor: Colors.black,
-        title: Text(
-          title,
-          style: TextStyle(color: Colors.white),
-        ),
-        value: isChecked,
-        onChanged: onChanged);
+    return Consumer<HouseKeepingProvider>(
+      builder: (context, houseKeepingProvider, child) {
+        return houseKeepingProvider.isLoading
+            ? Center(
+                child: CircularProgressIndicator(
+                  color: Colors.yellow,
+                ),
+              )
+            : CheckBoxCode();
+      },
+    );
   }
 }
