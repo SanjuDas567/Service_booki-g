@@ -1,4 +1,10 @@
 class AppConstants {
+  // paypal constants :---------------------------------------------------------
+  static const String Client_ID =
+      'AcCjTwuC1Z_GPEsatEn0DPzZg-P2yfiIoa9VIW51m6iWWv5CSMtUWiXFP7nJDwhqRrwmx23Q8qZBv8K7';
+  static const String Secret_KEY = 'EJ3OGhH4uIXQRiUerBwsD_16WtC_0AupINQHz7Yl4OPreim235u7oyI0nIoDeDPaaRIefig_h_KfKHe3';
+  // paypal constants :---------------------------------------------------------
+
   static const String APP_NAME = 'Glossy Flossy';
   static const String TOKEN = '';
   static const String BASE_URL = 'http://143.198.103.241:5000/';

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_paypal/flutter_paypal.dart';
+import 'package:glossy_flossy/utils/app_constants.dart';
 import 'package:glossy_flossy/utils/images.dart';
 import 'package:nb_utils/nb_utils.dart'; //https://pub.dev/packages/nb_utils
 
@@ -138,7 +140,68 @@ class _NotificationExpantionPanelState
                       onPrimary: Colors.yellow, // foreground
                     ),
                     onPressed: () {
-                      print('Pay button pressed');
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => UsePaypal(
+                              sandboxMode: true,
+                              clientId: AppConstants.Client_ID,
+                              secretKey: AppConstants.Secret_KEY,
+                              returnURL: "https://example.com/return",
+                              cancelURL: "https://example.com/cancel",
+                              transactions: const [
+                                {
+                                  "amount": {
+                                    "total": '50',
+                                    "currency": "USD",
+                                    "details": {
+                                      "subtotal": '50',
+                                      "shipping": '0',
+                                      "shipping_discount": 0
+                                    }
+                                  },
+                                  "description":
+                                      "The payment transaction description.",
+                                  // "payment_options": {
+                                  //   "allowed_payment_method":
+                                  //       "INSTANT_FUNDING_SOURCE"
+                                  // },
+                                  "item_list": {
+                                    "items": [
+                                      {
+                                        "name": "A demo product",
+                                        "quantity": 1,
+                                        "price": '50',
+                                        "currency": "USD"
+                                      }
+                                    ],
+
+                                    // shipping address is not required though
+                                    // "shipping_address": {
+                                    //   "recipient_name": "Jane Foster",
+                                    //   "line1": "Travis County",
+                                    //   "line2": "",
+                                    //   "city": "Austin",
+                                    //   "country_code": "US",
+                                    //   "postal_code": "73301",
+                                    //   "phone": "+00000000",
+                                    //   "state": "Texas"
+                                    // },
+                                  }
+                                }
+                              ],
+                              note:
+                                  "Contact us for any questions on your order.",
+                              onSuccess: (Map params) async {
+                                print("onSuccess: $params");
+                              },
+                              onError: (error) {
+                                print("onError: $error");
+                              },
+                              onCancel: (params) {
+                                print('cancelled: $params');
+                              }),
+                        ),
+                      );
                     },
                     child: Text(
                       'Pay',
@@ -160,15 +223,5 @@ class _NotificationExpantionPanelState
         ),
       ),
     );
-
-    // ListView.builder(
-    //   padding: EdgeInsets.only(bottom: 30, top: 26),
-    //   physics: NeverScrollableScrollPhysics(),
-    //   shrinkWrap: true,
-    //   itemCount: 20,
-    //   itemBuilder: (context, index) {
-    //     return
-    //   },
-    // );
   }
 }
