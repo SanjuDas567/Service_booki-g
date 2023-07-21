@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:glossy_flossy/models/user/user_registration_model.dart';
 import 'package:glossy_flossy/provider/user/register_provider_user.dart';
-import 'package:glossy_flossy/provider/user/repo/auth_repo_user.dart';
 import 'package:glossy_flossy/screen/user/login_page/login_page.dart';
-import 'package:glossy_flossy/utils/app_constants.dart';
 // import 'package:glossy_flossy/screen/user/register_page/widgets/date_picker.dart';
 import 'package:glossy_flossy/utils/images.dart';
 // import 'package:glossy_flossy/widgets/custom_password_field.dart';

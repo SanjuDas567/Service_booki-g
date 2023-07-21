@@ -1,6 +1,9 @@
 import 'dart:io';
 
+
 import 'package:flutter/material.dart';
+import 'package:glossy_flossy/models/user/form_data/house_keeping_booking_response.dart';
+import 'package:glossy_flossy/models/user/house_keep_booking_response_model.dart';
 import 'package:glossy_flossy/models/user/house_keeping_model.dart';
 import 'package:glossy_flossy/utils/api_response.dart';
 import 'package:image_picker/image_picker.dart';
@@ -207,5 +210,35 @@ class HouseKeepingProvider extends ChangeNotifier {
       houseServiceTypeModel = commercialServiceType;
     }
     notifyListeners();
+  }
+
+// house keep booking api :-----------------------------------------------------
+
+  bool _isBookingLoading = false;
+  bool get isBookingLoading => _isBookingLoading;
+
+  HouseKeepResponse? houseKeepResponse;
+
+  Future<void> houseKeepBooking(
+      HouseKeepBookingModel houseKeepBookingModel, Function callback) async {
+    try {
+      _isBookingLoading = true;
+      notifyListeners();
+      ApiResponse apiResponse =
+          await houseKeepingRepo.houseKeepBooking(houseKeepBookingModel);
+      _isBookingLoading = false;
+      if (apiResponse.response != null &&
+          apiResponse.response!.statusCode == 200) {
+        print('inside house keep booking 200');
+        final houseKeepResponsedata =
+            HouseKeepResponse.fromJson(apiResponse.response!.data);
+
+        houseKeepResponse = houseKeepResponsedata;
+        print(houseKeepResponse!.message);
+
+        callback(true, );
+
+      }
+    } catch (e) {}
   }
 }

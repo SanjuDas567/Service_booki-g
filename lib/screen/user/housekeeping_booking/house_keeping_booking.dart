@@ -1,5 +1,6 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:glossy_flossy/models/user/form_data/house_keeping_booking_response.dart';
 import 'package:glossy_flossy/models/user/service_type_model.dart';
 import 'package:glossy_flossy/provider/user/house_keeping_provider.dart';
 import 'package:glossy_flossy/screen/user/housekeeping_booking/widgets/check_box.dart';
@@ -7,11 +8,18 @@ import 'package:glossy_flossy/utils/images.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
-class HouseKeepingBookingScreen extends StatelessWidget {
+class HouseKeepingBookingScreen extends StatefulWidget {
   ServiceData data;
   HouseKeepingBookingScreen({required this.data});
 
+  @override
+  State<HouseKeepingBookingScreen> createState() =>
+      _HouseKeepingBookingScreenState();
+}
+
+class _HouseKeepingBookingScreenState extends State<HouseKeepingBookingScreen> {
   bool isChecked = false;
+
   bool isCheckBoxChecked = false;
 
   void toggleCheckbox() {
@@ -22,7 +30,7 @@ class HouseKeepingBookingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       final commercialProvider =
           Provider.of<HouseKeepingProvider>(context, listen: false);
       commercialProvider.updateCheckbox1(false);
@@ -38,9 +46,7 @@ class HouseKeepingBookingScreen extends StatelessWidget {
       commercialProvider.clearGuteringCleaningImages();
       commercialProvider.clearDrivewayImages();
 
-      commercialProvider.getServiceName(
-        data.typeSlno.toString()
-      );
+      commercialProvider.getServiceName(widget.data.typeSlno.toString());
     });
     return Scaffold(
       backgroundColor: Colors.black,
@@ -100,11 +106,68 @@ class HouseKeepingBookingScreen extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(
-            child: HouseKeepingCheckBox()
+            child: HouseKeepingCheckBox(),
           ),
-        
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 30,
+                ),
+                InkWell(
+                  onTap: () {
+                    bookService(context);
+                  },
+                  child: Container(
+                    height: 40,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.yellow),
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        'Book wash',
+                        style: TextStyle(color: Colors.yellow),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
+  }
+
+  void bookService(BuildContext context) async {
+    final houseKeepingProvider =
+        Provider.of<HouseKeepingProvider>(context, listen: false);
+    print(houseKeepingProvider.sofaValetImages[0].uri);
+    HouseKeepBookingModel houseKeepBookingModel = HouseKeepBookingModel();
+    houseKeepBookingModel.serNameSlno = 1;
+    houseKeepBookingModel.userId = "1";
+    houseKeepBookingModel.servTypeSlno = "1";
+    // houseKeepBookingModel.servImage = houseKeepingProvider.sofaValetImages;
+    houseKeepBookingModel.servTime = "01:00:00";
+    houseKeepBookingModel.servDate = "2023-05-23";
+    houseKeepBookingModel.servLocation = "london";
+    houseKeepBookingModel.vehicleId = "54355";
+    houseKeepBookingModel.vehicleName = "Mustang";
+    await houseKeepingProvider.houseKeepBooking(houseKeepBookingModel, route);
+  }
+
+  route(bool isRoute, String errorMessage) async {
+    print('inside route');
+    print(errorMessage);
+
+    if (isRoute) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(errorMessage),
+        backgroundColor: Colors.green,
+      ));
+    }
   }
 }

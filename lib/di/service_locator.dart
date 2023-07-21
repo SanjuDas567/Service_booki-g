@@ -15,6 +15,8 @@ import 'package:glossy_flossy/provider/user/repo/house_keeping_repo.dart';
 import 'package:glossy_flossy/provider/user/repo/register_repo.dart';
 import 'package:glossy_flossy/provider/user/repo/vehicle_repo.dart';
 import 'package:glossy_flossy/provider/user/vehicle_booking_provider.dart';
+import 'package:glossy_flossy/provider/worker/register_screen_provider_worker.dart';
+import 'package:glossy_flossy/provider/worker/repo/register_screen_repo.dart';
 import 'package:glossy_flossy/utils/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -45,4 +47,8 @@ Future<void> setup() async {
   sl.registerLazySingleton(() => VehicleRepo(dioClient: sl()));
   sl.registerFactory(() => HouseKeepingProvider(houseKeepingRepo: sl()));
   sl.registerLazySingleton(() => HouseKeepingRepo(dioClient: sl()));
+
+  // Worker :-------------------------------------------------------------------
+  sl.registerFactory(() => RegisterWorkerProvider(workerRegisterRepo: sl()));
+  sl.registerLazySingleton(() => WorkerRegisterRepo(dioClient: sl()));
 }

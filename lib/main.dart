@@ -77,7 +77,7 @@ void main() async {
         create: (context) => WorkerDetailsProvider(),
       ),
       ChangeNotifierProvider(
-        create: (context) => RegisterWorkerProvider(),
+        create: (context) => di.sl<RegisterWorkerProvider>(),
       )
       ////
       ////
