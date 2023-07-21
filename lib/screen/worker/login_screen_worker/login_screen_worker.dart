@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:glossy_flossy/provider/worker/login_provider_worker.dart';
+import 'package:glossy_flossy/models/worker/form_data/worker_login_model.dart';
+import 'package:glossy_flossy/provider/worker/auth_provider_worker.dart';
 import 'package:glossy_flossy/screen/worker/main_screen/main_screen_worker.dart';
 import 'package:glossy_flossy/screen/worker/register_screen/register_screeen_worker.dart';
 import 'package:glossy_flossy/utils/images.dart';
 import 'package:provider/provider.dart';
 
-class LoginPageWorker extends StatelessWidget {
+class LoginPageWorker extends StatefulWidget {
   LoginPageWorker({super.key});
 
+  @override
+  State<LoginPageWorker> createState() => _LoginPageWorkerState();
+}
+
+class _LoginPageWorkerState extends State<LoginPageWorker> {
   final _passwordController = TextEditingController();
 
   final _emailController = TextEditingController();
@@ -21,7 +27,7 @@ class LoginPageWorker extends StatelessWidget {
       body: SafeArea(
         child: Form(
           key: _formKey,
-          child: Consumer<LoginProviderWorker>(
+          child: Consumer<AuthProviderWorker>(
             builder: (context, loginProviderWorker, child) {
               return SingleChildScrollView(
                 child: Column(
@@ -159,46 +165,41 @@ class LoginPageWorker extends StatelessWidget {
                           const SizedBox(
                             height: 30,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: InkWell(
-                              onTap: () {
-                                print('sign up button pressed');
-                                if (_emailController.text.trim() == 'worker' &&
-                                    _passwordController.text.trim() ==
-                                        'worker') {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => MainScreenWorker(),
-                                    ),
-                                  );
-                                } else {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          RegisterScreenWorker(),
-                                    ),
-                                  );
-                                }
-                              },
-                              child: Container(
-                                height: 40,
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.yellow),
-                                  color: Colors.black,
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: const Center(
-                                  child: Text(
-                                    'Sign In',
-                                    style: TextStyle(color: Colors.yellow),
-                                  ),
-                                ),
-                              ),
-                            ),
+                          Consumer<AuthProviderWorker>(
+                            builder: (context, authProviderWorker, child) {
+                              return authProviderWorker.isWorkerLoginLoading
+                                  ? CircularProgressIndicator(
+                                      color: Colors.yellow,
+                                    )
+                                  : Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: InkWell(
+                                        onTap: () {
+                                          print('sign up button pressed');
+                                          loginWorker(context);
+                                        },
+                                        child: Container(
+                                          height: 40,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: Colors.yellow),
+                                            color: Colors.black,
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                          child: const Center(
+                                            child: Text(
+                                              'Sign In',
+                                              style: TextStyle(
+                                                  color: Colors.yellow),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                            },
                           )
                         ],
                       ),
@@ -251,9 +252,9 @@ class LoginPageWorker extends StatelessWidget {
                             ' create a new account',
                             style: TextStyle(color: Colors.yellow),
                           ),
-                        )
+                        ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               );
@@ -262,5 +263,94 @@ class LoginPageWorker extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool isEmailValid(String email) {
+    // Define the regular expression pattern for email validation
+    RegExp emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    return emailRegExp.hasMatch(email);
+  }
+
+  // bool isPasswordValid(String password) {
+  RegExp threeNumbersRegExp = RegExp(r'^\D*\d{3}\D*$');
+
+  void loginWorker(BuildContext context) async {
+    if (_formKey.currentState!.validate()) {
+      FocusManager.instance.primaryFocus?.unfocus();
+      _formKey.currentState!.save();
+
+      String email = _emailController.text.trim();
+      String password = _passwordController.text.trim();
+
+      if (email.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Email must be required'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!isEmailValid(email)) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Invalid email format'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (password.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must be required'),
+          backgroundColor: Colors.red,
+        ));
+      }
+      // else if (!isPasswordValid(password)) {
+      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: Text('Invalid password format'),
+      //     backgroundColor: Colors.red,
+      //   ));
+      // }
+      else if (password.length < 8) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must be at least 8 characters long'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!password.contains(RegExp(r'[A-Z]'))) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must contain at least one uppercase letter'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!password.contains(RegExp(r'[a-z]'))) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must contain at least one lowercase letter'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!threeNumbersRegExp.hasMatch(password)) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must contain exactly 3 numbers'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!password.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must contain at least one special character'),
+          backgroundColor: Colors.red,
+        ));
+      } else {
+        LoginModelWorker loginModelWorker = LoginModelWorker();
+        loginModelWorker.email = email;
+        loginModelWorker.password = password;
+        Provider.of<AuthProviderWorker>(context, listen: false)
+            .workerLogin(loginModelWorker, route);
+      }
+    }
+  }
+
+  route(bool isRoute, String errorMessage) async {
+    if (isRoute) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(errorMessage),
+        backgroundColor: Colors.green,
+      ));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MainScreenWorker(),
+        ),
+      );
+    }
   }
 }

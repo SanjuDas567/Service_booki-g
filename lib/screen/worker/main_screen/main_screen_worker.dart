@@ -33,156 +33,161 @@ class _MainScreenWorkerState extends State<MainScreenWorker> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-        backgroundColor: Colors.black,
-        child: ListView(
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(color: Colors.yellow),
-              curve: Curves.easeInOutCubicEmphasized,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage(Images.PROFILE_IMAGE),
-                  ),
-                  Text('User name'),
-                  Text('user@gmail.com'),
-                ],
-              ),
-            ),
-            ListTile(
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => ChatListScreen(),
-                //   ),
-                // );
-              },
-              leading: const Icon(
-                Icons.chat,
-                color: Colors.white,
-              ),
-              title: const Text(
-                'Chat',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            ListTile(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ServiceHistoryWorker(),
-                  ),
-                );
-              },
-              title: Text(
-                'Work Hiistory',
-                style: TextStyle(color: Colors.white),
-              ),
-              leading: Icon(
-                Icons.history,
-                color: Colors.white,
-              ),
-            ),
-          ],
-        ),
-      ),
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Image.asset(
-          Images.GLOSSY_FLOSSY_LOGO,
-          height: 35,
-        ),
-        actions: [
-          Stack(
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        drawer: Drawer(
+          backgroundColor: Colors.black,
+          child: ListView(
             children: [
-              IconButton(
-                icon: const Icon(Icons.notifications),
-                tooltip: 'Notification',
-                onPressed: () {
+              const DrawerHeader(
+                decoration: BoxDecoration(color: Colors.yellow),
+                curve: Curves.easeInOutCubicEmphasized,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: AssetImage(Images.PROFILE_IMAGE),
+                    ),
+                    Text('User name'),
+                    Text('user@gmail.com'),
+                  ],
+                ),
+              ),
+              ListTile(
+                onTap: () {
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => ChatListScreen(),
+                  //   ),
+                  // );
+                },
+                leading: const Icon(
+                  Icons.chat,
+                  color: Colors.white,
+                ),
+                title: const Text(
+                  'Chat',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              ListTile(
+                onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const NotificationScreenWorker(),
+                      builder: (context) => ServiceHistoryWorker(),
                     ),
                   );
                 },
+                title: Text(
+                  'Work Hiistory',
+                  style: TextStyle(color: Colors.white),
+                ),
+                leading: Icon(
+                  Icons.history,
+                  color: Colors.white,
+                ),
               ),
-              const Positioned(
-                right: 12,
-                top: 12,
-                child: CircleAvatar(
-                  radius: 5.5,
-                  backgroundColor: Colors.yellow,
-                  child: Center(
-                    child: Text(
-                      '6',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 11,
+            ],
+          ),
+        ),
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          title: Image.asset(
+            Images.GLOSSY_FLOSSY_LOGO,
+            height: 35,
+          ),
+          actions: [
+            Stack(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.notifications),
+                  tooltip: 'Notification',
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NotificationScreenWorker(),
+                      ),
+                    );
+                  },
+                ),
+                const Positioned(
+                  right: 12,
+                  top: 12,
+                  child: CircleAvatar(
+                    radius: 5.5,
+                    backgroundColor: Colors.yellow,
+                    child: Center(
+                      child: Text(
+                        '6',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 11,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              )
-            ],
-          ),
-        ],
-        centerTitle: true,
+                )
+              ],
+            ),
+          ],
+          centerTitle: true,
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          iconSize: 21,
+          selectedItemColor: Colors.yellow,
+          currentIndex: _selectedScreenIndex,
+          backgroundColor: Colors.black,
+          // unselectedLabelStyle: TextStyle(color: Colors.white),
+          onTap: _selectScreen,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+                color: Colors.white,
+              ),
+              label: 'Home',
+              activeIcon: Icon(Icons.home_rounded),
+              // backgroundColor: Colors.white24,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.miscellaneous_services_outlined,
+                color: Colors.white,
+              ),
+              activeIcon: Icon(Icons.miscellaneous_services_outlined),
+              label: 'Payment',
+              // backgroundColor: Colors.white24,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.work_outline,
+                color: Colors.white,
+              ),
+              label: 'Work',
+              activeIcon: Icon(Icons.work_outlined),
+              // backgroundColor: Colors.white24,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.person_outline_sharp,
+                color: Colors.white,
+              ),
+              label: 'Profile',
+              activeIcon: Icon(Icons.person_rounded),
+              // backgroundColor: Colors.white24,
+            ),
+          ],
+        ),
+        body: _screens[_selectedScreenIndex]["screen"],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        iconSize: 21,
-        selectedItemColor: Colors.yellow,
-        currentIndex: _selectedScreenIndex,
-        backgroundColor: Colors.black,
-        // unselectedLabelStyle: TextStyle(color: Colors.white),
-        onTap: _selectScreen,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              color: Colors.white,
-            ),
-            label: 'Home',
-            activeIcon: Icon(Icons.home_rounded),
-            // backgroundColor: Colors.white24,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.miscellaneous_services_outlined,
-              color: Colors.white,
-            ),
-            activeIcon: Icon(Icons.miscellaneous_services_outlined),
-            label: 'Payment',
-            // backgroundColor: Colors.white24,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.work_outline,
-              color: Colors.white,
-            ),
-            label: 'Work',
-            activeIcon: Icon(Icons.work_outlined),
-            // backgroundColor: Colors.white24,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person_outline_sharp,
-              color: Colors.white,
-            ),
-            label: 'Profile',
-            activeIcon: Icon(Icons.person_rounded),
-            // backgroundColor: Colors.white24,
-          ),
-        ],
-      ),
-      body: _screens[_selectedScreenIndex]["screen"],
     );
   }
 }

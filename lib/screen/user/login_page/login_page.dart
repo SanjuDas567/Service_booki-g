@@ -195,25 +195,6 @@ class _LoginPageState extends State<LoginPage> {
                                     onTap: () {
                                       print('sign up button pressed');
                                       loginUser(context);
-                                      // if (_emailController.text.trim() ==
-                                      //         'sanju' &&
-                                      //     _passwordController.text.trim() ==
-                                      //         'sanju') {
-                                      //   Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //       builder: (context) => MainScreen(),
-                                      //     ),
-                                      //   );
-                                      // } else {
-                                      //   Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //       builder: (context) =>
-                                      //           RegisterPage(),
-                                      //     ),
-                                      //   );
-                                      // }
                                     },
                                     child: Container(
                                       height: 40,

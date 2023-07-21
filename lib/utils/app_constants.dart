@@ -21,4 +21,5 @@ class AppConstants {
 
   //worker section :------------------------------------------------------------
   static const String WORKER_REGISTRATION_URI = 'api/employee/empInsert';
+  static const String WORKER_LOGIN_URI = 'api/employee/empLogin';
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:glossy_flossy/models/admin/form_data/worker_register_model.dart';
+import 'package:glossy_flossy/models/worker/form_data/worker_register_model.dart';
 import 'package:glossy_flossy/provider/worker/register_screen_provider_worker.dart';
 import 'package:glossy_flossy/screen/worker/login_screen_worker/login_screen_worker.dart';
 import 'package:glossy_flossy/screen/worker/register_screen/widgets/email_field.dart';
@@ -49,6 +49,7 @@ class _RegisterScreenWorkerState extends State<RegisterScreenWorker> {
           SliverAppBar(
             backgroundColor: ColorResources.GLOSSY_FLOSSY_BLACK,
             title: Text('Register'),
+            pinned: true,
           ),
           SliverToBoxAdapter(
             child: Form(
@@ -317,6 +318,8 @@ class _RegisterScreenWorkerState extends State<RegisterScreenWorker> {
       String isuenceId = _insuranceIdController.text.trim();
       String triningCourse = _traingCourceController.text.trim();
 
+      RegExp threeNumbersRegExp = RegExp(r'^\D*\d{3}\D*$');
+
       if (empFirstname.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('First name must be required'),
@@ -335,6 +338,31 @@ class _RegisterScreenWorkerState extends State<RegisterScreenWorker> {
       } else if (empPassword.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Password must be required'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (empPassword.length < 8) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must be at least 8 characters long'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!empPassword.contains(RegExp(r'[A-Z]'))) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must contain at least one uppercase letter'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!empPassword.contains(RegExp(r'[a-z]'))) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must contain at least one lowercase letter'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!threeNumbersRegExp.hasMatch(empPassword)) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must contain exactly 3 numbers'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!empPassword.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must contain at least one special character'),
           backgroundColor: Colors.red,
         ));
       } else if (empPhone.isEmpty) {

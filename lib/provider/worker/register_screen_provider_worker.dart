@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:glossy_flossy/models/admin/form_data/worker_register_model.dart';
-import 'package:glossy_flossy/models/admin/worker_register_responce_model.dart';
+import 'package:glossy_flossy/models/worker/form_data/worker_register_model.dart';
+import 'package:glossy_flossy/models/worker/worker_register_responce_model.dart';
 import 'package:glossy_flossy/provider/worker/repo/register_screen_repo.dart';
 import 'package:glossy_flossy/utils/api_response.dart';
 
