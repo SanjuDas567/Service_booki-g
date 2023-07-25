@@ -12,8 +12,8 @@ class LoginModelWorker {
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['email'] = email;
-    data['user_pasword'] = password;
+    data['emp_email'] = email;
+    data['emp_password'] = password;
     return data;
   }
 }

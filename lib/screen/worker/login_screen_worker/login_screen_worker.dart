@@ -168,8 +168,11 @@ class _LoginPageWorkerState extends State<LoginPageWorker> {
                           Consumer<AuthProviderWorker>(
                             builder: (context, authProviderWorker, child) {
                               return authProviderWorker.isWorkerLoginLoading
-                                  ? CircularProgressIndicator(
-                                      color: Colors.yellow,
+                                  ? Padding(
+                                      padding: const EdgeInsets.all(12),
+                                      child: CircularProgressIndicator(
+                                        color: Colors.yellow,
+                                      ),
                                     )
                                   : Padding(
                                       padding: const EdgeInsets.all(10),
@@ -351,6 +354,11 @@ class _LoginPageWorkerState extends State<LoginPageWorker> {
           builder: (context) => MainScreenWorker(),
         ),
       );
+    } else if (isRoute == false) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(errorMessage),
+        backgroundColor: Colors.red,
+      ));
     }
   }
 }

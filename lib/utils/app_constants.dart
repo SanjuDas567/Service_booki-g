@@ -16,6 +16,7 @@ class AppConstants {
   static const String SERVICE_TYPE_URI = 'api/getservicetype/gettype';
   static const String USER_NAME = 'Name';
   static const String USER_ID = '0';
+  static const String USER_TYPE = '.0';
   static const String SERVICE_NAME_URI = 'api/getservicetype/servicename/';
   static const String HOME_SERVICE_BOOKING_URI = 'api/servReg/insert';
 

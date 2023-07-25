@@ -94,6 +94,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final token =
         Provider.of<AuthProvider>(context, listen: false).getUserToken();
+    final wtoken = Provider.of<AuthProviderWorker>(context, listen: false)
+        .getWorkerToken();
+    final wType =
+        Provider.of<AuthProviderWorker>(context, listen: false).getWorkerType();
+    print("user token NNNN : ${token} \n worker token NNNN : ${wtoken} ");
     return MaterialApp(
       title: 'Glossy Flossy',
       debugShowCheckedModeBanner: false,

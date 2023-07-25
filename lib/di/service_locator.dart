@@ -54,5 +54,6 @@ Future<void> setup() async {
   sl.registerFactory(() => RegisterWorkerProvider(workerRegisterRepo: sl()));
   sl.registerLazySingleton(() => WorkerRegisterRepo(dioClient: sl()));
   sl.registerFactory(() => AuthProviderWorker(authWorkerRepo: sl()));
-  sl.registerLazySingleton(() => AuthWorkerRepo(dioClient: sl()));
+  sl.registerLazySingleton(
+      () => AuthWorkerRepo(dioClient: sl(), sharedPreferences: sl()));
 }

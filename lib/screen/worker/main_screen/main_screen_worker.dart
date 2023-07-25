@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:glossy_flossy/provider/worker/auth_provider_worker.dart';
+import 'package:glossy_flossy/screen/common/user_selection_screeen/user_selection_screen.dart';
 import 'package:glossy_flossy/screen/worker/home_screen/home_screen_worker.dart';
 import 'package:glossy_flossy/screen/worker/income_screen/income_screen.dart';
 import 'package:glossy_flossy/screen/worker/notification_screen/notification_screen_worker.dart';
@@ -6,6 +8,7 @@ import 'package:glossy_flossy/screen/worker/profile_screen/profile_screen_worker
 import 'package:glossy_flossy/screen/worker/servise_history/service_history_worker.dart';
 import 'package:glossy_flossy/screen/worker/work_screen/work_locaton_screen.dart';
 import 'package:glossy_flossy/utils/images.dart';
+import 'package:provider/provider.dart';
 
 class MainScreenWorker extends StatefulWidget {
   MainScreenWorker({super.key});
@@ -85,11 +88,34 @@ class _MainScreenWorkerState extends State<MainScreenWorker> {
                   );
                 },
                 title: Text(
-                  'Work Hiistory',
+                  'Work History',
                   style: TextStyle(color: Colors.white),
                 ),
                 leading: Icon(
                   Icons.history,
+                  color: Colors.white,
+                ),
+              ),
+              ListTile(
+                onTap: () async {
+                  final isClear = await Provider.of<AuthProviderWorker>(context,
+                          listen: false)
+                      .clearAllWorkerData();
+                  isClear
+                      ? await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UserSelectionScreen(),
+                          ),
+                        )
+                      : null;
+                },
+                title: Text(
+                  'LogOut',
+                  style: TextStyle(color: Colors.white),
+                ),
+                leading: Icon(
+                  Icons.logout_outlined,
                   color: Colors.white,
                 ),
               ),
