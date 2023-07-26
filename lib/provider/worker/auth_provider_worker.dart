@@ -47,6 +47,8 @@ class AuthProviderWorker extends ChangeNotifier {
               workerLoginApiResponse200Model!.message[0].empLastname);
       authWorkerRepo.saveWorkerId(
           workerLoginApiResponse200Model!.message[0].empId.toString());
+      authWorkerRepo.saveWorkerType(
+          workerLoginApiResponse200Model!.message[0].appUser.toString());
       callback(true, 'Worker login sucessfull');
       notifyListeners();
     } else if (apiResponse.response!.statusCode == 203) {

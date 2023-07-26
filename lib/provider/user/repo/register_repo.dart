@@ -48,26 +48,19 @@ class RegisterRepo {
     //   }
     // }
     try {
-  print('inside try');
-  print(registerModel.email);
+      print('inside try');
+      print(registerModel.email);
+      print(registerModel.userPasword);
+      final response = await dioClient.post(
+        AppConstants.REGISTER_URL,
+        data: registerModel.toJson(),
+      );
 
-  final response = await dioClient.post(
-    AppConstants.REGISTER_URL,
-    options: Options(
-      responseType: ResponseType.json,
-    ),
-    data: registerModel.toJson(),
-  );
-  
-  return ApiResponse.withSuccess(response);
-} catch (e, stackTrace) {
-  print('inside catch $e');
-  print(stackTrace);
-
-  return ApiResponse.withError(
-    ApiErrorHandler.getMessage(e),
-  );
-}
-
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(
+        ApiErrorHandler.getMessage(e),
+      );
+    }
   }
 }

@@ -14,6 +14,7 @@ import 'package:glossy_flossy/provider/worker/auth_provider_worker.dart';
 import 'package:glossy_flossy/provider/worker/register_screen_provider_worker.dart';
 import 'package:glossy_flossy/provider/worker/worker_details_provider_worker.dart';
 import 'package:glossy_flossy/screen/user/main_screen.dart/main_screen.dart';
+import 'package:glossy_flossy/screen/worker/main_screen/main_screen_worker.dart';
 import 'package:glossy_flossy/splash_screen.dart';
 import 'package:glossy_flossy/screen/common/user_selection_screeen/user_selection_screen.dart';
 import 'package:provider/provider.dart';
@@ -92,21 +93,24 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final token =
-        Provider.of<AuthProvider>(context, listen: false).getUserToken();
+    final uType =
+        Provider.of<AuthProvider>(context, listen: false).getUserType();
     final wtoken = Provider.of<AuthProviderWorker>(context, listen: false)
         .getWorkerToken();
     final wType =
         Provider.of<AuthProviderWorker>(context, listen: false).getWorkerType();
-    print("user token NNNN : ${token} \n worker token NNNN : ${wtoken} ");
+    print(
+        "token NNNN : $wtoken \n user type token NNNN : $uType \n worker type TTTT: $wType");
     return MaterialApp(
       title: 'Glossy Flossy',
       debugShowCheckedModeBanner: false,
       home: SplashScreen(
         duration: 3, // Duration in seconds for splash screen to be displayed
-        navigateAfterSplash: token == ''
-            ? UserSelectionScreen()
-            : MainScreen(), // Your main app screen
+        navigateAfterSplash: uType == '1'
+            ? MainScreen()
+            : wType == '2'
+                ? MainScreenWorker()
+                : UserSelectionScreen(), // Your main app screen
       ),
     );
   }

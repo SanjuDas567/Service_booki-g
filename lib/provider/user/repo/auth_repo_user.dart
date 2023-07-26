@@ -47,11 +47,11 @@ class AuthRepoUser {
     return sharedPreferences.getString(AppConstants.TOKEN) ?? "";
   }
 
-   Future<void> saveUserName(String userName) {
+  Future<void> saveUserName(String userName) {
     return sharedPreferences.setString(AppConstants.USER_NAME, userName);
   }
 
-  String getUserName(){
+  String getUserName() {
     return sharedPreferences.getString(AppConstants.USER_NAME) ?? "";
   }
 
@@ -59,8 +59,16 @@ class AuthRepoUser {
     return sharedPreferences.setString(AppConstants.USER_ID.toString(), userId);
   }
 
-  String getUserId(){
+  String getUserId() {
     return sharedPreferences.getString(AppConstants.USER_ID.toString()) ?? "";
+  }
+
+  Future<void> saveUserType(String userType) {
+    return sharedPreferences.setString(AppConstants.USER_TYPE, userType);
+  }
+
+  String getUserType() {
+    return sharedPreferences.getString(AppConstants.USER_TYPE)?? "";
   }
 
   Future<bool> clearAllData() async {
@@ -69,5 +77,4 @@ class AuthRepoUser {
     // sharedPreferences.remove(AppConstants.IS_BUYER);
     return true;
   }
-
 }

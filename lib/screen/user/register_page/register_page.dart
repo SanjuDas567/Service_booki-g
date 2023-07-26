@@ -228,6 +228,13 @@ class _RegisterPageState extends State<RegisterPage> {
       String address = _addressController.text.trim();
       String userPassword = _passwordController.text.trim();
 
+      RegExp threeNumbersRegExp = RegExp(r'^\D*\d{3}\D*$');
+      bool isEmailValid(String email) {
+        // Define the regular expression pattern for email validation
+        RegExp emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+        return emailRegExp.hasMatch(email);
+      }
+
       if (userFname.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('First name must be required'),
@@ -241,6 +248,11 @@ class _RegisterPageState extends State<RegisterPage> {
       } else if (email.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Email must be required'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!isEmailValid(email)) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Invalid email format'),
           backgroundColor: Colors.red,
         ));
       } else if (phone.isEmpty) {
@@ -258,15 +270,41 @@ class _RegisterPageState extends State<RegisterPage> {
           content: Text('Password must be required'),
           backgroundColor: Colors.red,
         ));
+      } else if (userPassword.length < 8) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must be at least 8 characters long'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!userPassword.contains(RegExp(r'[A-Z]'))) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must contain at least one uppercase letter'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!userPassword.contains(RegExp(r'[a-z]'))) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must contain at least one lowercase letter'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!threeNumbersRegExp.hasMatch(userPassword)) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must contain exactly 3 numbers'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!userPassword.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must contain at least one special character'),
+          backgroundColor: Colors.red,
+        ));
       } else {
-        UserRegistrationModel userRegistrationModel = UserRegistrationModel(
-          userFname: userFname,
-          userLname: userLname,
-          email: email,
-          phone: phone,
-          address: address,
-          userPassword: userPassword,
-        );
+        UserRegistrationModel userRegistrationModel = UserRegistrationModel();
+        userRegistrationModel.userFname = userFname;
+        userRegistrationModel.userLname = userLname;
+        userRegistrationModel.email = email;
+        userRegistrationModel.phone = phone;
+        userRegistrationModel.address = address;
+        userRegistrationModel.userPasword = userPassword;
+        userRegistrationModel.userProfilePic = null;
+        userRegistrationModel.appUser = 1;
 
         print(userRegistrationModel.address);
         Provider.of<UserProvider>(context, listen: false)

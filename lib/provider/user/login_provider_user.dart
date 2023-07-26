@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:glossy_flossy/models/user/login_api_response_model.dart';
+import 'package:glossy_flossy/models/user/login_api_ressponse_203_model.dart';
 import 'package:glossy_flossy/models/user/login_model.dart';
 import 'package:glossy_flossy/provider/user/repo/auth_repo_user.dart';
 import 'package:glossy_flossy/utils/api_response.dart';
@@ -12,6 +13,7 @@ class AuthProvider extends ChangeNotifier {
   bool get obscureValue => _obscureValue;
 
   LoginApiResponseModel? data;
+  UserLoginApiResponce203Model? userLoginApiResponce203Model;
 
   void changeValueOfObscureText(bool value) {
     _obscureValue = value;
@@ -48,29 +50,24 @@ class AuthProvider extends ChangeNotifier {
       data = registerApiResponse;
       print(data!.message[0].userFname.toString());
       print(data!.token);
-      authRepoUser.saveUserToken(registerApiResponse.token);
+      authRepoUser.saveUserToken(data!.token);
       authRepoUser.saveUserName(data!.message[0].userFname);
-       authRepoUser.saveUserId(data!.message[0].id.toString());
+      authRepoUser.saveUserId(data!.message[0].id.toString());
+      authRepoUser.saveUserType(data!.message[0].appUser.toString());
       // await authRepoUser.updateToken();
       // authRepoUser.setIsBuyer(true);
 
       // int userId = map["user_id"];
       // authRepoUser.saveUserId(userId.toString());
-      callback(true, token);
+      callback(true, "Login Sucessfull");
       notifyListeners();
-    } else {
-      String errorMessage;
-      if (apiResponse.error is String) {
-        print(apiResponse.error.toString());
-        errorMessage = apiResponse.error.toString();
-      } else {
-        // ErrorResponse errorResponse = apiResponse.error;
-        // //print(errorResponse.errors[0].message);
-        // errorMessage = errorResponse.errors[0].message;
-      }
-      // callback(false, errorMessage);
-      notifyListeners();
-    }
+    } else if (apiResponse.response!.statusCode == 203) {
+      final userLoginApiResponce203 =
+          UserLoginApiResponce203Model.fromJson(apiResponse.response!.data);
+      userLoginApiResponce203Model = userLoginApiResponce203;
+      callback(false, userLoginApiResponce203Model!.message);
+    } else {}
+    notifyListeners();
   }
 
   String getUserToken() {
@@ -85,8 +82,11 @@ class AuthProvider extends ChangeNotifier {
     return authRepoUser.getUserId();
   }
 
+  String getUserType() {
+    return authRepoUser.getUserType();
+  }
+
   Future<bool> clearAllData() async {
     return await authRepoUser.clearAllData();
   }
-
 }

@@ -280,6 +280,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   // login function
+  bool isEmailValid(String email) {
+    // Define the regular expression pattern for email validation
+    RegExp emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    return emailRegExp.hasMatch(email);
+  }
+
+  // bool isPasswordValid(String password) {
+  RegExp threeNumbersRegExp = RegExp(r'^\D*\d{3}\D*$');
   void loginUser(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       FocusManager.instance.primaryFocus?.unfocus();
@@ -293,9 +301,46 @@ class _LoginPageState extends State<LoginPage> {
           content: Text('Email must be required'),
           backgroundColor: Colors.red,
         ));
+      } else if (!isEmailValid(email)) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Invalid email format'),
+          backgroundColor: Colors.red,
+        ));
       } else if (password.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Password must be required'),
+          backgroundColor: Colors.red,
+        ));
+      }
+      // else if (!isPasswordValid(password)) {
+      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: Text('Invalid password format'),
+      //     backgroundColor: Colors.red,
+      //   ));
+      // }
+      else if (password.length < 8) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must be at least 8 characters long'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!password.contains(RegExp(r'[A-Z]'))) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must contain at least one uppercase letter'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!password.contains(RegExp(r'[a-z]'))) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must contain at least one lowercase letter'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!threeNumbersRegExp.hasMatch(password)) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must contain exactly 3 numbers'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!password.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password must contain at least one special character'),
           backgroundColor: Colors.red,
         ));
       } else {
@@ -309,19 +354,22 @@ class _LoginPageState extends State<LoginPage> {
         LoginModel loginData = LoginModel();
         loginData.email = email;
         loginData.password = password;
-         await Provider.of<AuthProvider>(context, listen: false)
+        await Provider.of<AuthProvider>(context, listen: false)
             .login(loginData, route);
       }
     }
   }
-// page route 
+
+// page route
   route(bool isRoute, String errorMessage) async {
     print('inside route');
     print(errorMessage);
 
     if (isRoute) {
-      // await Provider.of<ProfileProviderBuyer>(context, listen: false)
-      //     .getBuyerInfo(context);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(errorMessage),
+        backgroundColor: Colors.green,
+      ));
 
       Navigator.pushReplacement(
         context,
@@ -329,16 +377,11 @@ class _LoginPageState extends State<LoginPage> {
           builder: (context) => MainScreen(),
         ),
       );
-      final token =
-          Provider.of<AuthProvider>(context, listen: false).getUserToken();
-      print("token inside route : $token");
-      final name =
-          Provider.of<AuthProvider>(context, listen: false).getUserName();
-      print("name inside route : $name");
-
-       final Id =
-          Provider.of<AuthProvider>(context, listen: false).getUserId();
-      print("name inside route : $Id");
+    } else if (isRoute == false) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(errorMessage),
+        backgroundColor: Colors.red,
+      ));
     }
   }
 }
