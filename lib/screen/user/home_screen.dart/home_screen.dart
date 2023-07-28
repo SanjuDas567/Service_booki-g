@@ -133,8 +133,8 @@ class HomeScreen extends StatelessWidget {
                                                 MaterialPageRoute(
                                                   builder: (context) =>
                                                       HouseKeepingBookingScreen(
-                                                        data: serviceType.data[1],
-                                                      ),
+                                                    data: serviceType.data[1],
+                                                  ),
                                                 ),
                                               );
                                             },
@@ -192,8 +192,8 @@ class HomeScreen extends StatelessWidget {
                                                 MaterialPageRoute(
                                                   builder: (context) =>
                                                       CommercialBooking(
-                                                        data:serviceType.data[2],
-                                                      ),
+                                                    data: serviceType.data[2],
+                                                  ),
                                                 ),
                                               );
                                             },

@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:glossy_flossy/utils/app_constants.dart';
@@ -14,6 +15,16 @@ class NotificationExpantionPanel extends StatefulWidget {
 
 class _NotificationExpantionPanelState
     extends State<NotificationExpantionPanel> {
+  Future<void> createPlantFoodNotification() async {
+    await AwesomeNotifications().createNotification(
+      content: NotificationContent(
+          id: 10,
+          channelKey: 'my_channel',
+          title: 'Simple Notification',
+          body: 'Your service is accepted by worker'),
+    );
+  }
+
   bool isExpanded = false;
 
   @override
@@ -123,14 +134,19 @@ class _NotificationExpantionPanelState
             4.height,
             Row(
               children: [
-                Container(
-                  padding: EdgeInsets.all(4),
-                  margin: EdgeInsets.all(4),
-                  decoration: boxDecorationDefault(
-                      border: Border.all(color: Colors.black26)),
-                  child: Icon(
-                    Icons.attach_money_outlined,
-                    color: Colors.black54,
+                InkWell(
+                  onTap: () {
+                    createPlantFoodNotification();
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(4),
+                    margin: EdgeInsets.all(4),
+                    decoration: boxDecorationDefault(
+                        border: Border.all(color: Colors.black26)),
+                    child: Icon(
+                      Icons.attach_money_outlined,
+                      color: Colors.black54,
+                    ),
                   ),
                 ),
                 10.width,

@@ -15,9 +15,9 @@ class UserSelectionContainer extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const SizedBox(
-            width: 10,
-          ),
+          // const SizedBox(
+          //   width: 10,
+          // ),
           const CircleAvatar(
             radius: 50,
             backgroundImage: AssetImage(Images.USER_iCON_USER_SELECTION),

@@ -4,6 +4,7 @@ import 'package:glossy_flossy/data/dio/dio_client.dart';
 import 'package:glossy_flossy/data/login_interceptor/loginInterceptor.dart';
 import 'package:glossy_flossy/data/shared_preference/shared_preference.dart';
 import 'package:glossy_flossy/provider/user/commercial_providder.dart';
+import 'package:glossy_flossy/provider/user/google_map_provider.dart';
 import 'package:glossy_flossy/provider/user/home_screen_provider.dart';
 import 'package:glossy_flossy/provider/user/house_keeping_provider.dart';
 import 'package:glossy_flossy/provider/user/login_provider_user.dart';
@@ -49,6 +50,7 @@ Future<void> setup() async {
   sl.registerLazySingleton(() => VehicleRepo(dioClient: sl()));
   sl.registerFactory(() => HouseKeepingProvider(houseKeepingRepo: sl()));
   sl.registerLazySingleton(() => HouseKeepingRepo(dioClient: sl()));
+  sl.registerFactory(() => GoogleMapProvider());
 
   // Worker :-------------------------------------------------------------------
   sl.registerFactory(() => RegisterWorkerProvider(workerRegisterRepo: sl()));

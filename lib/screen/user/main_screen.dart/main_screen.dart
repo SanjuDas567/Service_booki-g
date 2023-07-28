@@ -1,9 +1,11 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:glossy_flossy/provider/user/login_provider_user.dart';
 import 'package:glossy_flossy/screen/common/user_selection_screeen/user_selection_screen.dart';
 import 'package:glossy_flossy/screen/user/add_vehicle_screen/add_vehicle_screen.dart';
 import 'package:glossy_flossy/screen/user/chat_screen/chat_list_selection_screen.dart';
 import 'package:glossy_flossy/screen/user/home_screen.dart/home_screen.dart';
+import 'package:glossy_flossy/screen/user/map/map_screen.dart';
 import 'package:glossy_flossy/screen/user/notifiaction_screen.dart/notification_screen.dart';
 import 'package:glossy_flossy/screen/user/profile_screen/profile_screen.dart';
 import 'package:glossy_flossy/screen/user/review_screen/review_screen.dart';
@@ -19,6 +21,66 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  @override
+  void initState() {
+    super.initState();
+    print('inside notification initstate');
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+      if (!isAllowed) {
+        AwesomeNotifications().requestPermissionToSendNotifications();
+        // showDialog(
+        //   context: context,
+        //   builder: (context) => AlertDialog(
+        //     backgroundColor: Colors.grey.shade800,
+        //     title: Text(
+        //       'Allow Notifications',
+        //       style: TextStyle(
+        //         color: Colors.white,
+        //       ),
+        //     ),
+        //     content: Text(
+        //       'Our app would like to send notifications',
+        //       style: TextStyle(
+        //         color: Colors.white,
+        //         fontSize: 18,
+        //       ),
+        //     ),
+        //     actions: [
+        //       TextButton(
+        //         onPressed: () {
+        //           Navigator.pop(context);
+        //         },
+        //         child: Text(
+        //           'Don\'t Allow',
+        //           style: TextStyle(
+        //             color: Colors.grey.shade600,
+        //             fontSize: 18,
+        //           ),
+        //         ),
+        //       ),
+        //       TextButton(
+        //         onPressed: () {
+        //           AwesomeNotifications()
+        //               .requestPermissionToSendNotifications()
+        //               .then(
+        //                 (_) => Navigator.of(context).pop(),
+        //               );
+        //         },
+        //         child: Text(
+        //           'Allow',
+        //           style: TextStyle(
+        //               color: Colors.yellow,
+        //               fontSize: 18,
+        //               fontWeight: FontWeight.bold),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // );
+      }
+    });
+  }
+
   int _selectedScreenIndex = 0;
 
   final List _screens = [
@@ -127,6 +189,24 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 title: Text(
                   'Service History',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+               ListTile(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MapScreen(),
+                    ),
+                  );
+                },
+                leading: Icon(
+                  Icons.map,
+                  color: Colors.white,
+                ),
+                title: Text(
+                  'Google map',
                   style: TextStyle(color: Colors.white),
                 ),
               ),

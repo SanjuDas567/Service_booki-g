@@ -47,6 +47,9 @@ dependencies:
   reviews_slider:
   file_picker: ^5.3.2
   flutter_paypal: ^0.2.0
+  awesome_notifications: ^0.7.4+1
+  google_maps_flutter: ^2.4.0
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_test:
