@@ -68,12 +68,13 @@ class AuthRepoUser {
   }
 
   String getUserType() {
-    return sharedPreferences.getString(AppConstants.USER_TYPE)?? "";
+    return sharedPreferences.getString(AppConstants.USER_TYPE) ?? "";
   }
 
   Future<bool> clearAllData() async {
     sharedPreferences.remove(AppConstants.TOKEN);
     sharedPreferences.remove(AppConstants.USER_ID);
+    sharedPreferences.remove(AppConstants.USER_TYPE);
     // sharedPreferences.remove(AppConstants.IS_BUYER);
     return true;
   }

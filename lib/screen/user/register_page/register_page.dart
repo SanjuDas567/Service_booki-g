@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:glossy_flossy/models/user/user_registration_model.dart';
+import 'package:glossy_flossy/models/user/form_data/user_data.dart';
 import 'package:glossy_flossy/provider/user/register_provider_user.dart';
 import 'package:glossy_flossy/screen/user/login_page/login_page.dart';
 // import 'package:glossy_flossy/screen/user/register_page/widgets/date_picker.dart';
@@ -89,6 +89,27 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                           ),
                         ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      GestureDetector(
+                        onTap: () => userProvider.pickImage(),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.yellow,
+                          radius: 82,
+                          child: CircleAvatar(
+                            radius: 80,
+                            backgroundColor: Colors.black,
+                            backgroundImage: userProvider.profileImage != null
+                                ? FileImage(userProvider.profileImage!)
+                                    as ImageProvider<Object>?
+                                : null,
+                            child: userProvider.profileImage == null
+                                ? Icon(Icons.add_a_photo)
+                                : null,
+                          ),
+                        ),
                       ),
                       const SizedBox(
                         height: 20,
@@ -296,19 +317,27 @@ class _RegisterPageState extends State<RegisterPage> {
           backgroundColor: Colors.red,
         ));
       } else {
-        UserRegistrationModel userRegistrationModel = UserRegistrationModel();
-        userRegistrationModel.userFname = userFname;
-        userRegistrationModel.userLname = userLname;
-        userRegistrationModel.email = email;
-        userRegistrationModel.phone = phone;
-        userRegistrationModel.address = address;
-        userRegistrationModel.userPasword = userPassword;
-        userRegistrationModel.userProfilePic = null;
-        userRegistrationModel.appUser = 1;
+        // UserRegistrationModel userRegistrationModel = UserRegistrationModel();
+        // userRegistrationModel.userFname = userFname;
+        // userRegistrationModel.userLname = userLname;
+        // userRegistrationModel.email = email;
+        // userRegistrationModel.phone = phone;
+        // userRegistrationModel.address = address;
+        // userRegistrationModel.userPasword = userPassword;
+        // userRegistrationModel.userProfilePic = null;
+        // userRegistrationModel.appUser = 1;
+        UserRegistration userRegistration = UserRegistration();
+        userRegistration.userFname = userFname;
+        userRegistration.userLname = userLname;
+        userRegistration.email = email;
+        userRegistration.phone = phone;
+        userRegistration.address = address;
+        userRegistration.userPasword = userPassword;
+        userRegistration.appUser = 1;
 
-        print(userRegistrationModel.address);
+        print(userRegistration.address);
         Provider.of<UserProvider>(context, listen: false)
-            .userRegistration(userRegistrationModel, route);
+            .userRegistration(userRegistration, route);
       }
     }
   }
