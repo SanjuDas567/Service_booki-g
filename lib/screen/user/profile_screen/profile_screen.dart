@@ -47,6 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Consumer<UserProfileProvider>(
                 builder: (context, userProfileProvider, child) {
                   print('image in data : ${userProfileProvider.message!.userProfilePic}');
+                  List<int> imageBytes = base64.decode(userProfileProvider.message!.userProfilePic.split(',')[1]);
                   return userProfileProvider.isLoading
                   ? const Center(
                     child: CircularProgressIndicator(
