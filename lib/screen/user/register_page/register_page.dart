@@ -20,27 +20,17 @@ class _RegisterPageState extends State<RegisterPage> {
   DateTime selectedDate = DateTime.now();
 
   final _formKey = GlobalKey<FormState>();
-
   final _firstNameController = TextEditingController();
-
   final _lastNameController = TextEditingController();
-
   final _emailController = TextEditingController();
-
   final _phoneNumberController = TextEditingController();
-
   // final _dateController = TextEditingController();
   final _passwordController = TextEditingController();
-
   // final _confirmPasswordController = TextEditingController();
   final _addressController = TextEditingController();
-
   final _firstNameFocus = FocusNode();
-
   final _lastNameFocus = FocusNode();
-
   final _emailFocus = FocusNode();
-
   // final _phoneNumberFocus = FocusNode();
 
   @override
@@ -106,7 +96,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     as ImageProvider<Object>?
                                 : null,
                             child: userProvider.profileImage == null
-                                ? Icon(Icons.add_a_photo)
+                                ? const Icon(Icons.add_a_photo)
                                 : null,
                           ),
                         ),
@@ -202,7 +192,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         height: 30,
                       ),
                       userProvider.isLoading
-                          ? CircularProgressIndicator(
+                          ? const CircularProgressIndicator(
                               color: Colors.yellow,
                             )
                           : InkWell(
@@ -219,8 +209,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                   color: Colors.yellow,
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                child: Center(
-                                  child: const Text(
+                                child: const Center(
+                                  child: Text(
                                     'Sign Up',
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
@@ -257,62 +247,62 @@ class _RegisterPageState extends State<RegisterPage> {
       }
 
       if (userFname.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('First name must be required'),
           backgroundColor: Colors.red,
         ));
       } else if (userLname.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('last name must be required'),
           backgroundColor: Colors.red,
         ));
       } else if (email.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Email must be required'),
           backgroundColor: Colors.red,
         ));
       } else if (!isEmailValid(email)) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Invalid email format'),
           backgroundColor: Colors.red,
         ));
       } else if (phone.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Phone number must be required'),
           backgroundColor: Colors.red,
         ));
       } else if (address.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Address must be required'),
           backgroundColor: Colors.red,
         ));
       } else if (userPassword.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Password must be required'),
           backgroundColor: Colors.red,
         ));
       } else if (userPassword.length < 8) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Password must be at least 8 characters long'),
           backgroundColor: Colors.red,
         ));
       } else if (!userPassword.contains(RegExp(r'[A-Z]'))) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Password must contain at least one uppercase letter'),
           backgroundColor: Colors.red,
         ));
       } else if (!userPassword.contains(RegExp(r'[a-z]'))) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Password must contain at least one lowercase letter'),
           backgroundColor: Colors.red,
         ));
       } else if (!threeNumbersRegExp.hasMatch(userPassword)) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Password must contain exactly 3 numbers'),
           backgroundColor: Colors.red,
         ));
       } else if (!userPassword.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Password must contain at least one special character'),
           backgroundColor: Colors.red,
         ));

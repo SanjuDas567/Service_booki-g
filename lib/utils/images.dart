@@ -22,4 +22,6 @@ class Images {
   static const String COMMERCIAL_BOOKING_IMAGE_1 =
       'assets/images/commercial-cl1.jpg';
   static const String CAMMERA_ICON = 'assets/images/camera icon  pic.png';
+  static const String USER_GREY_PROFILE_ICON = 'assets/images/user.png';
+  static const String USER_BLACK_PROFILE_ICON = 'assets/images/user black.png';
 }

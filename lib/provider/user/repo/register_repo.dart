@@ -20,7 +20,7 @@ class RegisterRepo {
       "address": userRegistration.address,
       "email": userRegistration.email,
       "user_pasword": userRegistration.userPasword,
-      "user_profile_pic": await await MultipartFile.fromFile(imagefile.path,
+      "user_profile_pic": await MultipartFile.fromFile(imagefile.path,
           filename: imagefile.path.split('/').last),
       "app_user": userRegistration.appUser,
     });

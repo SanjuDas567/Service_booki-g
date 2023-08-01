@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:glossy_flossy/models/worker/form_data/worker_register_model.dart';
 import 'package:glossy_flossy/models/worker/worker_register_responce_model.dart';
 import 'package:glossy_flossy/provider/worker/repo/register_screen_repo.dart';
 import 'package:glossy_flossy/utils/api_response.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterWorkerProvider extends ChangeNotifier {
   final WorkerRegisterRepo workerRegisterRepo;
@@ -62,7 +65,8 @@ class RegisterWorkerProvider extends ChangeNotifier {
     try {
       print("inside provider - worker register");
       ApiResponse apiResponse =
-          await workerRegisterRepo.workerRegister(workerRegistrationModel);
+          await workerRegisterRepo.workerRegister(workerRegistrationModel,
+          _profileImage!);
       _isRegistrationLoading = false;
       if (apiResponse.response != null &&
           apiResponse.response!.statusCode == 200) {
@@ -80,4 +84,19 @@ class RegisterWorkerProvider extends ChangeNotifier {
     } catch (e) {}
     notifyListeners();
   }
+
+  //Image picker
+  File? _profileImage;
+  File? get profileImage => _profileImage;
+
+  Future<void> pickImage() async {
+    final imagePicker = ImagePicker();
+    final pickedImage =
+    await imagePicker.pickImage(source: ImageSource.gallery);
+    if(pickedImage != null) {
+      _profileImage = File(pickedImage.path);
+      notifyListeners();
+    }
+  }
+
 }

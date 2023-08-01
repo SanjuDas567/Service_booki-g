@@ -9,6 +9,7 @@ import 'package:glossy_flossy/provider/user/house_keeping_provider.dart';
 import 'package:glossy_flossy/provider/user/login_provider_user.dart';
 import 'package:glossy_flossy/provider/user/register_provider_user.dart';
 import 'package:glossy_flossy/provider/user/review_screen_provider.dart';
+import 'package:glossy_flossy/provider/user/user_profile_provider.dart';
 import 'package:glossy_flossy/provider/user/vehicle_booking_provider.dart';
 import 'package:glossy_flossy/provider/worker/home_screen_worker_provider.dart';
 import 'package:glossy_flossy/provider/worker/auth_provider_worker.dart';
@@ -66,6 +67,9 @@ void main() async {
       ChangeNotifierProvider(
         create: (context) => GoogleMapProvider(),
       ),
+      ChangeNotifierProvider(
+        create: (context) => di.sl<UserProfileProvider>(),
+      ),
       ////
       ////
 
@@ -94,7 +98,7 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => di.sl<RegisterWorkerProvider>(),
-      )
+      ),
       ////
       ////
     ],

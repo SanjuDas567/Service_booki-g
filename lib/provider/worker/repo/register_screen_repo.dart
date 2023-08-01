@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:glossy_flossy/data/dio/dio_client.dart';
 import 'package:glossy_flossy/data/exeption/api_error_handler.dart';
 import 'package:glossy_flossy/models/worker/form_data/worker_register_model.dart';
@@ -10,8 +13,25 @@ class WorkerRegisterRepo {
   WorkerRegisterRepo({required this.dioClient});
   Future<ApiResponse> workerRegister(
     WorkerRegistrationModel workerRegistrationModel,
-    // File? Image,
+    File image,
   ) async {
+    FormData formData = FormData.fromMap({
+      'emp_firstname': workerRegistrationModel.empFirstname,
+      'emp_lastname': workerRegistrationModel.empLastname,
+      'emp_phone': workerRegistrationModel.empPhone,
+      'emp_address': workerRegistrationModel.empAddress,
+      'emp_email': workerRegistrationModel.empEmail,
+      'emp_password': workerRegistrationModel.empPassword,
+      'app_user': 2,
+      'trining_course': workerRegistrationModel.triningCourse,
+      'isuence_id': workerRegistrationModel.isuenceId,
+      'experience': workerRegistrationModel.experience,
+      'work_avl_to': workerRegistrationModel.workAvlTo,
+      'WorkAvl_from': workerRegistrationModel.workAvlFrom,
+      'emp_location': workerRegistrationModel.empLocation,
+      "emp_profile_pic": await MultipartFile.fromFile(image.path,
+      filename: image.path.split('/').last),
+    });
     try {
       print("/*********************/");
       print("emp_firstname: ${workerRegistrationModel.empFirstname}");
@@ -29,7 +49,7 @@ class WorkerRegisterRepo {
       print("/*********************/");
       final response = await dioClient.post(
           AppConstants.WORKER_REGISTRATION_URI,
-          data: workerRegistrationModel.toJson());
+          data: formData);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       print(e);
