@@ -13,6 +13,7 @@ class RegisterRepo {
   RegisterRepo({required this.dioClient});
   Future<ApiResponse> registerUser(
       UserRegistration userRegistration, File imagefile) async {
+    print("image file path in side : $imagefile");
     var formData = FormData.fromMap({
       "user_fname": userRegistration.userFname,
       "user_lname": userRegistration.userLname,
@@ -21,7 +22,7 @@ class RegisterRepo {
       "email": userRegistration.email,
       "user_pasword": userRegistration.userPasword,
       "user_profile_pic": await MultipartFile.fromFile(imagefile.path,
-          filename: imagefile.path.split('/').last),
+          filename: imagefile.path),
       "app_user": userRegistration.appUser,
     });
     try {

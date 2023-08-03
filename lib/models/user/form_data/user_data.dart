@@ -1,4 +1,3 @@
-import 'dart:io';
 
 class UserRegistration {
   String? userFname;
@@ -7,6 +6,6 @@ class UserRegistration {
   String? address;
   String? email;
   String? userPasword;
-  File? userProfilePic;
+  String? userProfilePic;
   int? appUser;
 }

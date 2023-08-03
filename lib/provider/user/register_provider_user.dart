@@ -49,6 +49,9 @@ class UserProvider extends ChangeNotifier {
       // print(userRegisterResponse.message.toString());
       callback(true, responseData!.message.toString());
       notifyListeners();
+    } else if (apiResponse.response?.statusCode == 203) {
+      print('Inside status code 203');
+      callback(false, 'Email is already exist');
     } else {
       print(apiResponse.error.toString());
     }

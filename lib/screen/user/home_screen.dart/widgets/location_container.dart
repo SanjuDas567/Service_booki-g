@@ -8,7 +8,7 @@ class LocationWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Container(
-        height: 50,
+        height: MediaQuery.of(context).size.height / 12,
         decoration: BoxDecoration(
             color: Colors.white10, borderRadius: BorderRadius.circular(15)),
         child: Padding(

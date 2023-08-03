@@ -10,6 +10,7 @@ import 'package:glossy_flossy/screen/user/notifiaction_screen.dart/notification_
 import 'package:glossy_flossy/screen/user/profile_screen/profile_screen.dart';
 import 'package:glossy_flossy/screen/user/review_screen/review_screen.dart';
 import 'package:glossy_flossy/screen/user/service_history_screen/service_history_screen.dart';
+import 'package:glossy_flossy/screen/user/subcription/subscription_scrren.dart';
 import 'package:glossy_flossy/utils/images.dart';
 import 'package:provider/provider.dart';
 
@@ -28,55 +29,6 @@ class _MainScreenState extends State<MainScreen> {
     AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {
         AwesomeNotifications().requestPermissionToSendNotifications();
-        // showDialog(
-        //   context: context,
-        //   builder: (context) => AlertDialog(
-        //     backgroundColor: Colors.grey.shade800,
-        //     title: Text(
-        //       'Allow Notifications',
-        //       style: TextStyle(
-        //         color: Colors.white,
-        //       ),
-        //     ),
-        //     content: Text(
-        //       'Our app would like to send notifications',
-        //       style: TextStyle(
-        //         color: Colors.white,
-        //         fontSize: 18,
-        //       ),
-        //     ),
-        //     actions: [
-        //       TextButton(
-        //         onPressed: () {
-        //           Navigator.pop(context);
-        //         },
-        //         child: Text(
-        //           'Don\'t Allow',
-        //           style: TextStyle(
-        //             color: Colors.grey.shade600,
-        //             fontSize: 18,
-        //           ),
-        //         ),
-        //       ),
-        //       TextButton(
-        //         onPressed: () {
-        //           AwesomeNotifications()
-        //               .requestPermissionToSendNotifications()
-        //               .then(
-        //                 (_) => Navigator.of(context).pop(),
-        //               );
-        //         },
-        //         child: Text(
-        //           'Allow',
-        //           style: TextStyle(
-        //               color: Colors.yellow,
-        //               fontSize: 18,
-        //               fontWeight: FontWeight.bold),
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // );
       }
     });
   }
@@ -85,7 +37,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final List _screens = [
     {"screen": const HomeScreen()},
-    // {"screen": const ChatScreen()},
+    {"screen": const SubscrptionScreen()},
     {"screen": const ProfileScreen()}
   ];
 
@@ -192,7 +144,7 @@ class _MainScreenState extends State<MainScreen> {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-               ListTile(
+              ListTile(
                 onTap: () {
                   Navigator.push(
                     context,
@@ -298,15 +250,15 @@ class _MainScreenState extends State<MainScreen> {
                 activeIcon: Icon(Icons.home_rounded),
                 backgroundColor: Colors.white24,
               ),
-              // BottomNavigationBarItem(
-              //   icon: Icon(
-              //     Icons.chat_bubble_outline,
-              //     color: Colors.white,
-              //   ),
-              //   activeIcon: Icon(Icons.chat_outlined),
-              //   label: 'Chat',
-              //   backgroundColor: Colors.white24,
-              // ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.subscriptions,
+                  color: Colors.white,
+                ),
+                activeIcon: Icon(Icons.subscriptions_outlined),
+                label: 'Subscription',
+                backgroundColor: Colors.white24,
+              ),
               BottomNavigationBarItem(
                 icon: Icon(
                   Icons.person_outline_sharp,

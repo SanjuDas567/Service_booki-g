@@ -350,6 +350,11 @@ class _RegisterPageState extends State<RegisterPage> {
           builder: (context) => LoginPage(),
         ),
       );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(errorMessage),
+        backgroundColor: Colors.red,
+      ));
     }
   }
 }

@@ -61,7 +61,7 @@ class AuthProvider extends ChangeNotifier {
       // authRepoUser.saveUserId(userId.toString());
       callback(true, "Login Sucessfull");
       notifyListeners();
-    } else if (apiResponse.response!.statusCode == 203) {
+    } else if (apiResponse.response?.statusCode == 203) {
       final userLoginApiResponce203 =
           UserLoginApiResponce203Model.fromJson(apiResponse.response!.data);
       userLoginApiResponce203Model = userLoginApiResponce203;
