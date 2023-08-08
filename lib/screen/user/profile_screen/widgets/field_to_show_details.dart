@@ -20,7 +20,7 @@ class CustomFieldProfile extends StatelessWidget {
         ),
         Container(
           width: MediaQuery.of(context).size.width,
-          height: 50,
+          height: MediaQuery.of(context).size.height / 15,
           padding: EdgeInsets.only(left: 10),
           decoration: BoxDecoration(
               color: Colors.grey.shade300,

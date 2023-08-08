@@ -16,18 +16,15 @@ class AdminSelectionContainer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           const CircleAvatar(
-            radius: 50,
+            radius: 40,
             backgroundImage: AssetImage(Images.ADMIN_ICON_USER_SELECTION),
-          ),
-          const SizedBox(
-            width: 20,
           ),
           const Text(
             'Admin Login',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-          ),
-          const SizedBox(
-            width: 20,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 17,
+            ),
           ),
           InkWell(
             onTap: () {

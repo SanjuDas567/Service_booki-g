@@ -1,8 +1,8 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:glossy_flossy/models/user/form_data/user_profile_update.dart';
 import 'package:glossy_flossy/models/user/user_profile_model.dart';
 import 'package:glossy_flossy/provider/user/repo/user_profile_repo.dart';
 import 'package:glossy_flossy/utils/api_response.dart';
@@ -14,6 +14,9 @@ class UserProfileProvider extends ChangeNotifier {
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
+
+  bool _isEditLoading = false;
+  bool get isEditLoading => _isEditLoading;
 
   UserProfileModel? userProfileModel;
   Message? message;
@@ -30,9 +33,6 @@ class UserProfileProvider extends ChangeNotifier {
       userProfileModel = userProfile;
 
       message = userProfile.message[0];
-      // print(imageBytes);
-      //  base64ImageData = userProfile.message[0].userProfilePic;
-      //  imageBytes = Uint8List.fromList(base64ImageData);// Your base64 image data here
       print("image data ${imageBytes}");
     }
     notifyListeners();
@@ -45,10 +45,37 @@ class UserProfileProvider extends ChangeNotifier {
   Future<void> pickImage() async {
     final imagePicker = ImagePicker();
     final pickedImage =
-    await imagePicker.pickImage(source: ImageSource.gallery);
-    if(pickedImage != null) {
+        await imagePicker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
       _profileImage = File(pickedImage.path);
       notifyListeners();
     }
+  }
+
+  File? _editProfileImage;
+  File? get editProfileImage => _editProfileImage;
+
+  Future<void> pickEditImage() async {
+    final imagePicker = ImagePicker();
+    final pickedImage =
+        await imagePicker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      _editProfileImage = File(pickedImage.path);
+      notifyListeners();
+    }
+  }
+
+  Future<void> updateUserData(UserUpdateModel userUpdateModel) async {
+    _isEditLoading = true;
+    notifyListeners();
+    ApiResponse apiResponse = await userProfileRepo.updateUserDetails(
+        userUpdateModel, _editProfileImage!);
+    _isEditLoading = false;
+    if (apiResponse.response!.statusCode == 200) {
+      print('inside update user 200');
+    } else {
+      print(apiResponse.error.toString());
+    }
+    notifyListeners();
   }
 }

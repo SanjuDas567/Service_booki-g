@@ -113,13 +113,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               name: '+91 ${userProfileProvider.message!.phone}',
                               title: 'Phone Number',
                             ),
-                            // const SizedBox(
-                            //   height: 20,
-                            // ),
-                            // const CustomFieldProfile(
-                            //   name: 'UK',
-                            //   title: 'Location',
-                            // ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            CustomFieldProfile(
+                              name: userProfileProvider.message!.address,
+                              title: 'Address',
+                            ),
                           ],
                         );
                 },
@@ -135,7 +135,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => UserProfileEditScreen(),
+        builder: (context) => UserProfileEditScreen(
+          message:
+              Provider.of<UserProfileProvider>(context, listen: false).message,
+        ),
       ),
     );
   }

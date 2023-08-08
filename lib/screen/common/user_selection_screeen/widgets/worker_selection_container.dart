@@ -13,21 +13,18 @@ class WorkerSelectionContainer extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.yellow, borderRadius: BorderRadius.circular(15)),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           const CircleAvatar(
-            radius: 50,
+            radius: 40,
             backgroundImage: AssetImage(Images.WORKER_iCON_USER_SELECTION),
-          ),
-          const SizedBox(
-            width: 20,
           ),
           const Text(
             'Worker Login',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-          ),
-          const SizedBox(
-            width: 20,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 17,
+            ),
           ),
           InkWell(
             onTap: () {
