@@ -32,7 +32,7 @@ class UserProfileRepo {
       'address': userUpdateModel.address,
       'email': userUpdateModel.email,
       'user_pasword': userUpdateModel.userPasword,
-      'app_user': userUpdateModel.appuser,
+      'app_user': 1,
       'id': userUpdateModel.id,
     });
     print('*-*-*-*-*-*--*-*-*');

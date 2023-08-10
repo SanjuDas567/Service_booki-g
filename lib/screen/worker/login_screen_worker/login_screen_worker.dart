@@ -3,6 +3,7 @@ import 'package:glossy_flossy/models/worker/form_data/worker_login_model.dart';
 import 'package:glossy_flossy/provider/worker/auth_provider_worker.dart';
 import 'package:glossy_flossy/screen/worker/main_screen/main_screen_worker.dart';
 import 'package:glossy_flossy/screen/worker/register_screen/register_screeen_worker.dart';
+import 'package:glossy_flossy/utils/color_resources.dart';
 import 'package:glossy_flossy/utils/images.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +33,7 @@ class _LoginPageWorkerState extends State<LoginPageWorker> {
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const SizedBox(
                       height: 30,
@@ -218,17 +220,17 @@ class _LoginPageWorkerState extends State<LoginPageWorker> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Center(
-                      child: InkWell(
-                        onTap: () {
-                          print('google icon pressed');
-                        },
-                        child: Image.asset(
-                          Images.GOOGLE_IMAGE_LOGIN,
-                          height: 40,
-                        ),
-                      ),
-                    ),
+                    // Center(
+                    //   child: InkWell(
+                    //     onTap: () {
+                    //       print('google icon pressed');
+                    //     },
+                    //     child: Image.asset(
+                    //       Images.GOOGLE_IMAGE_LOGIN,
+                    //       height: 40,
+                    //     ),
+                    //   ),
+                    // ),
                     const SizedBox(
                       height: 30,
                     ),
@@ -253,7 +255,7 @@ class _LoginPageWorkerState extends State<LoginPageWorker> {
                           },
                           child: const Text(
                             ' create a new account',
-                            style: TextStyle(color: Colors.yellow),
+                            style: TextStyle(color: ColorResources.GLOSSY_FLOSSY_YELLOW),
                           ),
                         ),
                       ],

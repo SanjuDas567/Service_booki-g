@@ -1,6 +1,5 @@
 import 'dart:io';
 
-
 import 'package:flutter/material.dart';
 import 'package:glossy_flossy/models/user/form_data/house_keeping_booking_response.dart';
 import 'package:glossy_flossy/models/user/house_keep_booking_response_model.dart';
@@ -219,13 +218,13 @@ class HouseKeepingProvider extends ChangeNotifier {
 
   HouseKeepResponse? houseKeepResponse;
 
-  Future<void> houseKeepBooking(
-      HouseKeepBookingModel houseKeepBookingModel, Function callback) async {
+  Future<void> houseKeepBooking(HouseKeepBookingModel houseKeepBookingModel,
+      Function callback, BuildContext context) async {
     try {
       _isBookingLoading = true;
       notifyListeners();
-      ApiResponse apiResponse =
-          await houseKeepingRepo.houseKeepBooking(houseKeepBookingModel);
+      ApiResponse apiResponse = await houseKeepingRepo.houseKeepBooking(
+          houseKeepBookingModel, context);
       _isBookingLoading = false;
       if (apiResponse.response != null &&
           apiResponse.response!.statusCode == 200) {
@@ -236,9 +235,10 @@ class HouseKeepingProvider extends ChangeNotifier {
         houseKeepResponse = houseKeepResponsedata;
         print(houseKeepResponse!.message);
 
-        callback(true, );
-
+        callback(true, houseKeepResponse!.message);
+        notifyListeners();
       }
     } catch (e) {}
+    notifyListeners();
   }
 }

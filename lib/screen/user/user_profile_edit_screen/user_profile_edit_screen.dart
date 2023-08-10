@@ -126,25 +126,29 @@ class _UserProfileEditScreenState extends State<UserProfileEditScreen> {
                         const SizedBox(
                           height: 30,
                         ),
-                        InkWell(
-                          onTap: () {
-                            updateUserData();
-                          },
-                          child: Container(
-                            height: 40,
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                              color: ColorResources.GLOSSY_FLOSSY_YELLOW,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: const Center(
-                              child: Text(
-                                'Update Profile',
-                                style: TextStyle(color: Colors.black),
+                        userProfileProvider.isEditLoading
+                            ? CircularProgressIndicator(
+                                color: ColorResources.GLOSSY_FLOSSY_YELLOW,
+                              )
+                            : InkWell(
+                                onTap: () {
+                                  updateUserData();
+                                },
+                                child: Container(
+                                  height: 40,
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                    color: ColorResources.GLOSSY_FLOSSY_YELLOW,
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      'Update Profile',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
@@ -166,7 +170,7 @@ class _UserProfileEditScreenState extends State<UserProfileEditScreen> {
     userUpdateModel.email = _emailController.text.trim();
     userUpdateModel.phone = _phoneController.text.trim();
     userUpdateModel.address = _addressController.text.trim();
-    userUpdateModel.appuser = 2;
+    userUpdateModel.appuser = 1;
     userUpdateModel.userPasword = widget.message!.userPasword;
     userUpdateModel.userProfilePic = widget.message!.userProfilePic;
     userUpdateModel.id = widget.message!.id;
@@ -186,11 +190,32 @@ class _UserProfileEditScreenState extends State<UserProfileEditScreen> {
         print('inside data changes');
         FocusManager.instance.primaryFocus?.unfocus();
         Provider.of<UserProfileProvider>(context, listen: false)
-            .updateUserData(userUpdateModel);
-        // Navigator.pop(context);
+            .updateUserData(userUpdateModel, route);
       } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Data not changed'),
+          backgroundColor: Colors.red,
+        ));
         print('Data not changed');
       }
+    }
+  }
+
+  route(bool isRoute, String errorMessage) async {
+    print('inside route');
+    print(errorMessage);
+
+    if (isRoute) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(errorMessage),
+        backgroundColor: Colors.green,
+      ));
+      Navigator.pop(context);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(errorMessage),
+        backgroundColor: Colors.red,
+      ));
     }
   }
 }

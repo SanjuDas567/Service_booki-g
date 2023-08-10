@@ -6,6 +6,6 @@ class UserUpdateModel {
   String? email;
   String? userPasword;
   String? userProfilePic;
-  int? appuser;
+  int? appuser = 1;
   int? id;
 }

@@ -65,7 +65,8 @@ class UserProfileProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> updateUserData(UserUpdateModel userUpdateModel) async {
+  Future<void> updateUserData(
+      UserUpdateModel userUpdateModel, Function callback) async {
     _isEditLoading = true;
     notifyListeners();
     ApiResponse apiResponse = await userProfileRepo.updateUserDetails(
@@ -73,6 +74,8 @@ class UserProfileProvider extends ChangeNotifier {
     _isEditLoading = false;
     if (apiResponse.response!.statusCode == 200) {
       print('inside update user 200');
+      callback(true, 'Profile update sucessfully');
+      notifyListeners();
     } else {
       print(apiResponse.error.toString());
     }

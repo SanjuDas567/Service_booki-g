@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:glossy_flossy/models/user/form_data/house_keeping_booking_response.dart';
 import 'package:glossy_flossy/models/user/service_type_model.dart';
 import 'package:glossy_flossy/provider/user/house_keeping_provider.dart';
+import 'package:glossy_flossy/provider/user/login_provider_user.dart';
 import 'package:glossy_flossy/screen/user/housekeeping_booking/widgets/check_box.dart';
+import 'package:glossy_flossy/utils/color_resources.dart';
 import 'package:glossy_flossy/utils/images.dart';
 import 'package:provider/provider.dart';
 
@@ -109,32 +111,40 @@ class _HouseKeepingBookingScreenState extends State<HouseKeepingBookingScreen> {
             child: HouseKeepingCheckBox(),
           ),
           SliverToBoxAdapter(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 30,
-                ),
-                InkWell(
-                  onTap: () {
-                    bookService(context);
-                  },
-                  child: Container(
-                    height: 40,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.yellow),
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Book wash',
-                        style: TextStyle(color: Colors.yellow),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+            child: Consumer<HouseKeepingProvider>(
+              builder: (context, houseKeepingProvider, child) {
+                return houseKeepingProvider.isBookingLoading
+                    ? CircularProgressIndicator(
+                        color: ColorResources.GLOSSY_FLOSSY_YELLOW,
+                      )
+                    : Column(
+                        children: [
+                          SizedBox(
+                            height: 30,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              bookService(context);
+                            },
+                            child: Container(
+                              height: 40,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.yellow),
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Book wash',
+                                  style: TextStyle(color: Colors.yellow),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+              },
             ),
           ),
         ],
@@ -145,18 +155,27 @@ class _HouseKeepingBookingScreenState extends State<HouseKeepingBookingScreen> {
   void bookService(BuildContext context) async {
     final houseKeepingProvider =
         Provider.of<HouseKeepingProvider>(context, listen: false);
-    print(houseKeepingProvider.sofaValetImages[0].uri);
+    final userID =
+        Provider.of<AuthProvider>(context, listen: false).getUserId();
+    print(userID);
+    // print(houseKeepingProvider.sofaValetImages[0].uri);
     HouseKeepBookingModel houseKeepBookingModel = HouseKeepBookingModel();
     houseKeepBookingModel.serNameSlno = 1;
-    houseKeepBookingModel.userId = "1";
-    houseKeepBookingModel.servTypeSlno = "1";
-    // houseKeepBookingModel.servImage = houseKeepingProvider.sofaValetImages;
+    houseKeepBookingModel.userId = userID;
+    houseKeepBookingModel.servTypeSlno = "2";
     houseKeepBookingModel.servTime = "01:00:00";
-    houseKeepBookingModel.servDate = "2023-05-23";
+    houseKeepBookingModel.servDate = "2023-08-23";
     houseKeepBookingModel.servLocation = "london";
-    houseKeepBookingModel.vehicleId = "54355";
-    houseKeepBookingModel.vehicleName = "Mustang";
-    await houseKeepingProvider.houseKeepBooking(houseKeepBookingModel, route);
+    houseKeepBookingModel.vehicleId = null;
+    houseKeepBookingModel.vehicleName = null;
+    houseKeepBookingModel.servImageSofa = houseKeepingProvider.sofaValetImages;
+    houseKeepBookingModel.servImageStain = null;
+    houseKeepBookingModel.servImageCarpet = null;
+    houseKeepBookingModel.servImageWindow = null;
+    houseKeepBookingModel.servImageGutter = null;
+    houseKeepBookingModel.servImageDriveway = null;
+    await houseKeepingProvider.houseKeepBooking(
+        houseKeepBookingModel, route, context);
   }
 
   route(bool isRoute, String errorMessage) async {

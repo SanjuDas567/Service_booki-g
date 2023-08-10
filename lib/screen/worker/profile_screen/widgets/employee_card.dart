@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:glossy_flossy/models/worker/profile_details_model.dart';
+import 'package:glossy_flossy/utils/color_resources.dart';
 
 class EmployeeCard extends StatelessWidget {
-  const EmployeeCard({super.key});
+  WorkerCard card;
+   EmployeeCard({required this.card});
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +16,8 @@ class EmployeeCard extends StatelessWidget {
             Colors.yellow,
             Colors.amberAccent,
             Colors.yellow.shade200,
-            // Colors.white,
-            Colors.white
+            Colors.white,
+            ColorResources.GLOSSY_FLOSSY_YELLOW,
           ]),
           color: Colors.yellow,
           borderRadius: BorderRadius.circular(25)),
@@ -31,7 +34,7 @@ class EmployeeCard extends StatelessWidget {
                       color: Colors.black54, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  '654987',
+                  card.isuenceId,
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                 )
               ],
@@ -47,7 +50,7 @@ class EmployeeCard extends StatelessWidget {
                 //   style: TextStyle(fontWeight: FontWeight.bold),
                 // ),
                 Text(
-                  'SHAN',
+                  card.empName.toUpperCase(),
                   style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                 ),
               ],
@@ -62,7 +65,7 @@ class EmployeeCard extends StatelessWidget {
                       'Working Time',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Text('10:30 am - 06: 30 pm')
+                    Text('${card.workAvlFrom}-${card.workAvlTo}')
                   ],
                 ),
                 Column(
@@ -72,7 +75,7 @@ class EmployeeCard extends StatelessWidget {
                       'Work Experience',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Text('1 year')
+                    Text(card.experience)
                   ],
                 )
               ],

@@ -13,6 +13,7 @@ import 'package:glossy_flossy/provider/user/user_profile_provider.dart';
 import 'package:glossy_flossy/provider/user/vehicle_booking_provider.dart';
 import 'package:glossy_flossy/provider/worker/home_screen_worker_provider.dart';
 import 'package:glossy_flossy/provider/worker/auth_provider_worker.dart';
+import 'package:glossy_flossy/provider/worker/profile_provider_worker.dart';
 import 'package:glossy_flossy/provider/worker/register_screen_provider_worker.dart';
 import 'package:glossy_flossy/provider/worker/worker_details_provider_worker.dart';
 import 'package:glossy_flossy/screen/user/main_screen.dart/main_screen.dart';
@@ -98,6 +99,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => di.sl<RegisterWorkerProvider>(),
+      ),
+      ChangeNotifierProvider(
+          create: (context) => di.sl<ProfileProviderWorker>(),
       ),
       ////
       ////

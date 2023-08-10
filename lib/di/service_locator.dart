@@ -19,8 +19,10 @@ import 'package:glossy_flossy/provider/user/repo/vehicle_repo.dart';
 import 'package:glossy_flossy/provider/user/user_profile_provider.dart';
 import 'package:glossy_flossy/provider/user/vehicle_booking_provider.dart';
 import 'package:glossy_flossy/provider/worker/auth_provider_worker.dart';
+import 'package:glossy_flossy/provider/worker/profile_provider_worker.dart';
 import 'package:glossy_flossy/provider/worker/register_screen_provider_worker.dart';
 import 'package:glossy_flossy/provider/worker/repo/auth_worker_repo.dart';
+import 'package:glossy_flossy/provider/worker/repo/profile_worker_repo.dart';
 import 'package:glossy_flossy/provider/worker/repo/register_screen_repo.dart';
 import 'package:glossy_flossy/utils/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -62,5 +64,7 @@ Future<void> setup() async {
   sl.registerFactory(() => AuthProviderWorker(authWorkerRepo: sl()));
   sl.registerLazySingleton(
       () => AuthWorkerRepo(dioClient: sl(), sharedPreferences: sl()));
+  sl.registerFactory(() => ProfileProviderWorker(profileWorkerRepo: sl()));
+  sl.registerLazySingleton(() => ProfileWorkerRepo(dioClient: sl()));
 
 }

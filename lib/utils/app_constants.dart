@@ -18,11 +18,12 @@ class AppConstants {
   static const String USER_ID = '0';
   static const String USER_TYPE = '';
   static const String SERVICE_NAME_URI = 'api/getservicetype/servicename/';
-  static const String HOME_SERVICE_BOOKING_URI = 'api/servReg/insert';
+  static const String HOME_SERVICE_BOOKING_URI = 'api/service/booking';
   static const String USER_PROFILE_DATA = 'api/userlogin/detl/';
   static const String USER_EDIT_PROFILE_URI = 'api/user/updation';
 
   //worker section :------------------------------------------------------------
   static const String WORKER_REGISTRATION_URI = 'api/employee/empInsert';
   static const String WORKER_LOGIN_URI = 'api/employee/empLogin';
+  static const String WORKER_PROFILE_DETAILS_URI = 'api/employee/getempdetl/';
 }
