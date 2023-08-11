@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:glossy_flossy/models/user/service_type_model.dart';
 import 'package:glossy_flossy/provider/user/home_screen_provider.dart';
 import 'package:glossy_flossy/screen/user/commercial_booking/commercial_booking.dart';
 import 'package:glossy_flossy/screen/user/home_screen.dart/widgets/image_slider.dart';
@@ -17,8 +16,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final provider = Provider.of<HomeScreenProvider>(context, listen: false);
-      provider.getServiceType();
+      Provider.of<HomeScreenProvider>(context, listen: false).getServiceType();
     });
     return Scaffold(
       backgroundColor: Colors.black,
@@ -51,8 +49,8 @@ class HomeScreen extends StatelessWidget {
                     ),
                     Consumer<HomeScreenProvider>(
                       builder: (context, homeScreenProvider, child) {
-                        ServiceTypeModel? serviceType =
-                            homeScreenProvider.serviceTypeModel;
+                        // ServiceTypeModel? serviceType =
+                        //     homeScreenProvider.serviceTypeModel;
                         return homeScreenProvider.isLoading
                             ? Center(
                                 child: CircularProgressIndicator(
@@ -65,7 +63,8 @@ class HomeScreen extends StatelessWidget {
                                   scrollDirection: Axis.horizontal,
                                   children: [
                                     CategoryCardMallika1(
-                                      title: serviceType!.data[0].serviceType
+                                      title: homeScreenProvider
+                                          .serviceTypeModel!.data[0].serviceType
                                           .capitalizeFirstLetter(),
                                       image: Images.CAR_WASHING_IMAGE,
                                       onTap: () {
@@ -74,14 +73,18 @@ class HomeScreen extends StatelessWidget {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 VehicleWashBooking(
-                                              data: serviceType.data[0],
+                                              data: homeScreenProvider
+                                                  .serviceTypeModel!.data[0],
                                             ),
                                           ),
                                         );
                                       },
                                     ),
                                     CategoryCardMallika1(
-                                        title: serviceType.data[1].serviceType
+                                        title: homeScreenProvider
+                                            .serviceTypeModel!
+                                            .data[1]
+                                            .serviceType
                                             .capitalizeFirstLetter(),
                                         image: Images.HOME_CLEANING_IMAGES,
                                         onTap: () {
@@ -90,13 +93,17 @@ class HomeScreen extends StatelessWidget {
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   HouseKeepingBookingScreen(
-                                                data: serviceType.data[1],
+                                                data: homeScreenProvider
+                                                    .serviceTypeModel!.data[1],
                                               ),
                                             ),
                                           );
                                         }),
                                     CategoryCardMallika1(
-                                        title: serviceType.data[2].serviceType
+                                        title: homeScreenProvider
+                                            .serviceTypeModel!
+                                            .data[2]
+                                            .serviceType
                                             .capitalizeFirstLetter(),
                                         image:
                                             Images.COMMERCIAL_CLEANING_IMAGES,
@@ -106,7 +113,8 @@ class HomeScreen extends StatelessWidget {
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   CommercialBooking(
-                                                data: serviceType.data[2],
+                                                data: homeScreenProvider
+                                                    .serviceTypeModel!.data[2],
                                               ),
                                             ),
                                           );

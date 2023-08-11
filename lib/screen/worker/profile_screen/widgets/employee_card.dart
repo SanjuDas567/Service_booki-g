@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:glossy_flossy/models/worker/profile_details_model.dart';
 import 'package:glossy_flossy/utils/color_resources.dart';
+import 'package:glossy_flossy/utils/date_cconverter.dart';
 
+// ignore: must_be_immutable
 class EmployeeCard extends StatelessWidget {
   WorkerCard card;
-   EmployeeCard({required this.card});
+  EmployeeCard({required this.card});
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +17,8 @@ class EmployeeCard extends StatelessWidget {
           gradient: LinearGradient(begin: Alignment.topCenter, colors: [
             Colors.yellow,
             Colors.amberAccent,
-            Colors.yellow.shade200,
-            Colors.white,
+            Colors.yellow.shade300,
+            // Colors.white,
             ColorResources.GLOSSY_FLOSSY_YELLOW,
           ]),
           color: Colors.yellow,
@@ -39,16 +41,8 @@ class EmployeeCard extends StatelessWidget {
                 )
               ],
             ),
-            // Text(
-            //   'Employee Card',
-            //   style: TextStyle(fontWeight: FontWeight.bold),
-            // ),
             Column(
               children: [
-                // Text(
-                //   'SHAN',
-                //   style: TextStyle(fontWeight: FontWeight.bold),
-                // ),
                 Text(
                   card.empName.toUpperCase(),
                   style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
@@ -65,7 +59,8 @@ class EmployeeCard extends StatelessWidget {
                       'Working Time',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Text('${card.workAvlFrom}-${card.workAvlTo}')
+                    Text(
+                        '${DateConverter.isoStringToLocalTimeOnly(card.workAvlFrom)}-${DateConverter.isoStringToLocalTimeOnly(card.workAvlTo)}')
                   ],
                 ),
                 Column(

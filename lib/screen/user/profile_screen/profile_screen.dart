@@ -32,17 +32,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: SafeArea(
-          child: CustomScrollView(
+      body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Consumer<UserProfileProvider>(
                 builder: (context, userProfileProvider, child) {
-                  // print(
-                  //     'image in data : ${userProfileProvider.message!.userProfilePic}');
-                  String imageUri = userProfileProvider.message!.userProfilePic;
                   return userProfileProvider.isLoading
                       ? const Center(
                           child: CircularProgressIndicator(
@@ -84,7 +80,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(70),
                                   child: Image.network(
-                                    AppConstants.BASE_URL + imageUri,
+                                    AppConstants.BASE_URL +
+                                        userProfileProvider
+                                            .message!.userProfilePic,
                                     fit: BoxFit.cover,
                                   )),
                             ),
@@ -127,7 +125,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
         ],
-      )),
+      ),
     );
   }
 

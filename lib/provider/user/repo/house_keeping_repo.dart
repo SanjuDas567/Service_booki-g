@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:glossy_flossy/data/dio/dio_client.dart';
 import 'package:glossy_flossy/data/exeption/api_error_handler.dart';
 import 'package:glossy_flossy/models/user/form_data/house_keeping_booking_response.dart';
-import 'package:glossy_flossy/provider/user/house_keeping_provider.dart';
 import 'package:glossy_flossy/utils/api_response.dart';
 import 'package:glossy_flossy/utils/app_constants.dart';
-import 'package:provider/provider.dart';
 
 class HouseKeepingRepo {
   final DioClient dioClient;
