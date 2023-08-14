@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:glossy_flossy/screen/user/login_page/login_page.dart';
+import 'package:glossy_flossy/utils/color_resources.dart';
 import 'package:glossy_flossy/utils/images.dart';
 
 class UserSelectionContainer extends StatelessWidget {
@@ -11,20 +12,27 @@ class UserSelectionContainer extends StatelessWidget {
       height: MediaQuery.of(context).size.height / 4.5,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          color: Colors.yellow, borderRadius: BorderRadius.circular(15)),
+          color: ColorResources.GLOSSY_FLOSSY_YELLOW,
+          borderRadius: BorderRadius.circular(15)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          const CircleAvatar(
-            radius: 40,
-            backgroundImage: AssetImage(Images.USER_iCON_USER_SELECTION),
-          ),
-          const Text(
-            'User Login',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 17,
-            ),
+          const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 40,
+                backgroundColor: ColorResources.GLOSSY_FLOSSY_BLACK,
+                backgroundImage: AssetImage(Images.USER_SELECTION_USER_ICON),
+              ),
+              Text(
+                'User Login',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17,
+                ),
+              ),
+            ],
           ),
           InkWell(
             onTap: () {
@@ -43,7 +51,7 @@ class UserSelectionContainer extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8)),
               child: const Padding(
                 padding: EdgeInsets.all(4),
-                child: Text('Continue ->'),
+                child: Text('Sign In'),
               ),
             ),
           )

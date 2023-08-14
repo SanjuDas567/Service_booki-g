@@ -8,10 +8,10 @@ class UserPhoneField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppTextFormField(
-      ctrl: controller,
+      controller: controller,
       // validator: validator,
       hintText: 'Phone number',
-      keyboardType: TextInputType.number,
+      textInputType: TextInputType.number,
     );
   }
 }

@@ -8,10 +8,10 @@ class AddressField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppTextFormField(
-      ctrl: controller,
+      controller: controller,
       // validator: validator,
       hintText: 'Address',
-      keyboardType: TextInputType.streetAddress,
+      textInputType: TextInputType.streetAddress,
     );
   }
 }

@@ -367,6 +367,7 @@ class _LoginPageState extends State<LoginPage> {
 
     if (isRoute) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        behavior: SnackBarBehavior.floating,
         content: Text(errorMessage),
         backgroundColor: Colors.green,
       ));
@@ -379,6 +380,7 @@ class _LoginPageState extends State<LoginPage> {
       );
     } else if (isRoute == false) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        behavior: SnackBarBehavior.floating,
         content: Text(errorMessage),
         backgroundColor: Colors.red,
       ));

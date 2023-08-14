@@ -8,10 +8,10 @@ class UserEmailField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppTextFormField(
-      ctrl: controller,
+      controller: controller,
       // validator: validator,
       hintText: 'Email',
-      keyboardType: TextInputType.emailAddress,
+      textInputType: TextInputType.emailAddress,
     );
   }
 }

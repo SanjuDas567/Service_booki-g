@@ -93,10 +93,9 @@ class _RegisterScreenWorkerState extends State<RegisterScreenWorker> {
                        height: 10,
                      ),
                      AppTextFormField(
-                       ctrl: _lNameController,
-                       validator: () {},
+                       controller: _lNameController,
                        hintText: 'Last Name',
-                       keyboardType: TextInputType.text,
+                       textInputType: TextInputType.text,
                      ),
                      const SizedBox(
                        height: 10,
@@ -117,46 +116,41 @@ class _RegisterScreenWorkerState extends State<RegisterScreenWorker> {
                        height: 10,
                      ),
                      AppTextFormField(
-                       ctrl: _passwordController,
-                       validator: () {},
+                       controller: _passwordController,
                        hintText: 'Password',
-                       keyboardType: TextInputType.text,
+                       textInputType: TextInputType.text,
                      ),
                      const SizedBox(
                        height: 10,
                      ),
                      AppTextFormField(
-                       ctrl: _phoneController,
-                       validator: () {},
+                       controller: _phoneController,
                        hintText: 'Phone Number',
-                       keyboardType: TextInputType.text,
+                       textInputType: TextInputType.text,
                      ),
                      const SizedBox(
                        height: 10,
                      ),
                      AppTextFormField(
-                       ctrl: _addressController,
-                       validator: () {},
+                       controller: _addressController,
                        hintText: 'Address',
-                       keyboardType: TextInputType.text,
+                       textInputType: TextInputType.text,
                      ),
                      const SizedBox(
                        height: 10,
                      ),
                      AppTextFormField(
-                       ctrl: _locationController,
-                       validator: () {},
+                       controller: _locationController,
                        hintText: 'Location',
-                       keyboardType: TextInputType.text,
+                       textInputType: TextInputType.text,
                      ),
                      const SizedBox(
                        height: 10,
                      ),
                      AppTextFormField(
-                       ctrl: _workExperienceController,
-                       validator: () {},
+                       controller: _workExperienceController,
                        hintText: 'Work experience',
-                       keyboardType: TextInputType.text,
+                       textInputType: TextInputType.text,
                      ),
                      const SizedBox(
                        height: 10,
@@ -222,19 +216,17 @@ class _RegisterScreenWorkerState extends State<RegisterScreenWorker> {
                        height: 10,
                      ),
                      AppTextFormField(
-                       ctrl: _insuranceIdController,
-                       validator: () {},
+                       controller: _insuranceIdController,
                        hintText: 'Insurance id',
-                       keyboardType: TextInputType.text,
+                       textInputType: TextInputType.text,
                      ),
                      const SizedBox(
                        height: 10,
                      ),
                      AppTextFormField(
-                       ctrl: _traingCourceController,
-                       validator: () {},
+                       controller: _traingCourceController,
                        hintText: 'Training course',
-                       keyboardType: TextInputType.text,
+                       textInputType: TextInputType.text,
                      ),
                      const SizedBox(
                        height: 30,

@@ -1,33 +1,70 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AppTextFormField extends StatelessWidget {
-  final TextEditingController? ctrl;
+  final TextEditingController? controller;
   final String? hintText;
-  final TextInputType? keyboardType;
-  final Function? validator;
+  final TextInputType? textInputType;
+  final int? maxLine;
   final FocusNode? focusNode;
-  final Function? onFieldSubmitted;
+  final FocusNode? nextNode;
+  final TextInputAction? textInputAction;
+  final bool isPhoneNumber;
+  final bool isValidator;
+  final String? validatorMessage;
+  final Color? fillColor;
+  final TextCapitalization capitalization;
+  final Widget? suffixIcon;
+  final bool? readOnly;
+  final bool allowSpecialCharactersAndNumbers;
+  final dynamic regExp;
 
-  const AppTextFormField(
-      {Key? key,
-      this.ctrl,
-      this.hintText,
-      this.keyboardType,
-      this.onFieldSubmitted,
-      this.focusNode,
-      this.validator})
-      : super(key: key);
+  const AppTextFormField({
+    this.controller,
+    this.hintText,
+    this.textInputType,
+    this.maxLine,
+    this.focusNode,
+    this.nextNode,
+    this.textInputAction,
+    this.isPhoneNumber = false,
+    this.isValidator = false,
+    this.validatorMessage,
+    this.capitalization = TextCapitalization.none,
+    this.fillColor,
+    this.suffixIcon,
+    this.readOnly,
+    this.allowSpecialCharactersAndNumbers = true,
+    this.regExp,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: ctrl,
-      keyboardType: keyboardType,
-      // autovalidateMode: AutovalidateMode.onUserInteraction,
+      style: TextStyle(color: Colors.yellow.shade300),
+      readOnly: readOnly ?? false,
+      controller: controller,
+      maxLines: maxLine ?? 1,
+      textCapitalization: capitalization,
+      maxLength: isPhoneNumber ? 10 : null,
       focusNode: focusNode,
-      style: TextStyle(color: Colors.white),
-      onFieldSubmitted: (value) => onFieldSubmitted!(value),
-      // validator: (input) => validator!(input),
+      keyboardType: textInputType ?? TextInputType.text,
+      //keyboardType: TextInputType.number,
+      initialValue: null,
+      textInputAction: textInputAction ?? TextInputAction.next,
+      onFieldSubmitted: (v) {
+        if (nextNode != null) {
+          FocusScope.of(context).requestFocus(nextNode);
+        }
+      },
+      inputFormatters: [
+        isPhoneNumber
+            ? FilteringTextInputFormatter.digitsOnly
+            : FilteringTextInputFormatter.singleLineFormatter,
+        allowSpecialCharactersAndNumbers
+            ? FilteringTextInputFormatter.allow(RegExp(regExp))
+            : FilteringTextInputFormatter.deny(RegExp(regExp)),
+      ],
       decoration: InputDecoration(
           hintText: hintText,
           label: Text(hintText.toString()),

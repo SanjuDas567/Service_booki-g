@@ -8,10 +8,10 @@ class UserFirstNameField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppTextFormField(
-      ctrl: controller,
+      controller: controller,
       // validator: validator,
       hintText: 'First Name',
-      keyboardType: TextInputType.text,
+      textInputType: TextInputType.text,
     );
   }
 }

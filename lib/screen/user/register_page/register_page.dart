@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:glossy_flossy/models/user/form_data/user_data.dart';
 import 'package:glossy_flossy/provider/user/register_provider_user.dart';
 import 'package:glossy_flossy/screen/user/login_page/login_page.dart';
+import 'package:glossy_flossy/utils/color_resources.dart';
 // import 'package:glossy_flossy/screen/user/register_page/widgets/date_picker.dart';
 import 'package:glossy_flossy/utils/images.dart';
 // import 'package:glossy_flossy/widgets/custom_password_field.dart';
@@ -26,7 +27,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final _phoneNumberController = TextEditingController();
   // final _dateController = TextEditingController();
   final _passwordController = TextEditingController();
-  // final _confirmPasswordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
   final _addressController = TextEditingController();
   final _firstNameFocus = FocusNode();
   final _lastNameFocus = FocusNode();
@@ -106,59 +107,50 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       AppTextFormField(
                         hintText: 'First Name',
-                        ctrl: _firstNameController,
+                        controller: _firstNameController,
                         focusNode: _firstNameFocus,
-                        validator: (input) {
-                          // if (_firstNameController.text == '' ||
-                          //     RegExp(r'^[a-z A-Z]+$').hasMatch(input)) {
-                          //   return "Please enter your first name";
-                          // } else if (_firstNameController.text
-                          //     .contains(RegExp(r'^[a-z A-Z]+$'))) {
-                          //   return null;
-                          // } else {
-                          //   return null;
-                          // }
-                        },
-                        onFieldSubmitted: () {
-                          FocusScope.of(context).requestFocus(_lastNameFocus);
-                        },
+                        nextNode: _lastNameFocus,
+                        regExp: r'^[a-zA-Z ]+$',
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       AppTextFormField(
                         hintText: 'Last Name',
-                        ctrl: _lastNameController,
+                        controller: _lastNameController,
                         focusNode: _lastNameFocus,
-                        onFieldSubmitted: () {
-                          FocusScope.of(context).requestFocus(_emailFocus);
-                        },
+                        regExp: r'^[a-zA-Z ]+$',
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       AppTextFormField(
                         hintText: 'Email',
-                        ctrl: _emailController,
+                        controller: _emailController,
                         focusNode: _emailFocus,
+                        allowSpecialCharactersAndNumbers: false,
+                        regExp: r'',
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       AppTextFormField(
                         hintText: 'Phone Number',
-                        ctrl: _phoneNumberController,
+                        controller: _phoneNumberController,
+                        isPhoneNumber: true,
+                        regExp: r'[0-9]',
                         // focusNode: ,
-                        keyboardType: TextInputType.number,
+                        textInputType: TextInputType.number,
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       AppTextFormField(
                         hintText: 'Address',
-                        ctrl: _addressController,
+                        controller: _addressController,
+                        regExp: r'^[0-9a-zA-Z\s\.,\-]+$',
                         // focusNode: ,
-                        keyboardType: TextInputType.streetAddress,
+                        textInputType: TextInputType.streetAddress,
                       ),
                       // const SizedBox(
                       //   height: 10,
@@ -171,23 +163,26 @@ class _RegisterPageState extends State<RegisterPage> {
                         height: 10,
                       ),
                       AppTextFormField(
+                        readOnly: false,
                         hintText: 'Password',
-                        ctrl: _passwordController,
+                        controller: _passwordController,
+                        allowSpecialCharactersAndNumbers: false,
+                        regExp: r'',
                         // focusNode: ,
-                        keyboardType: TextInputType.visiblePassword,
+                        textInputType: TextInputType.visiblePassword,
                       ),
                       const SizedBox(
                         height: 10,
                       ),
-                      // AppTextFormField(
-                      //   hintText: 'Confirm Password',
-                      //   ctrl: _confirmPasswordController,
-                      //   // focusNode: ,
-                      //   keyboardType: TextInputType.number,
-                      // ),
-                      // CustomTextField(
-                      //   hintText: 'Confirm Password',
-                      // ),
+                      AppTextFormField(
+                        readOnly: false,
+                        hintText: 'Confirm Password',
+                        controller: _confirmPasswordController,
+                        allowSpecialCharactersAndNumbers: false,
+                        regExp: r'',
+                        // focusNode: ,
+                        textInputType: TextInputType.visiblePassword,
+                      ),
                       const SizedBox(
                         height: 30,
                       ),
@@ -203,10 +198,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 height: 40,
                                 width: MediaQuery.of(context).size.width,
                                 decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.yellow,
-                                  ),
-                                  color: Colors.yellow,
+                                  color: ColorResources.GLOSSY_FLOSSY_YELLOW,
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 child: const Center(
@@ -246,7 +238,13 @@ class _RegisterPageState extends State<RegisterPage> {
         return emailRegExp.hasMatch(email);
       }
 
-      if (userFname.isEmpty) {
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
+      if (userProvider.profileImage == null) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Profile image must be required'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (userFname.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('First name must be required'),
           backgroundColor: Colors.red,
@@ -306,6 +304,11 @@ class _RegisterPageState extends State<RegisterPage> {
           content: Text('Password must contain at least one special character'),
           backgroundColor: Colors.red,
         ));
+      } else if (_confirmPasswordController.text != _passwordController.text) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Confirm Password is not same'),
+          backgroundColor: Colors.red,
+        ));
       } else {
         // UserRegistrationModel userRegistrationModel = UserRegistrationModel();
         // userRegistrationModel.userFname = userFname;
@@ -341,6 +344,7 @@ class _RegisterPageState extends State<RegisterPage> {
       //     .getBuyerInfo(context);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(errorMessage),
+        behavior: SnackBarBehavior.floating,
         backgroundColor: Colors.green,
       ));
 
@@ -353,6 +357,7 @@ class _RegisterPageState extends State<RegisterPage> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(errorMessage),
+        behavior: SnackBarBehavior.floating,
         backgroundColor: Colors.red,
       ));
     }

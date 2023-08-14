@@ -24,4 +24,7 @@ class Images {
   static const String CAMMERA_ICON = 'assets/images/camera icon  pic.png';
   static const String USER_GREY_PROFILE_ICON = 'assets/images/user.png';
   static const String USER_BLACK_PROFILE_ICON = 'assets/images/user black.png';
+  static const String USER_SELECTION_USER_ICON = 'assets/images/user(1).png';
+  static const String WORKER_SELECTION_WORKER_ICON = 'assets/images/worker.png';
+  static const String ADMIN_SELECTION_ADMIN_ICON = 'assets/images/admine 2.png';
 }

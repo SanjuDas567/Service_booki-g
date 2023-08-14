@@ -17,11 +17,8 @@ class VehicleNumberField extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppTextFormField(
       hintText: 'Vehicle Number',
-      ctrl: controller,
+      controller: controller,
       focusNode: lastNameFocus,
-      onFieldSubmitted: () {
-        FocusScope.of(context).requestFocus(lastNameFocus);
-      },
     );
   }
 }

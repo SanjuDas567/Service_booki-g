@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "781895147125",
+    "project_id": "glossy-flossy-otp",
+    "storage_bucket": "glossy-flossy-otp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781895147125:android:b7b939f5904d0c99c7e23c",
+        "android_client_info": {
+          "package_name": "com.example.glossy_flossy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "781895147125-js7s424eo5rcfhfrbhg8hfi6t8fjukgg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBq4ZAQEwug--7SuG5BFr_8jERsCl9npO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "781895147125-js7s424eo5rcfhfrbhg8hfi6t8fjukgg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

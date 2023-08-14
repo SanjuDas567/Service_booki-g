@@ -15,7 +15,7 @@ class ReviewTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppTextFormField(
       hintText: 'Comments',
-      ctrl: controller,
+      controller: controller,
       // focusNode: lastNameFocus,
       // onFieldSubmitted: () {
       //   FocusScope.of(context).requestFocus(lastNameFocus);
