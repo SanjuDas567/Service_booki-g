@@ -12,6 +12,8 @@ class WorkerEmailField extends StatelessWidget {
       controller: controller,
       hintText: 'Email',
       textInputType: TextInputType.emailAddress,
+      allowSpecialCharactersAndNumbers: false,
+      regExp: r'',
     );
   }
 }

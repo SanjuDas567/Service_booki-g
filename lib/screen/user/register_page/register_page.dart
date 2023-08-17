@@ -304,6 +304,11 @@ class _RegisterPageState extends State<RegisterPage> {
           content: Text('Password must contain at least one special character'),
           backgroundColor: Colors.red,
         ));
+      } else if (_confirmPasswordController.text.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Confirm Password field must be required'),
+          backgroundColor: Colors.red,
+        ));
       } else if (_confirmPasswordController.text != _passwordController.text) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Confirm Password is not same'),

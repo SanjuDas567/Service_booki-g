@@ -41,7 +41,7 @@ class AppTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: TextStyle(color: Colors.yellow.shade300),
+      style: TextStyle(color: Colors.white),
       readOnly: readOnly ?? false,
       controller: controller,
       maxLines: maxLine ?? 1,

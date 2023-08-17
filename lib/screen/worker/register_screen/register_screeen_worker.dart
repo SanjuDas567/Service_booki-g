@@ -22,6 +22,7 @@ class _RegisterScreenWorkerState extends State<RegisterScreenWorker> {
   final _phoneController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
   final _addressController = TextEditingController();
   final _locationController = TextEditingController();
   final _workExperienceController = TextEditingController();
@@ -32,246 +33,262 @@ class _RegisterScreenWorkerState extends State<RegisterScreenWorker> {
   @override
   Widget build(BuildContext context) {
     return Consumer<RegisterWorkerProvider>(
-      builder: (context, registerWorkerProvider, child) {
-       return Scaffold(
-         backgroundColor: ColorResources.GLOSSY_FLOSSY_BLACK,
-         body: CustomScrollView(
-           slivers: [
-             const SliverAppBar(
-               backgroundColor: ColorResources.GLOSSY_FLOSSY_BLACK,
-               title: Text('Register'),
-               pinned: true,
-             ),
-             SliverToBoxAdapter(
-               child: Form(
-                 key: _formKey,
-                 autovalidateMode: AutovalidateMode.always,
-                 child: Column(
-                   children: [
-                     Stack(clipBehavior: Clip.none, children: [
-                        CircleAvatar(
-                         radius: 75,
-                         backgroundColor: ColorResources.GLOSSY_FLOSSY_YELLOW,
-                         child: CircleAvatar(
-                           radius: 75,
-                           backgroundImage: registerWorkerProvider.profileImage != null
-                             ? FileImage(registerWorkerProvider.profileImage!)
-                               as ImageProvider<Object>?
-                             : const AssetImage(Images.USER_BLACK_PROFILE_ICON),
-                         ),
-                       ),
-                       Positioned(
-                         bottom: 0,
-                         right: 0,
-                         child: InkWell(
-                           onTap: () {
-                             registerWorkerProvider.pickImage();
-                           },
-                           child: Image.asset(
-                             Images.CAMMERA_ICON,
-                             height: 30,
-                           ),
-                         ),
-                       ),
-                     ]),
-                     const SizedBox(
-                       height: 30,
-                     ),
-                     WorkerFirstNameField(
-                       controller: _fnameController,
-                       validator: (value) {
-                         // if (value == null || value.isEmpty) {
-                         //   return 'Please enter some text';
-                         // } else if (_fnameController.text.length < 8) {
-                         //   return "too short";
-                         // } else if (_fnameController.text.contains("@")) {
-                         //   return 'enter valid name';
-                         // }
-                       },
-                     ),
-                     const SizedBox(
-                       height: 10,
-                     ),
-                     AppTextFormField(
-                       controller: _lNameController,
-                       hintText: 'Last Name',
-                       textInputType: TextInputType.text,
-                     ),
-                     const SizedBox(
-                       height: 10,
-                     ),
-                     WorkerEmailField(
-                       controller: _emailController,
-                       validator: (value) {
-                         // if (value == null || _emailController.text.isEmpty) {
-                         //   return 'Please Enter Email Address.';
-                         // } else if (RegExp(
-                         //         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                         //     .hasMatch(value)) {
-                         //   return 'Enter valid email';
-                         // }
-                       },
-                     ),
-                     const SizedBox(
-                       height: 10,
-                     ),
-                     AppTextFormField(
-                       controller: _passwordController,
-                       hintText: 'Password',
-                       textInputType: TextInputType.text,
-                     ),
-                     const SizedBox(
-                       height: 10,
-                     ),
-                     AppTextFormField(
-                       controller: _phoneController,
-                       hintText: 'Phone Number',
-                       textInputType: TextInputType.text,
-                     ),
-                     const SizedBox(
-                       height: 10,
-                     ),
-                     AppTextFormField(
-                       controller: _addressController,
-                       hintText: 'Address',
-                       textInputType: TextInputType.text,
-                     ),
-                     const SizedBox(
-                       height: 10,
-                     ),
-                     AppTextFormField(
-                       controller: _locationController,
-                       hintText: 'Location',
-                       textInputType: TextInputType.text,
-                     ),
-                     const SizedBox(
-                       height: 10,
-                     ),
-                     AppTextFormField(
-                       controller: _workExperienceController,
-                       hintText: 'Work experience',
-                       textInputType: TextInputType.text,
-                     ),
-                     const SizedBox(
-                       height: 10,
-                     ),
-                     Consumer<RegisterWorkerProvider>(
-                       builder: (context, timeInputProvider, _) {
-                         return TextField(
-                           controller: timeInputProvider.avilTimeInputController,
-                           style: const TextStyle(color: Colors.white),
-                           decoration: InputDecoration(
-                               labelText: "Working hours from",
-                               hintStyle: TextStyle(color: Colors.yellow.shade300),
-                               labelStyle:
-                               const TextStyle(color: Colors.yellowAccent),
-                               border: OutlineInputBorder(
-                                 borderRadius: BorderRadius.circular(18),
-                               ),
-                               focusedBorder: OutlineInputBorder(
-                                 borderRadius: BorderRadius.circular(18),
-                                 borderSide:
-                                 const BorderSide(color: Colors.yellow),
-                               ),
-                               enabledBorder: OutlineInputBorder(
-                                   borderRadius: BorderRadius.circular(18),
-                                   borderSide:
-                                   const BorderSide(color: Colors.yellow))),
-                           readOnly: true,
-                           onTap: () => timeInputProvider.selectTime(context),
-                         );
-                       },
-                     ),
-                     const SizedBox(
-                       height: 10,
-                     ),
-                     Consumer<RegisterWorkerProvider>(
-                       builder: (context, timeInputProvider, _) {
-                         return TextField(
-                           controller: timeInputProvider.avilToTimeInputController,
-                           style: const TextStyle(color: Colors.white),
-                           decoration: InputDecoration(
-                               labelText: "Working hours to",
-                               hintStyle: TextStyle(color: Colors.yellow.shade300),
-                               labelStyle:
-                               const TextStyle(color: Colors.yellowAccent),
-                               border: OutlineInputBorder(
-                                 borderRadius: BorderRadius.circular(18),
-                               ),
-                               focusedBorder: OutlineInputBorder(
-                                 borderRadius: BorderRadius.circular(18),
-                                 borderSide:
-                                 const BorderSide(color: Colors.yellow),
-                               ),
-                               enabledBorder: OutlineInputBorder(
-                                   borderRadius: BorderRadius.circular(18),
-                                   borderSide:
-                                   const BorderSide(color: Colors.yellow))),
-                           readOnly: true,
-                           onTap: () => timeInputProvider.selectToTime(context),
-                         );
-                       },
-                     ),
-                     const SizedBox(
-                       height: 10,
-                     ),
-                     AppTextFormField(
-                       controller: _insuranceIdController,
-                       hintText: 'Insurance id',
-                       textInputType: TextInputType.text,
-                     ),
-                     const SizedBox(
-                       height: 10,
-                     ),
-                     AppTextFormField(
-                       controller: _traingCourceController,
-                       hintText: 'Training course',
-                       textInputType: TextInputType.text,
-                     ),
-                     const SizedBox(
-                       height: 30,
-                     ),
-                     Consumer<RegisterWorkerProvider>(
-                       builder: (context, registerWorkerProvider, child) {
-                         return registerWorkerProvider.isRegistrationLoading
-                             ? const Center(
-                           child: CircularProgressIndicator(
-                             color: ColorResources.GLOSSY_FLOSSY_YELLOW,
-                           ),
-                         )
-                             : InkWell(
-                           onTap: () {
-                             registerWorker(context);
-                           },
-                           child: Container(
-                             height: 40,
-                             width: MediaQuery.of(context).size.width,
-                             decoration: BoxDecoration(
-                               border: Border.all(color: Colors.yellow),
-                               color: Colors.yellow,
-                               borderRadius: BorderRadius.circular(15),
-                             ),
-                             child: const Center(
-                               child: Text(
-                                 'Sign In',
-                                 style: TextStyle(
-                                     color: Colors.black,
-                                     fontWeight: FontWeight.bold),
-                               ),
-                             ),
-                           ),
-                         );
-                       },
-                     ),
-                   ],
-                 ),
-               ),
-             )
-           ],
-         ),
-       );
-      }
-    );
+        builder: (context, registerWorkerProvider, child) {
+      return Scaffold(
+        backgroundColor: ColorResources.GLOSSY_FLOSSY_BLACK,
+        body: CustomScrollView(
+          slivers: [
+            const SliverAppBar(
+              backgroundColor: ColorResources.GLOSSY_FLOSSY_BLACK,
+              title: Text('Register'),
+              pinned: true,
+            ),
+            SliverToBoxAdapter(
+              child: Form(
+                key: _formKey,
+                autovalidateMode: AutovalidateMode.always,
+                child: Column(
+                  children: [
+                    Stack(clipBehavior: Clip.none, children: [
+                      CircleAvatar(
+                        radius: 75,
+                        backgroundColor: ColorResources.GLOSSY_FLOSSY_YELLOW,
+                        child: CircleAvatar(
+                          radius: 75,
+                          backgroundImage: registerWorkerProvider
+                                      .profileImage !=
+                                  null
+                              ? FileImage(registerWorkerProvider.profileImage!)
+                                  as ImageProvider<Object>?
+                              : const AssetImage(
+                                  Images.USER_BLACK_PROFILE_ICON),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: InkWell(
+                          onTap: () {
+                            registerWorkerProvider.pickImage();
+                          },
+                          child: Image.asset(
+                            Images.CAMMERA_ICON,
+                            height: 30,
+                          ),
+                        ),
+                      ),
+                    ]),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    WorkerFirstNameField(
+                      controller: _fnameController,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    AppTextFormField(
+                      controller: _lNameController,
+                      hintText: 'Last Name',
+                      textInputType: TextInputType.text,
+                      regExp: r'^[a-zA-Z ]+$',
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    WorkerEmailField(
+                      controller: _emailController,
+                      validator: (value) {
+                        // if (value == null || _emailController.text.isEmpty) {
+                        //   return 'Please Enter Email Address.';
+                        // } else if (RegExp(
+                        //         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        //     .hasMatch(value)) {
+                        //   return 'Enter valid email';
+                        // }
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    AppTextFormField(
+                      controller: _passwordController,
+                      hintText: 'Password',
+                      textInputType: TextInputType.text,
+                      allowSpecialCharactersAndNumbers: false,
+                      regExp: r'',
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    AppTextFormField(
+                      controller: _confirmPasswordController,
+                      hintText: 'Confirm Password',
+                      textInputType: TextInputType.text,
+                      allowSpecialCharactersAndNumbers: false,
+                      regExp: r'',
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    AppTextFormField(
+                      controller: _phoneController,
+                      hintText: 'Phone Number',
+                      textInputType: TextInputType.text,
+                      isPhoneNumber: true,
+                      regExp: r'[0-9]',
+                    ),
+                    // const SizedBox(
+                    //   height: 10,
+                    // ),
+                    AppTextFormField(
+                      controller: _addressController,
+                      hintText: 'Address',
+                      textInputType: TextInputType.text,
+                      regExp: r'^[0-9a-zA-Z\s\.,\-]+$',
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    AppTextFormField(
+                      controller: _locationController,
+                      hintText: 'Location',
+                      textInputType: TextInputType.text,
+                      regExp: r'^[a-zA-Z ]+$',
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    AppTextFormField(
+                      controller: _workExperienceController,
+                      hintText: 'Work experience',
+                      textInputType: TextInputType.text,
+                      regExp: r'^[a-zA-Z0-9\s\.,\-]+$',
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Consumer<RegisterWorkerProvider>(
+                      builder: (context, timeInputProvider, _) {
+                        return TextField(
+                          controller: timeInputProvider.avilTimeInputController,
+                          style: const TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                              labelText: "Working hours from",
+                              hintStyle:
+                                  TextStyle(color: Colors.yellow.shade300),
+                              labelStyle:
+                                  const TextStyle(color: Colors.yellowAccent),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(18),
+                                borderSide:
+                                    const BorderSide(color: Colors.yellow),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(18),
+                                  borderSide:
+                                      const BorderSide(color: Colors.yellow))),
+                          readOnly: true,
+                          onTap: () => timeInputProvider.selectTime(context),
+                        );
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Consumer<RegisterWorkerProvider>(
+                      builder: (context, timeInputProvider, _) {
+                        return TextField(
+                          controller:
+                              timeInputProvider.avilToTimeInputController,
+                          style: const TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                              labelText: "Working hours to",
+                              hintStyle:
+                                  TextStyle(color: Colors.yellow.shade300),
+                              labelStyle:
+                                  const TextStyle(color: Colors.yellowAccent),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(18),
+                                borderSide:
+                                    const BorderSide(color: Colors.yellow),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(18),
+                                  borderSide:
+                                      const BorderSide(color: Colors.yellow))),
+                          readOnly: true,
+                          onTap: () => timeInputProvider.selectToTime(context),
+                        );
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    AppTextFormField(
+                      controller: _insuranceIdController,
+                      hintText: 'Insurance id',
+                      textInputType: TextInputType.text,
+                      regExp: r'[0-9]',
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    AppTextFormField(
+                      controller: _traingCourceController,
+                      hintText: 'Training course',
+                      textInputType: TextInputType.text,
+                      regExp: r'^[a-zA-Z ]+$',
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Consumer<RegisterWorkerProvider>(
+                      builder: (context, registerWorkerProvider, child) {
+                        return registerWorkerProvider.isRegistrationLoading
+                            ? const Center(
+                                child: CircularProgressIndicator(
+                                  color: ColorResources.GLOSSY_FLOSSY_YELLOW,
+                                ),
+                              )
+                            : InkWell(
+                                onTap: () {
+                                  registerWorker(context);
+                                },
+                                child: Container(
+                                  height: 40,
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.yellow),
+                                    color: Colors.yellow,
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      'Sign In',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                              );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+    });
   }
 
   void registerWorker(BuildContext context) async {
@@ -299,7 +316,12 @@ class _RegisterScreenWorkerState extends State<RegisterScreenWorker> {
 
       RegExp threeNumbersRegExp = RegExp(r'^\D*\d{3}\D*$');
 
-      if (empFirstname.isEmpty) {
+      if (regWorkerProvider.profileImage == null) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Profile image must be required'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (empFirstname.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('First name must be required'),
           backgroundColor: Colors.red,
@@ -344,6 +366,11 @@ class _RegisterScreenWorkerState extends State<RegisterScreenWorker> {
           content: Text('Password must contain at least one special character'),
           backgroundColor: Colors.red,
         ));
+      } else if (_confirmPasswordController.text.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Confirm Password field must be required'),
+          backgroundColor: Colors.red,
+        ));
       } else if (empPhone.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Phone number must be required'),
@@ -382,6 +409,11 @@ class _RegisterScreenWorkerState extends State<RegisterScreenWorker> {
       } else if (triningCourse.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Training course must be required'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (_confirmPasswordController.text != _passwordController.text) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Confirm Password is not same'),
           backgroundColor: Colors.red,
         ));
       } else {
