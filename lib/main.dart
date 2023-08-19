@@ -23,6 +23,8 @@ import 'package:glossy_flossy/screen/common/user_selection_screeen/user_selectio
 import 'package:provider/provider.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 
+import 'provider/user/service_history_provider.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   AwesomeNotifications().initialize(null, [
@@ -70,6 +72,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => di.sl<UserProfileProvider>(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => di.sl<ServiceHistoryProvider>(),
       ),
       ////
       ////

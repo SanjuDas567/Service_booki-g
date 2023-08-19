@@ -1,0 +1,101 @@
+// To parse this JSON data, do
+//
+//     final serviceHistoryModel = serviceHistoryModelFromJson(jsonString);
+
+import 'dart:convert';
+
+ServiceHistoryModel serviceHistoryModelFromJson(String str) => ServiceHistoryModel.fromJson(json.decode(str));
+
+String serviceHistoryModelToJson(ServiceHistoryModel data) => json.encode(data.toJson());
+
+class ServiceHistoryModel {
+    int success;
+    List<ServiceHistoryData> data;
+
+    ServiceHistoryModel({
+        required this.success,
+        required this.data,
+    });
+
+    factory ServiceHistoryModel.fromJson(Map<String, dynamic> json) => ServiceHistoryModel(
+        success: json["success"],
+        data: List<ServiceHistoryData>.from(json["data"].map((x) => ServiceHistoryData.fromJson(x))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "success": success,
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+    };
+}
+
+class ServiceHistoryData {
+    int userId;
+    String customerName;
+    int serNameSlno;
+    String serviceName;
+    int servTypeSlno;
+    String serviceType;
+    String? servImageStain;
+    String? servImageSofa;
+    String? servImageCarpet;
+    String? servImageWindow;
+    String? servImageGutter;
+    String? servImageDriveway;
+    String servTime;
+    DateTime servDate;
+    String servLocation;
+
+    ServiceHistoryData({
+        required this.userId,
+        required this.customerName,
+        required this.serNameSlno,
+        required this.serviceName,
+        required this.servTypeSlno,
+        required this.serviceType,
+        required this.servImageStain,
+        required this.servImageSofa,
+        required this.servImageCarpet,
+        required this.servImageWindow,
+        required this.servImageGutter,
+        required this.servImageDriveway,
+        required this.servTime,
+        required this.servDate,
+        required this.servLocation,
+    });
+
+    factory ServiceHistoryData.fromJson(Map<String, dynamic> json) => ServiceHistoryData(
+        userId: json["user_id"],
+        customerName: json["customer_Name"],
+        serNameSlno: json["ser_name_slno"],
+        serviceName: json["service_name"],
+        servTypeSlno: json["serv_type_slno"],
+        serviceType: json["service_type"],
+        servImageStain:  json["serv_image_stain"] ?? null,
+        servImageSofa: json["serv_image_sofa"],
+        servImageCarpet: json["serv_image_carpet"],
+        servImageWindow: json["serv_image_window"],
+        servImageGutter: json["serv_image_gutter"],
+        servImageDriveway: json["serv_image_driveway"],
+        servTime: json["serv_time"],
+        servDate: DateTime.parse(json["serv_date"]),
+        servLocation: json["serv_location"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "user_id": userId,
+        "customer_Name": customerName,
+        "ser_name_slno": serNameSlno,
+        "service_name": serviceName,
+        "serv_type_slno": servTypeSlno,
+        "service_type": serviceType,
+        "serv_image_stain": servImageStain,
+        "serv_image_sofa": servImageSofa,
+        "serv_image_carpet": servImageCarpet,
+        "serv_image_window": servImageWindow,
+        "serv_image_gutter": servImageGutter,
+        "serv_image_driveway": servImageDriveway,
+        "serv_time": servTime,
+        "serv_date": servDate.toIso8601String(),
+        "serv_location": servLocation,
+    };
+}

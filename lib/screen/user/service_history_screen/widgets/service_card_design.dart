@@ -1,9 +1,17 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:glossy_flossy/models/user/user_service_history_model.dart';
 import 'package:glossy_flossy/screen/user/service_detail_screen/service_details_screen.dart';
-import 'package:glossy_flossy/utils/images.dart';
+import 'package:glossy_flossy/utils/app_constants.dart';
+import 'package:glossy_flossy/utils/color_resources.dart';
+import 'package:glossy_flossy/utils/date_cconverter.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class ServiceCardDesign extends StatelessWidget {
-  const ServiceCardDesign({super.key});
+  final ServiceHistoryData serviceHistoryData;
+  ServiceCardDesign({
+    required this.serviceHistoryData,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +25,24 @@ class ServiceCardDesign extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Image.asset(Images.CAR_WASHING),
+              Image.network(
+                AppConstants.BASE_URL +
+                    serviceHistoryData.servImageWindow.toString(),
+                frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                  return child;
+                },
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child;
+                  } else {
+                    return Center(
+                      child: LinearProgressIndicator(
+                        color: ColorResources.GLOSSY_FLOSSY_BLACK,
+                      ),
+                    );
+                  }
+                },
+              ),
               SizedBox(
                 height: 20,
               ),
@@ -27,24 +52,28 @@ class ServiceCardDesign extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Car Washing",
+                      serviceHistoryData.serviceType.capitalizeFirstLetter(),
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 20,
                     ),
-                    RichText(
-                      text: TextSpan(children: [
-                        TextSpan(
-                            text: 'Car : ',
-                            style: TextStyle(
-                                color: Colors.black.withOpacity(.8),
-                                fontWeight: FontWeight.bold)),
-                        TextSpan(
-                            text: 'Porsche',
-                            style: TextStyle(color: Colors.black))
-                      ]),
-                    ),
+                    serviceHistoryData.servTypeSlno == 1
+                        ? RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                    text: 'Car : ',
+                                    style: TextStyle(
+                                        color: Colors.black.withOpacity(.8),
+                                        fontWeight: FontWeight.bold)),
+                                TextSpan(
+                                    text: 'Porsche',
+                                    style: TextStyle(color: Colors.black))
+                              ],
+                            ),
+                          )
+                        : const SizedBox.shrink(),
                     RichText(
                       text: TextSpan(children: [
                         TextSpan(
@@ -53,7 +82,8 @@ class ServiceCardDesign extends StatelessWidget {
                                 color: Colors.black.withOpacity(.8),
                                 fontWeight: FontWeight.bold)),
                         TextSpan(
-                            text: '10:30 AM 20 july 2023',
+                            text:
+                                "${DateConverter.estimatedDate(serviceHistoryData.servDate)}",
                             style: TextStyle(color: Colors.black))
                       ]),
                     ),
