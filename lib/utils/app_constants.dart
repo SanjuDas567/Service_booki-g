@@ -27,4 +27,5 @@ class AppConstants {
   static const String WORKER_REGISTRATION_URI = 'api/employee/empInsert';
   static const String WORKER_LOGIN_URI = 'api/employee/empLogin';
   static const String WORKER_PROFILE_DETAILS_URI = 'api/employee/getempdetl/';
+  static const String WORKER_SERVICE_HISTORY_URI = 'api/jobmangmt/workerhistory/';
 }

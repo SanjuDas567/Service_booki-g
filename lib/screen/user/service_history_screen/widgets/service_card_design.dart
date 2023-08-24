@@ -25,7 +25,9 @@ class ServiceCardDesign extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Image.network(
+              serviceHistoryData.servImageWindow == null
+              ? SizedBox.shrink()
+              : Image.network(
                 AppConstants.BASE_URL +
                     serviceHistoryData.servImageWindow.toString(),
                 frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
@@ -35,27 +37,28 @@ class ServiceCardDesign extends StatelessWidget {
                   if (loadingProgress == null) {
                     return child;
                   } else {
-                    return Center(
-                      child: LinearProgressIndicator(
+                    return const Center(
+                      child: CircularProgressIndicator(
                         color: ColorResources.GLOSSY_FLOSSY_BLACK,
                       ),
                     );
                   }
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
                       serviceHistoryData.serviceType.capitalizeFirstLetter(),
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     serviceHistoryData.servTypeSlno == 1
@@ -67,7 +70,7 @@ class ServiceCardDesign extends StatelessWidget {
                                     style: TextStyle(
                                         color: Colors.black.withOpacity(.8),
                                         fontWeight: FontWeight.bold)),
-                                TextSpan(
+                                const TextSpan(
                                     text: 'Porsche',
                                     style: TextStyle(color: Colors.black))
                               ],
@@ -84,7 +87,7 @@ class ServiceCardDesign extends StatelessWidget {
                         TextSpan(
                             text:
                                 "${DateConverter.estimatedDate(serviceHistoryData.servDate)}",
-                            style: TextStyle(color: Colors.black))
+                            style: const TextStyle(color: Colors.black))
                       ]),
                     ),
                     RichText(
@@ -94,9 +97,9 @@ class ServiceCardDesign extends StatelessWidget {
                             style: TextStyle(
                                 color: Colors.black.withOpacity(.8),
                                 fontWeight: FontWeight.bold)),
-                        TextSpan(
+                         TextSpan(
                             text:
-                                'Engine detailing, interior cleaing, polish and wash',
+                            serviceHistoryData.serviceName,
                             style: TextStyle(color: Colors.black))
                       ]),
                     ),
@@ -110,13 +113,13 @@ class ServiceCardDesign extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ServiceDetailsScreen()));
+                            builder: (context) => const ServiceDetailsScreen()));
                   },
-                  child: Text('More Details'))
+                  child: const Text('More Details'))
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
       ],

@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:glossy_flossy/di/service_locator.dart' as di;
 import 'package:glossy_flossy/provider/admin/login_provider_admin.dart';
@@ -16,14 +17,16 @@ import 'package:glossy_flossy/provider/worker/auth_provider_worker.dart';
 import 'package:glossy_flossy/provider/worker/profile_provider_worker.dart';
 import 'package:glossy_flossy/provider/worker/register_screen_provider_worker.dart';
 import 'package:glossy_flossy/provider/worker/worker_details_provider_worker.dart';
+import 'package:glossy_flossy/provider/worker/worker_service_history_provider.dart';
 import 'package:glossy_flossy/screen/user/main_screen.dart/main_screen.dart';
 import 'package:glossy_flossy/screen/worker/main_screen/main_screen_worker.dart';
 import 'package:glossy_flossy/splash_screen.dart';
 import 'package:glossy_flossy/screen/common/user_selection_screeen/user_selection_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
-
 import 'provider/user/service_history_provider.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -107,6 +110,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
           create: (context) => di.sl<ProfileProviderWorker>(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => di.sl<WorkerServiceHistoryProvider>(),
       ),
       ////
       ////

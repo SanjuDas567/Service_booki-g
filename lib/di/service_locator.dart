@@ -26,6 +26,8 @@ import 'package:glossy_flossy/provider/worker/register_screen_provider_worker.da
 import 'package:glossy_flossy/provider/worker/repo/auth_worker_repo.dart';
 import 'package:glossy_flossy/provider/worker/repo/profile_worker_repo.dart';
 import 'package:glossy_flossy/provider/worker/repo/register_screen_repo.dart';
+import 'package:glossy_flossy/provider/worker/repo/worker_service_history_repo.dart';
+import 'package:glossy_flossy/provider/worker/worker_service_history_provider.dart';
 import 'package:glossy_flossy/utils/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -70,4 +72,6 @@ Future<void> setup() async {
       () => AuthWorkerRepo(dioClient: sl(), sharedPreferences: sl()));
   sl.registerFactory(() => ProfileProviderWorker(profileWorkerRepo: sl()));
   sl.registerLazySingleton(() => ProfileWorkerRepo(dioClient: sl()));
+  sl.registerFactory(() => WorkerServiceHistoryProvider(workerServiceHistoryRepo: sl()));
+  sl.registerLazySingleton(() => WorkerServiceHistoryRepo(dioClient: sl()));
 }

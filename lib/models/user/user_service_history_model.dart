@@ -10,21 +10,22 @@ String serviceHistoryModelToJson(ServiceHistoryModel data) => json.encode(data.t
 
 class ServiceHistoryModel {
     int success;
-    List<ServiceHistoryData> data;
+    List<ServiceHistoryData>? data;
 
     ServiceHistoryModel({
         required this.success,
-        required this.data,
+         this.data,
     });
 
     factory ServiceHistoryModel.fromJson(Map<String, dynamic> json) => ServiceHistoryModel(
         success: json["success"],
-        data: List<ServiceHistoryData>.from(json["data"].map((x) => ServiceHistoryData.fromJson(x))),
+        data: json["data"] != null ? List<ServiceHistoryData>.from(json["data"].map((x) => ServiceHistoryData.fromJson(x)))
+        : null,
     );
 
     Map<String, dynamic> toJson() => {
         "success": success,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": data != null ? List<dynamic>.from(data!.map((x) => x.toJson())) : null,
     };
 }
 
@@ -70,7 +71,7 @@ class ServiceHistoryData {
         serviceName: json["service_name"],
         servTypeSlno: json["serv_type_slno"],
         serviceType: json["service_type"],
-        servImageStain:  json["serv_image_stain"] ?? null,
+        servImageStain:  json["serv_image_stain"],
         servImageSofa: json["serv_image_sofa"],
         servImageCarpet: json["serv_image_carpet"],
         servImageWindow: json["serv_image_window"],

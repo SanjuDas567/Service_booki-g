@@ -29,7 +29,7 @@ class ServiceHistoryProvider extends ChangeNotifier {
           ServiceHistoryModel.fromJson(apiResponse.response!.data);
 
       serviceHistoryModel = serviceHistory;
-      print(serviceHistoryModel!.data[0].customerName);
+      // print(serviceHistoryModel!.data[0].customerName);
     }
     notifyListeners();
   }
