@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:glossy_flossy/utils/color_resources.dart';
 
 class AppTextFormField extends StatelessWidget {
   final TextEditingController? controller;
@@ -69,7 +70,7 @@ class AppTextFormField extends StatelessWidget {
           hintText: hintText,
           label: Text(hintText.toString()),
           hintStyle: TextStyle(color: Colors.yellow.shade300),
-          labelStyle: const TextStyle(color: Colors.yellowAccent),
+          labelStyle: const TextStyle(color: ColorResources.GLOSSY_FLOSSY_YELLOW),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(18),
           ),

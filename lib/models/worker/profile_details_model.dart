@@ -54,6 +54,8 @@ class WorkerCard {
   String experience;
   String workAvlFrom;
   String workAvlTo;
+  String empFirstname;
+  String empLastname;
 
   WorkerCard({
     required this.empName,
@@ -61,6 +63,8 @@ class WorkerCard {
     required this.experience,
     required this.workAvlFrom,
     required this.workAvlTo,
+    required this.empFirstname,
+    required this.empLastname,
   });
 
   factory WorkerCard.fromJson(Map<String, dynamic> json) => WorkerCard(
@@ -69,6 +73,8 @@ class WorkerCard {
     experience: json["experience"],
     workAvlFrom: json["WorkAvl_from"],
     workAvlTo: json["work_avl_to"],
+    empFirstname: json["emp_firstname"],
+    empLastname: json["emp_lastname"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -77,6 +83,8 @@ class WorkerCard {
     "experience": experience,
     "WorkAvl_from": workAvlFrom,
     "work_avl_to": workAvlTo,
+    "emp_firstname": empFirstname,
+    "emp_lastname": empLastname,
   };
 }
 

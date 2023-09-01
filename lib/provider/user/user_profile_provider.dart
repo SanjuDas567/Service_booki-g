@@ -74,7 +74,7 @@ class UserProfileProvider extends ChangeNotifier {
     _isEditLoading = false;
     if (apiResponse.response!.statusCode == 200) {
       print('inside update user 200');
-      callback(true, 'Profile update sucessfully');
+      callback(true, 'Profile update successfully');
       notifyListeners();
     } else {
       print(apiResponse.error.toString());

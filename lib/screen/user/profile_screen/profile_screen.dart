@@ -83,6 +83,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     AppConstants.BASE_URL +
                                         userProfileProvider
                                             .message!.userProfilePic,
+                                    frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                                      return child;
+                                    },
+                                    loadingBuilder: (context, child, loadingProgress) {
+                                      if (loadingProgress == null) {
+                                        return child;
+                                      } else {
+                                        return const Center(
+                                          child: CircularProgressIndicator(
+                                            color: ColorResources.GLOSSY_FLOSSY_YELLOW,
+                                          ),
+                                        );
+                                      }
+                                    },
                                     fit: BoxFit.cover,
                                   )),
                             ),

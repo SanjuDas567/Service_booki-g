@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:glossy_flossy/provider/worker/auth_provider_worker.dart';
 import 'package:glossy_flossy/provider/worker/profile_provider_worker.dart';
+import 'package:glossy_flossy/screen/worker/profile_editscreen_worker/edit_profile_worker.dart';
 import 'package:glossy_flossy/screen/worker/profile_screen/widgets/employee_card.dart';
 import 'package:glossy_flossy/screen/worker/profile_screen/widgets/field_to_show_details_worker.dart';
+import 'package:glossy_flossy/utils/app_constants.dart';
 import 'package:glossy_flossy/utils/color_resources.dart';
 import 'package:glossy_flossy/utils/images.dart';
 import 'package:provider/provider.dart';
@@ -47,6 +49,37 @@ class _ProfileScreenWorkerState extends State<ProfileScreenWorker> {
                           padding: EdgeInsets.all(10),
                           child: Column(
                             children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Profile",
+                                    style: TextStyle(
+                                        color:
+                                            ColorResources.GLOSSY_FLOSSY_YELLOW,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  IconButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                WorkerEditProfile(
+                                                  screen: profileProviderWorker.screen![0],
+                                                  workerCard: profileProviderWorker.workerCard![0],
+                                                ),
+                                          ),
+                                        );
+                                      },
+                                      icon: Icon(
+                                        Icons.edit_note_outlined,
+                                        color:
+                                            ColorResources.GLOSSY_FLOSSY_YELLOW,
+                                      )),
+                                ],
+                              ),
                               Container(
                                 height: 140,
                                 width: 140,
@@ -58,8 +91,22 @@ class _ProfileScreenWorkerState extends State<ProfileScreenWorker> {
                                     borderRadius: BorderRadius.circular(70)),
                                 child: ClipRRect(
                                     borderRadius: BorderRadius.circular(70),
-                                    child: Image.asset(
-                                      Images.PROFILE_IMAGE,
+                                    child: Image.network(
+                                      AppConstants.BASE_URL + profileProviderWorker.screen![0].empProfilePic,
+                                      frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                                        return child;
+                                      },
+                                      loadingBuilder: (context, child, loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        } else {
+                                          return const Center(
+                                            child: CircularProgressIndicator(
+                                              color: ColorResources.GLOSSY_FLOSSY_YELLOW,
+                                            ),
+                                          );
+                                        }
+                                      },
                                       fit: BoxFit.cover,
                                     )),
                               ),
