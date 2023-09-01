@@ -11,6 +11,7 @@ class UserFirstNameField extends StatelessWidget {
       controller: controller,
       // validator: validator,
       hintText: 'First Name',
+      regExp: r'^[a-zA-Z ]+$',
       textInputType: TextInputType.text,
     );
   }

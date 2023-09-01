@@ -94,31 +94,31 @@ class _UserProfileEditScreenState extends State<UserProfileEditScreen> {
                           ],
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         UserFirstNameField(
                           controller: _fnameController,
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         UserLastNameField(
                           controller: _lnameController,
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         UserEmailField(
                           controller: _emailController,
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         UserPhoneField(
                           controller: _phoneController,
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         AddressField(
                           controller: _addressController,

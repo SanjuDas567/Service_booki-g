@@ -11,6 +11,7 @@ class AddressField extends StatelessWidget {
       controller: controller,
       // validator: validator,
       hintText: 'Address',
+      regExp: r'^[a-zA-Z ]+$',
       textInputType: TextInputType.streetAddress,
     );
   }

@@ -11,6 +11,7 @@ class UserPhoneField extends StatelessWidget {
       controller: controller,
       // validator: validator,
       hintText: 'Phone number',
+      regExp: r'[0-9]',
       textInputType: TextInputType.number,
     );
   }

@@ -11,6 +11,7 @@ class UserLastNameField extends StatelessWidget {
       controller: controller,
       // validator: validator,
       hintText: 'Last Name',
+      regExp: r'^[a-zA-Z ]+$',
       textInputType: TextInputType.text,
     );
   }

@@ -13,7 +13,7 @@ class WorkerPhoneField extends StatelessWidget {
       // validator: validator,
       hintText: 'Phone Number',
       regExp: r'[0-9]',
-      textInputType: TextInputType.text,
+      textInputType: TextInputType.number,
     );
   }
 }

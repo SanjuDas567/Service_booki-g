@@ -11,6 +11,8 @@ class UserEmailField extends StatelessWidget {
       controller: controller,
       // validator: validator,
       hintText: 'Email',
+      allowSpecialCharactersAndNumbers: false,
+      regExp: r'',
       textInputType: TextInputType.emailAddress,
     );
   }
