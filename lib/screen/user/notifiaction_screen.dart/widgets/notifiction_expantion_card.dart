@@ -1,4 +1,5 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:glossy_flossy/utils/app_constants.dart';
@@ -6,7 +7,8 @@ import 'package:glossy_flossy/utils/images.dart';
 import 'package:nb_utils/nb_utils.dart'; //https://pub.dev/packages/nb_utils
 
 class NotificationExpantionPanel extends StatefulWidget {
-  const NotificationExpantionPanel({Key? key}) : super(key: key);
+  final message;
+   NotificationExpantionPanel({this.message}) ;
 
   @override
   _NotificationExpantionPanelState createState() =>
@@ -15,15 +17,15 @@ class NotificationExpantionPanel extends StatefulWidget {
 
 class _NotificationExpantionPanelState
     extends State<NotificationExpantionPanel> {
-  Future<void> createPlantFoodNotification() async {
-    await AwesomeNotifications().createNotification(
-      content: NotificationContent(
-          id: 10,
-          channelKey: 'my_channel',
-          title: 'Simple Notification',
-          body: 'Your service is accepted by worker'),
-    );
-  }
+  // Future<void> createPlantFoodNotification() async {
+  //   await AwesomeNotifications().createNotification(
+  //     content: NotificationContent(
+  //         id: 10,
+  //         channelKey: 'my_channel',
+  //         title: 'Simple Notification',
+  //         body: 'Your service is accepted by worker'),
+  //   );
+  // }
 
   bool isExpanded = false;
 
@@ -136,7 +138,7 @@ class _NotificationExpantionPanelState
               children: [
                 InkWell(
                   onTap: () {
-                    createPlantFoodNotification();
+                    // createPlantFoodNotification();
                   },
                   child: Container(
                     padding: EdgeInsets.all(4),
