@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:glossy_flossy/screen/user/login_page/login_page.dart';
 import 'package:glossy_flossy/utils/color_resources.dart';
 import 'package:glossy_flossy/utils/images.dart';
+import 'package:glossy_flossy/widgets/custom_page_route.dart';
 
 class UserSelectionContainer extends StatelessWidget {
   const UserSelectionContainer({super.key});
@@ -38,7 +39,10 @@ class UserSelectionContainer extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
+                CustomDownPageRoute(
+                    child: LoginPage(),
+                    direction: AxisDirection.up
+                ),
               );
             },
             child: Container(

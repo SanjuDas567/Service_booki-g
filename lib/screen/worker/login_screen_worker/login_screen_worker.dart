@@ -5,6 +5,7 @@ import 'package:glossy_flossy/screen/worker/main_screen/main_screen_worker.dart'
 import 'package:glossy_flossy/screen/worker/register_screen/register_screeen_worker.dart';
 import 'package:glossy_flossy/utils/color_resources.dart';
 import 'package:glossy_flossy/utils/images.dart';
+import 'package:glossy_flossy/widgets/custom_page_route.dart';
 import 'package:provider/provider.dart';
 
 class LoginPageWorker extends StatefulWidget {
@@ -64,8 +65,8 @@ class _LoginPageWorkerState extends State<LoginPageWorker> {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
+                     SizedBox(
+                      height: MediaQuery.of(context).size.height / 7.5,
                     ),
                     Center(child: Image.asset(Images.GLOSSY_FLOSSY_LOGO)),
                     const SizedBox(
@@ -245,8 +246,9 @@ class _LoginPageWorkerState extends State<LoginPageWorker> {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) => RegisterScreenWorker(),
+                              CustomDownPageRoute(
+                                  child: RegisterScreenWorker(),
+                                  direction: AxisDirection.up
                               ),
                             );
                             print(

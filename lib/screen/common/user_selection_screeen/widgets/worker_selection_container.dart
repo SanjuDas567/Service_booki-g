@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:glossy_flossy/screen/worker/login_screen_worker/login_screen_worker.dart';
 import 'package:glossy_flossy/utils/color_resources.dart';
 import 'package:glossy_flossy/utils/images.dart';
+import 'package:glossy_flossy/widgets/custom_page_route.dart';
 
 class WorkerSelectionContainer extends StatelessWidget {
   const WorkerSelectionContainer({super.key});
@@ -37,11 +38,11 @@ class WorkerSelectionContainer extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LoginPageWorker(),
-                ),
+              Navigator.of(context).push(
+                  CustomDownPageRoute(
+                      child: LoginPageWorker(),
+                  direction: AxisDirection.up
+                  ),
               );
             },
             child: Container(

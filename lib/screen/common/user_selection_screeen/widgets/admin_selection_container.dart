@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:glossy_flossy/screen/admin/login_screen/login_screen_admin.dart';
 import 'package:glossy_flossy/utils/color_resources.dart';
 import 'package:glossy_flossy/utils/images.dart';
+import 'package:glossy_flossy/widgets/custom_page_route.dart';
 
 class AdminSelectionContainer extends StatelessWidget {
   const AdminSelectionContainer({super.key});
@@ -38,11 +39,11 @@ class AdminSelectionContainer extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LoginPageAdmin(),
-                ),
+              Navigator.of(context).push(
+                CustomDownPageRoute(
+                    child: LoginPageAdmin(),
+                  direction: AxisDirection.up,
+                )
               );
             },
             child: Container(
