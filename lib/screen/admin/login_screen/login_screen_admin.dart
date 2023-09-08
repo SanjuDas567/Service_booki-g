@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:glossy_flossy/models/admin/login_model_admin.dart';
 import 'package:glossy_flossy/provider/admin/login_provider_admin.dart';
+import 'package:glossy_flossy/screen/admin/main_screen/admin_main_screen.dart';
 import 'package:glossy_flossy/screen/user/main_screen.dart/main_screen.dart';
 import 'package:glossy_flossy/utils/dimentions.dart';
 import 'package:glossy_flossy/utils/images.dart';
+import 'package:glossy_flossy/widgets/custom_page_route.dart';
 import 'package:provider/provider.dart';
 
-class LoginPageAdmin extends StatelessWidget {
+class LoginPageAdmin extends StatefulWidget {
   LoginPageAdmin({super.key});
 
+  @override
+  State<LoginPageAdmin> createState() => _LoginPageAdminState();
+}
+
+class _LoginPageAdminState extends State<LoginPageAdmin> {
   final _passwordController = TextEditingController();
 
   final _emailController = TextEditingController();
@@ -15,10 +23,17 @@ class LoginPageAdmin extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      
+
       body: SafeArea(
         child: Form(
           key: _formKey,
@@ -29,7 +44,7 @@ class LoginPageAdmin extends StatelessWidget {
                   // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
                     const Padding(
                       padding: EdgeInsets.all(Dimensions.MARGIN_SIZE_SMALL),
@@ -95,14 +110,14 @@ class LoginPageAdmin extends StatelessWidget {
                         ),
                         // password
                         Padding(
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(Dimensions.MARGIN_SIZE_SMALL),
                           child: Stack(
                             alignment: const Alignment(0, 0),
                             children: <Widget>[
                               Container(
                                 decoration: BoxDecoration(
                                   color: Colors.grey.shade400,
-                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderRadius: BorderRadius.circular(Dimensions.MARGIN_SIZE_SMALL),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.only(
@@ -160,20 +175,10 @@ class LoginPageAdmin extends StatelessWidget {
                           height: 30,
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(Dimensions.MARGIN_SIZE_SMALL),
                           child: InkWell(
                             onTap: () {
-                              print('sign up button pressed');
-                              if (_emailController.text.trim() == 'admin' &&
-                                  _passwordController.text.trim() ==
-                                      'admin') {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MainScreen(),
-                                  ),
-                                );
-                              } else {}
+                              loginAdmin();
                             },
                             child: Container(
                               height: 40,
@@ -202,5 +207,97 @@ class LoginPageAdmin extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool isEmailValid(String email) {
+    // Define the regular expression pattern for email validation
+    RegExp emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    return emailRegExp.hasMatch(email);
+  }
+
+  // bool isPasswordValid(String password) {
+  RegExp threeNumbersRegExp = RegExp(r'^\D*\d{3}\D*$');
+
+  void loginAdmin() async {
+    if(_formKey.currentState!.validate()) {
+      FocusManager.instance.primaryFocus?.unfocus();
+      _formKey.currentState!.save();
+
+      String email = _emailController.text.trim();
+      String password = _passwordController.text.trim();
+
+      if(email.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Email must be required'),
+          backgroundColor: Colors.red,),);
+      } else if (!isEmailValid(email)) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Invalid email format'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (password.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Password must be required'),
+          backgroundColor: Colors.red,
+        ));
+      }
+      else if (password.length < 8) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Password must be at least 8 characters long'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!password.contains(RegExp(r'[A-Z]'))) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Password must contain at least one uppercase letter'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!password.contains(RegExp(r'[a-z]'))) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Password must contain at least one lowercase letter'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!threeNumbersRegExp.hasMatch(password)) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Password must contain exactly 3 numbers'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (!password.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Password must contain at least one special character'),
+          backgroundColor: Colors.red,
+        ));
+      } else {
+        LoginModelAdmin loginData = LoginModelAdmin();
+        loginData.email = email;
+        loginData.password = password;
+        await Provider.of<LoginProviderAdmin>(context, listen: false)
+            .adminLogin(loginData, route);
+      }
+    }
+  }
+  // page route :---------------------------------------------------------------
+  route(bool isRoute, String errorMessage) async {
+
+    if (isRoute) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: Text(errorMessage),
+        backgroundColor: Colors.green,
+      ));
+
+      Navigator.pushReplacement(
+        context,
+        CustomDownPageRoute(
+            child: AdminMainScreen(),
+            direction: AxisDirection.up
+        ),
+      );
+    } else if (isRoute == false) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: Text(errorMessage),
+        backgroundColor: Colors.red,
+      ));
+    }
   }
 }

@@ -3,6 +3,8 @@ import 'package:get_it/get_it.dart';
 import 'package:glossy_flossy/data/dio/dio_client.dart';
 import 'package:glossy_flossy/data/login_interceptor/loginInterceptor.dart';
 import 'package:glossy_flossy/data/shared_preference/shared_preference.dart';
+import 'package:glossy_flossy/provider/admin/login_provider_admin.dart';
+import 'package:glossy_flossy/provider/admin/repo/login_repo_admin.dart';
 import 'package:glossy_flossy/provider/user/commercial_providder.dart';
 import 'package:glossy_flossy/provider/user/google_map_provider.dart';
 import 'package:glossy_flossy/provider/user/home_screen_provider.dart';
@@ -74,4 +76,8 @@ Future<void> setup() async {
   sl.registerLazySingleton(() => ProfileWorkerRepo(dioClient: sl()));
   sl.registerFactory(() => WorkerServiceHistoryProvider(workerServiceHistoryRepo: sl()));
   sl.registerLazySingleton(() => WorkerServiceHistoryRepo(dioClient: sl()));
+  
+  // Admin :--------------------------------------------------------------------
+  sl.registerFactory(() => LoginProviderAdmin(loginRepoAdmin: sl()));
+  sl.registerLazySingleton(() => LoginRepoAdmin(dioClient: sl(), sharedPreferences: sl()));
 }

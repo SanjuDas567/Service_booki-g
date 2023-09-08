@@ -92,7 +92,7 @@ void main() async {
       ////
 
       ChangeNotifierProvider(
-        create: (context) => LoginProviderAdmin(),
+        create: (context) => di.sl<LoginProviderAdmin>(),
       ),
       ////
       ////

@@ -3,6 +3,7 @@ import 'package:glossy_flossy/models/user/login_model.dart';
 import 'package:glossy_flossy/provider/user/login_provider_user.dart';
 import 'package:glossy_flossy/screen/user/main_screen.dart/main_screen.dart';
 import 'package:glossy_flossy/screen/user/register_page/register_page.dart';
+import 'package:glossy_flossy/utils/dimentions.dart';
 import 'package:glossy_flossy/utils/images.dart';
 import 'package:glossy_flossy/widgets/custom_page_route.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 30,
                     ),
                     const Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(Dimensions.MARGIN_SIZE_SMALL),
                       child: Row(
                         children: [
                           Column(
@@ -68,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 16),
+                                    fontSize: Dimensions.FONT_SIZE_LARGE),
                               )
                             ],
                           ),
@@ -84,11 +85,11 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     // user name
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(Dimensions.MARGIN_SIZE_SMALL),
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(Dimensions.MARGIN_SIZE_SMALL),
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Colors.grey.shade400,
@@ -96,8 +97,8 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.only(
-                                  left: 15,
-                                  right: 15,
+                                  left: Dimensions.PADDING_SIZE_DEFAULT,
+                                  right: Dimensions.PADDING_SIZE_DEFAULT,
                                 ),
                                 child: TextFormField(
                                   controller: _emailController,
@@ -124,14 +125,14 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           // password
                           Padding(
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(Dimensions.MARGIN_SIZE_SMALL),
                             child: Stack(
                               alignment: const Alignment(0, 0),
                               children: <Widget>[
                                 Container(
                                   decoration: BoxDecoration(
                                     color: Colors.grey.shade400,
-                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderRadius: BorderRadius.circular(Dimensions.MARGIN_SIZE_SMALL),
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.only(
@@ -191,7 +192,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 )
                               : Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(Dimensions.MARGIN_SIZE_SMALL),
                                   child: InkWell(
                                     onTap: () {
                                       print('sign up button pressed');
@@ -227,20 +228,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: InkWell(
-                        onTap: () {
-                          print('google icon pressed');
-                        },
-                        child: Image.asset(
-                          Images.GOOGLE_IMAGE_LOGIN,
-                          height: 40,
-                        ),
-                      ),
-                    ),
+
                     const SizedBox(
                       height: 30,
                     ),

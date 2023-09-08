@@ -18,46 +18,58 @@ class AdminSelectionContainer extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          const Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 40,
-                backgroundColor: ColorResources.GLOSSY_FLOSSY_BLACK,
-                backgroundImage: AssetImage(
-                  Images.ADMIN_SELECTION_ADMIN_ICON,
-                ),
-              ),
-              Text(
-                'Admin Login',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                ),
-              ),
-            ],
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.of(context).push(
-                CustomDownPageRoute(
-                    child: LoginPageAdmin(),
-                  direction: AxisDirection.up,
-                )
-              );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black,
-                    style: BorderStyle.solid,
-                    width: 1,
+          const Expanded(
+            child:  Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 40,
+                  backgroundColor: ColorResources.GLOSSY_FLOSSY_BLACK,
+                  backgroundImage: AssetImage(
+                    Images.ADMIN_SELECTION_ADMIN_ICON,
                   ),
-                  borderRadius: BorderRadius.circular(8)),
-              child: const Padding(
-                padding: EdgeInsets.all(4),
-                child: Text('Sign In'),
-              ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Admin Login',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 50,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      CustomDownPageRoute(
+                          child: LoginPageAdmin(),
+                        direction: AxisDirection.up,
+                      )
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black,
+                          style: BorderStyle.solid,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(8)),
+                    child: const Padding(
+                      padding: EdgeInsets.all(4),
+                      child: Text('Sign In'),
+                    ),
+                  ),
+                ),
+              ],
             ),
           )
         ],
