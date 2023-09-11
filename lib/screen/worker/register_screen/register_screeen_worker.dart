@@ -30,8 +30,29 @@ class _RegisterScreenWorkerState extends State<RegisterScreenWorker> {
   final _traingCourceController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  
+  
+  @override
+  void dispose() {
+    _fnameController.dispose();
+    _lNameController.dispose();
+    _phoneController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    _addressController.dispose();
+    _locationController.dispose();
+    _workExperienceController.dispose();
+    _insuranceIdController.dispose();
+    _traingCourceController.dispose();
+    
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+     final registerProvider = Provider.of<RegisterWorkerProvider>(context, listen: false);
+    registerProvider.clearImage();
     return Consumer<RegisterWorkerProvider>(
         builder: (context, registerWorkerProvider, child) {
       return Scaffold(

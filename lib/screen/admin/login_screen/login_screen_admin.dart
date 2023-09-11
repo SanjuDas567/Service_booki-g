@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:glossy_flossy/models/admin/login_model_admin.dart';
 import 'package:glossy_flossy/provider/admin/login_provider_admin.dart';
 import 'package:glossy_flossy/screen/admin/main_screen/admin_main_screen.dart';
-import 'package:glossy_flossy/screen/user/main_screen.dart/main_screen.dart';
 import 'package:glossy_flossy/utils/dimentions.dart';
 import 'package:glossy_flossy/utils/images.dart';
 import 'package:glossy_flossy/widgets/custom_page_route.dart';

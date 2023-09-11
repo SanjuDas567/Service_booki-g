@@ -89,6 +89,11 @@ class RegisterWorkerProvider extends ChangeNotifier {
   File? _profileImage;
   File? get profileImage => _profileImage;
 
+  void clearImage() {
+    _profileImage = null;
+    notifyListeners();
+  }
+
   Future<void> pickImage() async {
     final imagePicker = ImagePicker();
     final pickedImage =

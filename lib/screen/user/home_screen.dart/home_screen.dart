@@ -7,6 +7,7 @@ import 'package:glossy_flossy/screen/user/home_screen.dart/widgets/service_type_
 import 'package:glossy_flossy/screen/user/housekeeping_booking/house_keeping_booking.dart';
 import 'package:glossy_flossy/screen/user/vehicle_wash_booking/vehicle_wash_booking.dart';
 import 'package:glossy_flossy/utils/images.dart';
+import 'package:glossy_flossy/widgets/custom_page_route.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -70,13 +71,12 @@ class HomeScreen extends StatelessWidget {
                                       onTap: () {
                                         Navigator.push(
                                           context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                VehicleWashBooking(
-                                              data: homeScreenProvider
-                                                  .serviceTypeModel!.data[0],
-                                            ),
-                                          ),
+                                          CustomDownPageRoute(
+                                              child: VehicleWashBooking(
+                                                data: homeScreenProvider
+                                                    .serviceTypeModel!.data[0],
+                                              ),
+                                              direction: AxisDirection.up),
                                         );
                                       },
                                     ),

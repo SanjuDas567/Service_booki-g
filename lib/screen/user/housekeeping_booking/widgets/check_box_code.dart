@@ -25,7 +25,7 @@ class CheckBoxCode extends StatelessWidget {
           onChanged: (value) {
             houseKeepingProvider.updateCheckbox1(value!);
             houseKeepingProvider.checkbox1
-                ? null
+                ? houseKeepingProvider.setSofaId(1)
                 : houseKeepingProvider.clearSofaValetImage();
           },
         ),
@@ -76,7 +76,7 @@ class CheckBoxCode extends StatelessWidget {
           onChanged: (value) {
             houseKeepingProvider.updateCheckbox2(value!);
             houseKeepingProvider.checkbox2
-                ? null
+                ? houseKeepingProvider.setCarpetId(2)
                 : houseKeepingProvider.clearcarpetImages();
             print(houseKeepingProvider.sofaId);
           },
@@ -129,7 +129,7 @@ class CheckBoxCode extends StatelessWidget {
           onChanged: (value) {
             houseKeepingProvider.updateCheckbox3(value!);
             houseKeepingProvider.checkbox3
-                ? null
+                ? houseKeepingProvider.setStainId(3)
                 : houseKeepingProvider.clearStainImages();
           },
         ),
@@ -181,7 +181,7 @@ class CheckBoxCode extends StatelessWidget {
           onChanged: (value) {
             houseKeepingProvider.updateCheckbox4(value!);
             houseKeepingProvider.checkbox4
-                ? null
+                ? houseKeepingProvider.setWindowId(4)
                 : houseKeepingProvider.clearWindowImages();
           },
         ),
@@ -233,7 +233,7 @@ class CheckBoxCode extends StatelessWidget {
           onChanged: (value) {
             houseKeepingProvider.updateCheckbox5(value!);
             houseKeepingProvider.checkbox5
-                ? null
+                ? houseKeepingProvider.setGutterId(5)
                 : houseKeepingProvider.clearGuteringCleaningImages();
           },
         ),
@@ -285,7 +285,7 @@ class CheckBoxCode extends StatelessWidget {
           onChanged: (value) {
             houseKeepingProvider.updateCheckbox6(value!);
             houseKeepingProvider.checkbox6
-                ? null
+                ? houseKeepingProvider.setSofaId(6)
                 : houseKeepingProvider.clearDrivewayImages();
           },
         ),

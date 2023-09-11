@@ -35,7 +35,10 @@ class LoginProviderAdmin extends ChangeNotifier {
       print('inside 200');
       final adminLoginModel = AdminLoginModel.fromJson(apiResponse.response!.data);
       data = adminLoginModel;
-      print(data!.message[0].adminName);
+      print(data!.token);
+      loginRepoAdmin.saveAdminToken(data!.token);
+      loginRepoAdmin.saveAdminName(data!.message[0].adminName);
+      loginRepoAdmin.setAdminType(data!.message[0].appUser.toString());
       callback(true, "Login Successfull");
       notifyListeners();
     }else {

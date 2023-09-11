@@ -22,23 +22,25 @@ class CategoryCardMallika1 extends StatelessWidget {
         onTap: onTap,
         child: Column(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                  // border: Border.all(
-                  //     width: selected ? 2 : 0, color: const Color(0xffFF8527)),
-                  borderRadius: BorderRadius.circular(20.0)),
-              child: ClipRRect(
-                child: Image.asset(
-                  image,
-                  width: MediaQuery.of(context).size.width / 5,
-                  height: MediaQuery.of(context).size.height / 10,
-                  fit: BoxFit.cover,
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                    // border: Border.all(
+                    //     width: selected ? 2 : 0, color: const Color(0xffFF8527)),
+                    borderRadius: BorderRadius.circular(20.0)),
+                child: ClipRRect(
+                  child: Image.asset(
+                    image,
+                    width: MediaQuery.of(context).size.width / 5,
+                    height: MediaQuery.of(context).size.height / 10,
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                borderRadius: BorderRadius.circular(20),
               ),
             ),
             const SizedBox(
-              height: 12.5,
+              height: 13,
             ),
             Text(
               title,

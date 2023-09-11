@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:glossy_flossy/provider/worker/auth_provider_worker.dart';
 import 'package:glossy_flossy/screen/common/user_selection_screeen/user_selection_screen.dart';
 import 'package:glossy_flossy/screen/worker/home_screen/home_screen_worker.dart';
@@ -8,6 +9,8 @@ import 'package:glossy_flossy/screen/worker/profile_screen/profile_screen_worker
 import 'package:glossy_flossy/screen/worker/servise_history/service_history_worker.dart';
 import 'package:glossy_flossy/screen/worker/work_screen/work_locaton_screen.dart';
 import 'package:glossy_flossy/utils/images.dart';
+import 'package:glossy_flossy/widgets/custom_page_route.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 class MainScreenWorker extends StatefulWidget {
@@ -36,9 +39,22 @@ class _MainScreenWorkerState extends State<MainScreenWorker> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime timeBackPressed = DateTime.now();
     return WillPopScope(
       onWillPop: () async {
-        return false;
+        final differeance = DateTime.now().difference(timeBackPressed);
+        timeBackPressed = DateTime.now();
+        if (differeance >= Duration(seconds: 2)) {
+          final String msg = 'Press the back button to exit';
+          Fluttertoast.showToast(
+            msg: msg,
+          );
+          return false;
+        } else {
+          Fluttertoast.cancel();
+          SystemNavigator.pop();
+          return true;
+        }
       },
       child: Scaffold(
         drawer: Drawer(
@@ -104,9 +120,9 @@ class _MainScreenWorkerState extends State<MainScreenWorker> {
                   isClear
                       ? await Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => UserSelectionScreen(),
-                          ),
+                          CustomDownPageRoute(
+                              child: UserSelectionScreen(),
+                              direction: AxisDirection.up),
                         )
                       : null;
                 },

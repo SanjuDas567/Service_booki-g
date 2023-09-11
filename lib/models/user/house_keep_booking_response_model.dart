@@ -19,11 +19,11 @@ class HouseKeepResponse {
 
     factory HouseKeepResponse.fromJson(Map<String, dynamic> json) => HouseKeepResponse(
         success: json["success"],
-        message: json["message"],
+        message: json["results"],
     );
 
     Map<String, dynamic> toJson() => {
         "success": success,
-        "message": message,
+        "results": message,
     };
 }

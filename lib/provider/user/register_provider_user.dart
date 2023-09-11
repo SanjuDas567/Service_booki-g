@@ -22,6 +22,11 @@ class UserProvider extends ChangeNotifier {
 
   File? get profileImage => _profileImage;
 
+  void clearImageUser() {
+    _profileImage = null;
+    notifyListeners();
+  }
+
   Future<void> pickImage() async {
     final imagePicker = ImagePicker();
     final pickedImage =

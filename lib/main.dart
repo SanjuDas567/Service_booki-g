@@ -19,14 +19,15 @@ import 'package:glossy_flossy/provider/worker/profile_provider_worker.dart';
 import 'package:glossy_flossy/provider/worker/register_screen_provider_worker.dart';
 import 'package:glossy_flossy/provider/worker/worker_details_provider_worker.dart';
 import 'package:glossy_flossy/provider/worker/worker_service_history_provider.dart';
+import 'package:glossy_flossy/screen/admin/main_screen/admin_main_screen.dart';
 import 'package:glossy_flossy/screen/user/main_screen.dart/main_screen.dart';
 import 'package:glossy_flossy/screen/user/notifiaction_screen.dart/notification_screen.dart';
 import 'package:glossy_flossy/screen/worker/main_screen/main_screen_worker.dart';
 import 'package:glossy_flossy/splash_screen.dart';
 import 'package:glossy_flossy/screen/common/user_selection_screeen/user_selection_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:awesome_notifications/awesome_notifications.dart';
 import 'provider/user/service_history_provider.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -149,6 +150,8 @@ class MyApp extends StatelessWidget {
             ? MainScreen()
             : wType == '2'
                 ? MainScreenWorker()
+                : wType == '3'
+                ? AdminMainScreen()
                 : UserSelectionScreen(), // Your main app screen
       ),
       navigatorKey: navigatorKey,

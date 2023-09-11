@@ -114,9 +114,11 @@ class _HouseKeepingBookingScreenState extends State<HouseKeepingBookingScreen> {
             child: Consumer<HouseKeepingProvider>(
               builder: (context, houseKeepingProvider, child) {
                 return houseKeepingProvider.isBookingLoading
-                    ? CircularProgressIndicator(
-                        color: ColorResources.GLOSSY_FLOSSY_YELLOW,
-                      )
+                    ? Center(
+                      child: CircularProgressIndicator(
+                          color: ColorResources.GLOSSY_FLOSSY_YELLOW,
+                        ),
+                    )
                     : Column(
                         children: [
                           SizedBox(
@@ -160,20 +162,20 @@ class _HouseKeepingBookingScreenState extends State<HouseKeepingBookingScreen> {
     print(userID);
     // print(houseKeepingProvider.sofaValetImages[0].uri);
     HouseKeepBookingModel houseKeepBookingModel = HouseKeepBookingModel();
-    houseKeepBookingModel.serNameSlno = 1;
+    houseKeepBookingModel.serNameSlno = 5;
     houseKeepBookingModel.userId = userID;
     houseKeepBookingModel.servTypeSlno = "2";
-    houseKeepBookingModel.servTime = "01:00:00";
-    houseKeepBookingModel.servDate = "2023-08-23";
-    houseKeepBookingModel.servLocation = "london";
-    houseKeepBookingModel.vehicleId = null;
-    houseKeepBookingModel.vehicleName = null;
-    houseKeepBookingModel.servImageSofa = houseKeepingProvider.sofaValetImages;
-    houseKeepBookingModel.servImageStain = null;
-    houseKeepBookingModel.servImageCarpet = null;
-    houseKeepBookingModel.servImageWindow = null;
-    houseKeepBookingModel.servImageGutter = null;
-    houseKeepBookingModel.servImageDriveway = null;
+    houseKeepBookingModel.servTime = "08:00:00";
+    houseKeepBookingModel.servDate = "2023-08-30";
+    houseKeepBookingModel.servLocation = "TRV";
+    houseKeepBookingModel.vehicleId = '';
+    houseKeepBookingModel.vehicleName = '';
+    houseKeepBookingModel.servImageSofa = [];
+    houseKeepBookingModel.servImageStain = [];
+    houseKeepBookingModel.servImageCarpet = [];
+    houseKeepBookingModel.servImageWindow = [];
+    houseKeepBookingModel.servImageGutter = houseKeepingProvider.guteringCleaningImages;
+    houseKeepBookingModel.servImageDriveway = [];
     await houseKeepingProvider.houseKeepBooking(
         houseKeepBookingModel, route, context);
   }

@@ -220,7 +220,7 @@ class HouseKeepingProvider extends ChangeNotifier {
 
   Future<void> houseKeepBooking(HouseKeepBookingModel houseKeepBookingModel,
       Function callback, BuildContext context) async {
-    try {
+    // try {
       _isBookingLoading = true;
       notifyListeners();
       ApiResponse apiResponse = await houseKeepingRepo.houseKeepBooking(
@@ -238,7 +238,9 @@ class HouseKeepingProvider extends ChangeNotifier {
         callback(true, houseKeepResponse!.message);
         notifyListeners();
       }
-    } catch (e) {}
+    // } catch (e) {
+    //   print(e);
+    // }
     notifyListeners();
   }
 }

@@ -3,12 +3,10 @@ import 'package:glossy_flossy/models/user/form_data/user_data.dart';
 import 'package:glossy_flossy/provider/user/register_provider_user.dart';
 import 'package:glossy_flossy/screen/user/login_page/login_page.dart';
 import 'package:glossy_flossy/utils/color_resources.dart';
-// import 'package:glossy_flossy/screen/user/register_page/widgets/date_picker.dart';
 import 'package:glossy_flossy/utils/images.dart';
-// import 'package:glossy_flossy/widgets/custom_password_field.dart';
+import 'package:glossy_flossy/widgets/custom_page_route.dart';
 import 'package:glossy_flossy/widgets/custom_text_form_field.dart';
 import 'package:provider/provider.dart';
-// import 'package:intl/intl.dart';
 
 class RegisterPage extends StatefulWidget {
   RegisterPage({super.key});
@@ -48,6 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+     Provider.of<UserProvider>(context, listen: false).clearImageUser();
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -355,8 +354,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
       await Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder: (context) => LoginPage(),
+         CustomDownPageRoute(
+            child: LoginPage(),
+            direction: AxisDirection.up
         ),
       );
     } else {
