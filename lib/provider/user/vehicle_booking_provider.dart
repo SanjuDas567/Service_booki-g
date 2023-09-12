@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:glossy_flossy/models/user/form_data/vehicle_service_booking.dart';
+import 'package:glossy_flossy/models/common/service_booking_response_model.dart';
 import 'package:glossy_flossy/models/user/vehicle_service_type_model.dart';
 import 'package:glossy_flossy/provider/user/repo/vehicle_repo.dart';
 import 'package:glossy_flossy/utils/api_response.dart';
@@ -62,5 +64,62 @@ class VehicleBookingProvider extends ChangeNotifier {
       vehicleServiceTypeModel = vehicleServiceType;
     }
     notifyListeners();
+  }
+
+  // vehicle wash booking api :--------------------------------------------------
+  bool _vehicleBookingLoading = false;
+  bool get vehicleBookingLoading => _vehicleBookingLoading;
+
+  ServiceBookingResponse? vehicleServiceResponse;
+
+  TextEditingController servicetime = TextEditingController();
+
+  void setTimeInput(String time) {
+    servicetime.text = time;
+    notifyListeners();
+  }
+
+  removeTime() {
+    servicetime.clear();
+    notifyListeners();
+  }
+
+   Future<void> selectTime(BuildContext context) async { 
+    TimeOfDay? pickedTime = await showTimePicker(
+      initialTime: TimeOfDay.now(),
+      context: context,
+    );
+
+    if (pickedTime != null) {
+      String formattedTime =
+          '${pickedTime.hour.toString().padLeft(2, '0')}:${pickedTime.minute.toString().padLeft(2, '0')}:00';
+      setTimeInput(formattedTime);
+    }
+  }
+  
+  Future<void> vehicleWashBooking(VehicleServiceBookingModel vehicleServiceBookingModel, Function callback) async {
+
+      try {
+        _vehicleBookingLoading = true;
+    notifyListeners();
+
+    ApiResponse apiResponse = await vehicleRepo.vehicleServiceBooking( vehicleServiceBookingModel);
+    _vehicleBookingLoading = false;
+    if(apiResponse.response != null &&
+      apiResponse.response!.statusCode == 200) {
+        final houseKeepResponsedata =
+            ServiceBookingResponse.fromJson(apiResponse.response!.data);
+        vehicleServiceResponse = houseKeepResponsedata;
+        print(vehicleServiceResponse!.message);
+
+        callback(true, vehicleServiceResponse!.message);
+        notifyListeners();
+      }
+        
+      } catch (e) {
+        print(e);
+      }
+      notifyListeners();
+
   }
 }

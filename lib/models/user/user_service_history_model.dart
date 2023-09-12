@@ -32,19 +32,21 @@ class ServiceHistoryModel {
 class ServiceHistoryData {
     int userId;
     String customerName;
-    int serNameSlno;
-    String serviceName;
+    String serNameSlno;
+    String? serviceName;
     int servTypeSlno;
     String serviceType;
-    String? servImageStain;
-    String? servImageSofa;
-    String? servImageCarpet;
-    String? servImageWindow;
-    String? servImageGutter;
-    String? servImageDriveway;
+    dynamic servImageStain;
+    dynamic servImageSofa;
+    dynamic servImageCarpet;
+    dynamic servImageWindow;
+    dynamic servImageGutter;
+    dynamic servImageDriveway;
     String servTime;
     DateTime servDate;
     String servLocation;
+    String vehicleName;
+    String vehicleId;
 
     ServiceHistoryData({
         required this.userId,
@@ -62,16 +64,18 @@ class ServiceHistoryData {
         required this.servTime,
         required this.servDate,
         required this.servLocation,
+        required this.vehicleName,
+        required this.vehicleId,
     });
 
     factory ServiceHistoryData.fromJson(Map<String, dynamic> json) => ServiceHistoryData(
-        userId: json["user_id"],
+         userId: json["user_id"],
         customerName: json["customer_Name"],
         serNameSlno: json["ser_name_slno"],
         serviceName: json["service_name"],
         servTypeSlno: json["serv_type_slno"],
         serviceType: json["service_type"],
-        servImageStain:  json["serv_image_stain"],
+        servImageStain: json["serv_image_stain"],
         servImageSofa: json["serv_image_sofa"],
         servImageCarpet: json["serv_image_carpet"],
         servImageWindow: json["serv_image_window"],
@@ -80,10 +84,12 @@ class ServiceHistoryData {
         servTime: json["serv_time"],
         servDate: DateTime.parse(json["serv_date"]),
         servLocation: json["serv_location"],
+        vehicleName: json["vehicle_name"],
+        vehicleId: json["vehicle_id"],
     );
 
     Map<String, dynamic> toJson() => {
-        "user_id": userId,
+       "user_id": userId,
         "customer_Name": customerName,
         "ser_name_slno": serNameSlno,
         "service_name": serviceName,
@@ -98,5 +104,7 @@ class ServiceHistoryData {
         "serv_time": servTime,
         "serv_date": servDate.toIso8601String(),
         "serv_location": servLocation,
+        "vehicle_name": vehicleName,
+        "vehicle_id": vehicleId,
     };
 }

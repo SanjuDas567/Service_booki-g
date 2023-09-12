@@ -70,8 +70,8 @@ class ServiceCardDesign extends StatelessWidget {
                                     style: TextStyle(
                                         color: Colors.black.withOpacity(.8),
                                         fontWeight: FontWeight.bold)),
-                                const TextSpan(
-                                    text: 'Porsche',
+                                 TextSpan(
+                                    text: serviceHistoryData.vehicleName,
                                     style: TextStyle(color: Colors.black))
                               ],
                             ),

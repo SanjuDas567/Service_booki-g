@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:glossy_flossy/models/user/form_data/house_keeping_booking_response.dart';
-import 'package:glossy_flossy/models/user/house_keep_booking_response_model.dart';
+import 'package:glossy_flossy/models/common/service_booking_response_model.dart';
 import 'package:glossy_flossy/models/user/house_keeping_model.dart';
 import 'package:glossy_flossy/utils/api_response.dart';
 import 'package:image_picker/image_picker.dart';
@@ -216,11 +216,11 @@ class HouseKeepingProvider extends ChangeNotifier {
   bool _isBookingLoading = false;
   bool get isBookingLoading => _isBookingLoading;
 
-  HouseKeepResponse? houseKeepResponse;
+  ServiceBookingResponse? houseKeepResponse;
 
   Future<void> houseKeepBooking(HouseKeepBookingModel houseKeepBookingModel,
       Function callback, BuildContext context) async {
-    // try {
+    try {
       _isBookingLoading = true;
       notifyListeners();
       ApiResponse apiResponse = await houseKeepingRepo.houseKeepBooking(
@@ -230,7 +230,7 @@ class HouseKeepingProvider extends ChangeNotifier {
           apiResponse.response!.statusCode == 200) {
         print('inside house keep booking 200');
         final houseKeepResponsedata =
-            HouseKeepResponse.fromJson(apiResponse.response!.data);
+            ServiceBookingResponse.fromJson(apiResponse.response!.data);
 
         houseKeepResponse = houseKeepResponsedata;
         print(houseKeepResponse!.message);
@@ -238,9 +238,9 @@ class HouseKeepingProvider extends ChangeNotifier {
         callback(true, houseKeepResponse!.message);
         notifyListeners();
       }
-    // } catch (e) {
-    //   print(e);
-    // }
+    } catch (e) {
+      print(e);
+    }
     notifyListeners();
   }
 }

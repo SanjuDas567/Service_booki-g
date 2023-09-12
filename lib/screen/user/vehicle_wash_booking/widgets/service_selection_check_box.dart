@@ -5,15 +5,10 @@ import 'package:provider/provider.dart';
 class CheckBoxVehicle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<VehicleBookingProvider>(
-      builder: (context, vehicleProvider, child) {
-        return vehicleProvider.isLoading
-            ? Center(
-                child: CircularProgressIndicator(
-                  color: Colors.yellow,
-                ),
-              )
-            : Column(
+    return 
+    Consumer<VehicleBookingProvider>(
+      builder: (context, vehicleProvider, _) {
+        return  Column(
                 children: [
                   CheckboxListTile(
                     checkColor: Colors.black,
@@ -22,7 +17,7 @@ class CheckBoxVehicle extends StatelessWidget {
                         (states) => Colors.yellow),
                     title: Text(
                       vehicleProvider
-                          .vehicleServiceTypeModel!.data[0].serviceName,
+                          .vehicleServiceTypeModel!.data[0].serviceName ,
                       style: TextStyle(color: Colors.white),
                     ),
                     value: vehicleProvider.checkbox1,

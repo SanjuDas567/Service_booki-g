@@ -4,20 +4,20 @@
 
 import 'dart:convert';
 
-HouseKeepResponse houseKeepResponseFromJson(String str) => HouseKeepResponse.fromJson(json.decode(str));
+ServiceBookingResponse houseKeepResponseFromJson(String str) => ServiceBookingResponse.fromJson(json.decode(str));
 
-String houseKeepResponseToJson(HouseKeepResponse data) => json.encode(data.toJson());
+String houseKeepResponseToJson(ServiceBookingResponse data) => json.encode(data.toJson());
 
-class HouseKeepResponse {
+class ServiceBookingResponse {
     int success;
     String message;
 
-    HouseKeepResponse({
+    ServiceBookingResponse({
         required this.success,
         required this.message,
     });
 
-    factory HouseKeepResponse.fromJson(Map<String, dynamic> json) => HouseKeepResponse(
+    factory ServiceBookingResponse.fromJson(Map<String, dynamic> json) => ServiceBookingResponse(
         success: json["success"],
         message: json["results"],
     );

@@ -84,7 +84,7 @@ class HouseKeepingRepo {
     });
     try {
       Response response = await dioClient.post(
-        AppConstants.HOME_SERVICE_BOOKING_URI,
+        AppConstants.SERVICE_BOOKING_URI,
         data: formdata,
       );
       return ApiResponse.withSuccess(response);
