@@ -218,6 +218,31 @@ class HouseKeepingProvider extends ChangeNotifier {
 
   ServiceBookingResponse? houseKeepResponse;
 
+  TextEditingController servicetime = TextEditingController();
+
+  void setTimeInput(String time) {
+    servicetime.text = time;
+    notifyListeners();
+  }
+
+  removeTime() {
+    servicetime.clear();
+    notifyListeners();
+  }
+
+   Future<void> selectTime(BuildContext context) async { 
+    TimeOfDay? pickedTime = await showTimePicker(
+      initialTime: TimeOfDay.now(),
+      context: context,
+    );
+
+    if (pickedTime != null) {
+      String formattedTime =
+          '${pickedTime.hour.toString().padLeft(2, '0')}:${pickedTime.minute.toString().padLeft(2, '0')}:00';
+      setTimeInput(formattedTime);
+    }
+  }
+
   Future<void> houseKeepBooking(HouseKeepBookingModel houseKeepBookingModel,
       Function callback, BuildContext context) async {
     try {

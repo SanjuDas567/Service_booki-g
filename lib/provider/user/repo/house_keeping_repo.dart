@@ -63,12 +63,12 @@ class HouseKeepingRepo {
     print('sofa : ${houseKeepBookingModel.servImageSofa}');
     print('Carpet: ${houseKeepBookingModel.servImageCarpet}');
     print('Window : ${houseKeepBookingModel.servImageWindow}');
-    print('gutter : ${multipartGutterImages[0]}');
+    print('gutter : ${houseKeepBookingModel.servImageGutter}');
     print('drive way : ${houseKeepBookingModel.servImageDriveway}');
     print("*/*/*/*/*/*/**/*/*/*/");
     var formdata = FormData.fromMap({
       "user_id": houseKeepBookingModel.userId,
-      "ser_name_slno": houseKeepBookingModel.serNameSlno,
+      "ser_name_slno": houseKeepBookingModel.serNameSlno!.join(',').toString(),
       "serv_type_slno": houseKeepBookingModel.servTypeSlno,
       "serv_time": houseKeepBookingModel.servTime,
       "serv_date": houseKeepBookingModel.servDate,

@@ -2,8 +2,8 @@ import 'dart:io';
 
 class HouseKeepBookingModel {
   String? userId;
-  int? serNameSlno;
-  String? servTypeSlno;
+  List? serNameSlno;
+  int? servTypeSlno;
   String? servTime;
   String? servDate;
   String? servLocation;

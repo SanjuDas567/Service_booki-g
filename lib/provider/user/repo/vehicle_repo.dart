@@ -28,7 +28,7 @@ class VehicleRepo {
     VehicleServiceBookingModel vehicleServiceBookingModel) async {
       print("*/*/*/*/*/*/**/*/*/*/");
     print('user id : ${vehicleServiceBookingModel.userId}');
-    print('user sl  no : ${vehicleServiceBookingModel.serNameSlno}');
+    print('user sl  no : ${vehicleServiceBookingModel.serNameSlno!.join(',').toString()}');
     print('user type slno : ${vehicleServiceBookingModel.servTypeSlno}');
     print('ser time : ${vehicleServiceBookingModel.servTime}');
     print('ser date : ${vehicleServiceBookingModel.servDate}');
@@ -44,7 +44,7 @@ class VehicleRepo {
     print("*/*/*/*/*/*/**/*/*/*/");
       var formdata = FormData.fromMap({
         "user_id": vehicleServiceBookingModel.userId,
-      "ser_name_slno": vehicleServiceBookingModel.serNameSlno.toString(),
+      "ser_name_slno": vehicleServiceBookingModel.serNameSlno!.join(',').toString(),
       "serv_type_slno": vehicleServiceBookingModel.servTypeSlno,
       "serv_time": vehicleServiceBookingModel.servTime,
       "serv_date": vehicleServiceBookingModel.servDate,

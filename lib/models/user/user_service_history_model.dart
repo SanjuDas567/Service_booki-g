@@ -84,8 +84,8 @@ class ServiceHistoryData {
         servTime: json["serv_time"],
         servDate: DateTime.parse(json["serv_date"]),
         servLocation: json["serv_location"],
-        vehicleName: json["vehicle_name"],
-        vehicleId: json["vehicle_id"],
+        vehicleName: json["vehicle_name"] ?? '',
+        vehicleId: json["vehicle_id"] ?? '',
     );
 
     Map<String, dynamic> toJson() => {

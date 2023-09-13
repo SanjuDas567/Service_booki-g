@@ -7,6 +7,7 @@ import 'package:glossy_flossy/provider/user/login_provider_user.dart';
 import 'package:glossy_flossy/screen/user/housekeeping_booking/widgets/check_box.dart';
 import 'package:glossy_flossy/utils/color_resources.dart';
 import 'package:glossy_flossy/utils/images.dart';
+import 'package:glossy_flossy/widgets/custom_text_form_field.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
@@ -20,36 +21,55 @@ class HouseKeepingBookingScreen extends StatefulWidget {
 }
 
 class _HouseKeepingBookingScreenState extends State<HouseKeepingBookingScreen> {
-  bool isChecked = false;
 
-  bool isCheckBoxChecked = false;
+  DateTime selectedDate = DateTime.now().add(Duration(days: 1));
+  String? formateddate;
 
-  void toggleCheckbox() {
-    isChecked = !isChecked;
-  }
 
   final _controller = ScrollController();
+    final _locationController = TextEditingController();
+
+  late HouseKeepingProvider houseKeepingProvider;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+       houseKeepingProvider =
+          Provider.of<HouseKeepingProvider>(context, listen: false);
+      houseKeepingProvider.updateCheckbox1(false);
+      houseKeepingProvider.updateCheckbox2(false);
+      houseKeepingProvider.updateCheckbox3(false);
+      houseKeepingProvider.updateCheckbox4(false);
+      houseKeepingProvider.updateCheckbox5(false);
+      houseKeepingProvider.updateCheckbox6(false);
+      
+      houseKeepingProvider.getServiceName(widget.data.typeSlno.toString());
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+          houseKeepingProvider.updateCheckbox1(false);
+          houseKeepingProvider.updateCheckbox2(false);
+          houseKeepingProvider.updateCheckbox3(false);
+          houseKeepingProvider.updateCheckbox4(false);
+          houseKeepingProvider.updateCheckbox5(false);
+          houseKeepingProvider.updateCheckbox6(false);
+          houseKeepingProvider.clearSofaValetImage();
+          houseKeepingProvider.clearcarpetImages();
+          houseKeepingProvider.clearStainImages();
+          houseKeepingProvider.clearWindowImages();
+          houseKeepingProvider.clearGuteringCleaningImages();
+          houseKeepingProvider.clearDrivewayImages();
+          houseKeepingProvider.removeTime();
+  }
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final commercialProvider =
-          Provider.of<HouseKeepingProvider>(context, listen: false);
-      commercialProvider.updateCheckbox1(false);
-      commercialProvider.updateCheckbox2(false);
-      commercialProvider.updateCheckbox3(false);
-      commercialProvider.updateCheckbox4(false);
-      commercialProvider.updateCheckbox5(false);
-      commercialProvider.updateCheckbox6(false);
-      commercialProvider.clearSofaValetImage();
-      commercialProvider.clearcarpetImages();
-      commercialProvider.clearStainImages();
-      commercialProvider.clearWindowImages();
-      commercialProvider.clearGuteringCleaningImages();
-      commercialProvider.clearDrivewayImages();
-
-      commercialProvider.getServiceName(widget.data.typeSlno.toString());
-    });
     return Scaffold(
       backgroundColor: Colors.black,
       body: CustomScrollView(
@@ -80,73 +100,119 @@ class _HouseKeepingBookingScreenState extends State<HouseKeepingBookingScreen> {
             ),
           ),
           SliverToBoxAdapter(
-            child: CalendarTimeline(
-              initialDate: DateTime.now(),
-              firstDate: DateTime.now(),
-              lastDate: DateTime(2050, 11, 20),
-              onDateSelected: (date) => print(date),
-              leftMargin: 20,
-              monthColor: Colors.blueGrey,
-              dayColor: Colors.white,
-              activeDayColor: Colors.black,
-              activeBackgroundDayColor: Colors.yellow,
-              dotsColor: const Color(0xFF333A47),
-              selectableDayPredicate: (date) => date.day != 23,
-              locale: 'en_ISO',
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 10,
-                ),
-                Text('Choose service you need',
-                    style: TextStyle(color: Colors.yellow)),
-              ],
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: HouseKeepingCheckBox(),
-          ),
-          SliverToBoxAdapter(
             child: Consumer<HouseKeepingProvider>(
               builder: (context, houseKeepingProvider, child) {
-                return houseKeepingProvider.isBookingLoading
-                    ? Center(
-                      child: CircularProgressIndicator(
-                          color: ColorResources.GLOSSY_FLOSSY_YELLOW,
-                        ),
-                    )
-                    : Column(
-                        children: [
-                          SizedBox(
-                            height: 30,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              bookService(context);
-                            },
-                            child: Container(
-                              height: 40,
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.yellow),
-                                color: Colors.black,
-                                borderRadius: BorderRadius.circular(15),
+                return houseKeepingProvider.isLoading
+                ? Center(
+                  child: CircularProgressIndicator(
+                    color: ColorResources.GLOSSY_FLOSSY_YELLOW,
+                  ),
+                ) 
+                : Column(
+                children: [
+                  CalendarTimeline(
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: selectedDate,
+                    onDateSelected: (date) {
+                      formateddate = 
+                      "${date.year}-${date.month}-${date.day}";
+                    },
+                    leftMargin: 20,
+                    monthColor: Colors.blueGrey,
+                    dayColor: Colors.white,
+                    activeDayColor: Colors.black,
+                    activeBackgroundDayColor: Colors.yellow,
+                    dotsColor: const Color(0xFF333A47),
+                    selectableDayPredicate: (date) => date.day != 23,
+                    locale: 'en_ISO',
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text('Choose service you need',
+                      style: TextStyle(color: Colors.yellow)),
+                  HouseKeepingCheckBox(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextField(
+                                controller: houseKeepingProvider.servicetime,
+                                style: const TextStyle(color: Colors.white),
+                                decoration: InputDecoration(
+                                    labelText: "Service time",
+                                    hintStyle: TextStyle(
+                                        color: ColorResources
+                                            .GLOSSY_FLOSSY_YELLOW),
+                                    labelStyle: const TextStyle(
+                                        color: ColorResources
+                                            .GLOSSY_FLOSSY_YELLOW),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                      borderSide: const BorderSide(
+                                          color: Colors.yellow),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(18),
+                                        borderSide: const BorderSide(
+                                            color: Colors.yellow))),
+                                readOnly: true,
+                                onTap: () =>
+                                    houseKeepingProvider.selectTime(context),
                               ),
-                              child: Center(
-                                child: Text(
-                                  'Book wash',
-                                  style: TextStyle(color: Colors.yellow),
+                              Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      AppTextFormField(
+                                        controller: _locationController,
+                                        hintText: 'Service Location',
+                                        textInputType: TextInputType.text,
+                                        regExp: r'^[a-zA-Z ]+$',
+                                      ),
+                                    ]
+                              ),
+                  houseKeepingProvider.isBookingLoading
+                      ? Center(
+                          child: CircularProgressIndicator(
+                            color: ColorResources.GLOSSY_FLOSSY_YELLOW,
+                          ),
+                        )
+                      : Column(
+                          children: [
+                            SizedBox(
+                              height: 30,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                bookService(context);
+                              },
+                              child: Container(
+                                height: 40,
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.yellow),
+                                  color: ColorResources.GLOSSY_FLOSSY_YELLOW,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Book wash',
+                                    style: TextStyle(color: ColorResources.GLOSSY_FLOSSY_BLACK),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      );
+                          ],
+                        ),
+                ],
+              );
               },
+               
             ),
           ),
         ],
@@ -160,24 +226,53 @@ class _HouseKeepingBookingScreenState extends State<HouseKeepingBookingScreen> {
     final userID =
         Provider.of<AuthProvider>(context, listen: false).getUserId();
     print(userID);
-    // print(houseKeepingProvider.sofaValetImages[0].uri);
+
+
+    String location = _locationController.text.trim();
+     String serviceTime = houseKeepingProvider.servicetime.text.trim();
+    
+    List serviceNameSl = [];
+
+    if (houseKeepingProvider.checkbox1) serviceNameSl.add(houseKeepingProvider.houseServiceTypeModel!.data[0].nameSlno);
+    if (houseKeepingProvider.checkbox2) serviceNameSl.add(houseKeepingProvider.houseServiceTypeModel!.data[1].nameSlno);
+    if (houseKeepingProvider.checkbox3) serviceNameSl.add(houseKeepingProvider.houseServiceTypeModel!.data[2].nameSlno);
+    if (houseKeepingProvider.checkbox4) serviceNameSl.add(houseKeepingProvider.houseServiceTypeModel!.data[3].nameSlno);
+    if (houseKeepingProvider.checkbox5) serviceNameSl.add(houseKeepingProvider.houseServiceTypeModel!.data[4].nameSlno);
+    if (houseKeepingProvider.checkbox6) serviceNameSl.add(houseKeepingProvider.houseServiceTypeModel!.data[5].nameSlno);
+    print(serviceNameSl);
     HouseKeepBookingModel houseKeepBookingModel = HouseKeepBookingModel();
-    houseKeepBookingModel.serNameSlno = 5;
+    houseKeepBookingModel.serNameSlno = serviceNameSl;
     houseKeepBookingModel.userId = userID;
-    houseKeepBookingModel.servTypeSlno = "2";
-    houseKeepBookingModel.servTime = "08:00:00";
-    houseKeepBookingModel.servDate = "2023-08-30";
-    houseKeepBookingModel.servLocation = "TRV";
+    houseKeepBookingModel.servTypeSlno = 2;
+    houseKeepBookingModel.servTime = serviceTime;
+    houseKeepBookingModel.servDate = formateddate;
+    houseKeepBookingModel.servLocation = location;
     houseKeepBookingModel.vehicleId = '';
     houseKeepBookingModel.vehicleName = '';
-    houseKeepBookingModel.servImageSofa = [];
-    houseKeepBookingModel.servImageStain = [];
-    houseKeepBookingModel.servImageCarpet = [];
-    houseKeepBookingModel.servImageWindow = [];
-    houseKeepBookingModel.servImageGutter = houseKeepingProvider.guteringCleaningImages;
-    houseKeepBookingModel.servImageDriveway = [];
-    await houseKeepingProvider.houseKeepBooking(
+    houseKeepBookingModel.servImageSofa = houseKeepingProvider.sofaValetImages;
+    houseKeepBookingModel.servImageStain =
+        houseKeepingProvider.stainRemovalImages;
+    houseKeepBookingModel.servImageCarpet =
+        houseKeepingProvider.carpetCleanImages;
+    houseKeepBookingModel.servImageWindow =
+        houseKeepingProvider.windowCleaningImages;
+    houseKeepBookingModel.servImageGutter =
+        houseKeepingProvider.guteringCleaningImages;
+    houseKeepBookingModel.servImageDriveway =
+        houseKeepingProvider.drivewayImages;
+
+        if(serviceNameSl.isNotEmpty) {
+          await houseKeepingProvider.houseKeepBooking(
         houseKeepBookingModel, route, context);
+        }else {
+          print('inside else vehicle booking scaffold');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        behavior: SnackBarBehavior.fixed,
+        content: Text('select any service to continue'),
+        backgroundColor: ColorResources.SNACKBAR_RED,
+      ));
+        }
+    
   }
 
   route(bool isRoute, String errorMessage) async {
@@ -189,6 +284,7 @@ class _HouseKeepingBookingScreenState extends State<HouseKeepingBookingScreen> {
         content: Text(errorMessage),
         backgroundColor: Colors.green,
       ));
+      Navigator.of(context).pop();
     }
   }
 }

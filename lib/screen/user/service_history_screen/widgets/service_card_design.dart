@@ -29,7 +29,7 @@ class ServiceCardDesign extends StatelessWidget {
               ? SizedBox.shrink()
               : Image.network(
                 AppConstants.BASE_URL +
-                    serviceHistoryData.servImageWindow.toString(),
+                    serviceHistoryData.servImageSofa.toString(),
                 frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
                   return child;
                 },
