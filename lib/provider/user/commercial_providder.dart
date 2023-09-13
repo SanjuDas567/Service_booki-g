@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:glossy_flossy/models/common/service_booking_response_model.dart';
 import 'package:glossy_flossy/models/user/commercial_service_type_model.dart';
+import 'package:glossy_flossy/models/user/form_data/commercial_booking_response.dart';
 import 'package:glossy_flossy/provider/user/repo/commercial_repo.dart';
 import 'package:glossy_flossy/utils/api_response.dart';
 import 'package:image_picker/image_picker.dart';
@@ -204,6 +206,64 @@ class CommercialBookingProvider extends ChangeNotifier {
       final commercialServiceType =
           ServiceTypeModel.fromJson(apiResponse.response!.data);
       commercialServiceTypeModel = commercialServiceType;
+    }
+    notifyListeners();
+  }
+
+  // commercial booking api :----------------------------------------------------
+
+   bool _isBookingLoading = false;
+  bool get isBookingLoading => _isBookingLoading;
+
+  ServiceBookingResponse? commercialBookingResponse;
+
+  TextEditingController servicetime = TextEditingController();
+
+  void setTimeInput(String time) {
+    servicetime.text = time;
+    notifyListeners();
+  }
+
+  removeTime() {
+    servicetime.clear();
+    notifyListeners();
+  }
+
+   Future<void> selectTime(BuildContext context) async { 
+    TimeOfDay? pickedTime = await showTimePicker(
+      initialTime: TimeOfDay.now(),
+      context: context,
+    );
+
+    if (pickedTime != null) {
+      String formattedTime =
+          '${pickedTime.hour.toString().padLeft(2, '0')}:${pickedTime.minute.toString().padLeft(2, '0')}:00';
+      setTimeInput(formattedTime);
+    }
+  }
+
+  Future<void> houseKeepBooking(CommercialBookingModel commercialBookingModel,
+      Function callback, BuildContext context) async {
+    try {
+      _isBookingLoading = true;
+      notifyListeners();
+      ApiResponse apiResponse = await commercialRepo.houseKeepBooking(
+          commercialBookingModel);
+      _isBookingLoading = false;
+      if (apiResponse.response != null &&
+          apiResponse.response!.statusCode == 200) {
+        print('inside house keep booking 200');
+        final houseKeepResponsedata =
+            ServiceBookingResponse.fromJson(apiResponse.response!.data);
+
+        commercialBookingResponse = houseKeepResponsedata;
+        print(commercialBookingResponse!.message);
+
+        callback(true, commercialBookingResponse!.message);
+        notifyListeners();
+      }
+    } catch (e) {
+      print(e);
     }
     notifyListeners();
   }

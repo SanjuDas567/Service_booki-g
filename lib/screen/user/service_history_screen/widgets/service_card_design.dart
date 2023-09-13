@@ -25,29 +25,29 @@ class ServiceCardDesign extends StatelessWidget {
           ),
           child: Column(
             children: [
-              serviceHistoryData.servImageWindow == null
-              ? SizedBox.shrink()
-              : Image.network(
-                AppConstants.BASE_URL +
-                    serviceHistoryData.servImageSofa.toString(),
-                frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-                  return child;
-                },
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) {
-                    return child;
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: ColorResources.GLOSSY_FLOSSY_BLACK,
-                      ),
-                    );
-                  }
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
+              // serviceHistoryData.servImageCarpet == null
+              // ? SizedBox.shrink()
+              // : Image.network(
+              //   AppConstants.BASE_URL +
+              //       serviceHistoryData.servImageCarpet.toString(),
+              //   frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+              //     return child;
+              //   },
+              //   loadingBuilder: (context, child, loadingProgress) {
+              //     if (loadingProgress == null) {
+              //       return child;
+              //     } else {
+              //       return const Center(
+              //         child: CircularProgressIndicator(
+              //           color: ColorResources.GLOSSY_FLOSSY_BLACK,
+              //         ),
+              //       );
+              //     }
+              //   },
+              // ),
+              // const SizedBox(
+              //   height: 20,
+              // ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
