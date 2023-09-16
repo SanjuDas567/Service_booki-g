@@ -17,6 +17,9 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+
+  late UserProvider userProvider;
+
   TextEditingController otp1 = TextEditingController();
   TextEditingController otp2 = TextEditingController();
   TextEditingController otp3 = TextEditingController();
@@ -25,9 +28,23 @@ class _OtpScreenState extends State<OtpScreen> {
   TextEditingController otp6 = TextEditingController();
 
   @override
+  void initState() {
+    userProvider = Provider.of<UserProvider>(context, listen: false);
+    userProvider.startTimer();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    userProvider.timer.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: ()async{
+      onWillPop: () async {
         return false;
       },
       child: Scaffold(
@@ -90,9 +107,24 @@ class _OtpScreenState extends State<OtpScreen> {
                           otp5: otp5,
                           otp6: otp6,
                         ),
-                        TextButton(
-                          onPressed: () {},
-                          child: Text('Send New Code'),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            userProvider.resendButtonEnabled
+                            ? TextButton(
+                              onPressed: () {
+                                resendOtp();
+                              },
+                              child: Text('Send New Code'),
+                            )
+                            : TextButton(
+                              onPressed: () {
+                              },
+                              child: Text('Send New Code',style: TextStyle(color: Colors.grey),),
+                            ),
+                            
+                            Text(userProvider.timerSeconds.toString(),style: TextStyle(color: Colors.white),),
+                          ],
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height / 21,
@@ -107,15 +139,18 @@ class _OtpScreenState extends State<OtpScreen> {
                                 )
                               : ElevatedButton(
                                   style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all(
-                                          ColorResources.GLOSSY_FLOSSY_YELLOW)),
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              ColorResources
+                                                  .GLOSSY_FLOSSY_YELLOW)),
                                   onPressed: () {
                                     verifyOtp();
                                   },
                                   child: Text(
                                     'Verify',
                                     style: poppinsRegular.copyWith(
-                                        color: ColorResources.GLOSSY_FLOSSY_BLACK,
+                                        color:
+                                            ColorResources.GLOSSY_FLOSSY_BLACK,
                                         fontSize: 16),
                                   ),
                                 ),
@@ -149,7 +184,7 @@ class _OtpScreenState extends State<OtpScreen> {
     if (otp.length == 6) {
       Provider.of<UserProvider>(context, listen: false)
           .verifyPhoneNumber(otpVerify, route);
-    } else{
+    } else {
       print('inside else verify');
     }
   }
@@ -163,6 +198,27 @@ class _OtpScreenState extends State<OtpScreen> {
       ));
       Provider.of<UserProvider>(context, listen: false).updateOtpValue(true);
       Navigator.of(context).pop();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(message),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: ColorResources.SNACKBAR_RED,
+      ));
+    }
+  }
+
+  void resendOtp() async {
+    OtpPhoneNum otpPhoneNum = OtpPhoneNum(phoneNumber: widget.number);
+    Provider.of<UserProvider>(context, listen: false).resendOtp(otpPhoneNum, resentRoute);
+  }
+
+   resentRoute(bool isRoute, String message) {
+    if (isRoute) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(message),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: ColorResources.SNACKBAR_green,
+      ));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(message),

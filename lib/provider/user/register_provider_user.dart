@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -87,6 +88,7 @@ class UserProvider extends ChangeNotifier {
         if(apiResponse.response != null &&
           apiResponse.response!.statusCode == 200){
             // final message = apiResponse.response!.data;
+            startTimer();
             callback(true, apiResponse.response!.data['message']);
             notifyListeners();
           }
@@ -115,6 +117,55 @@ class UserProvider extends ChangeNotifier {
             notifyListeners();
           }else if (apiResponse.response!.statusCode == 203) {
             callback(false, apiResponse.response!.data['error']);
+            notifyListeners();
+          }
+      } catch (e) {
+        
+      }
+      notifyListeners();
+    }
+// resent otp function :--------------------------------------------------------------------
+
+int _timerSeconds = 0; // Initial countdown time in seconds
+  bool _resendButtonEnabled = true;
+  late Timer _timer;
+  Timer get timer => _timer;
+
+  int get timerSeconds => _timerSeconds;
+  bool get resendButtonEnabled => _resendButtonEnabled;
+
+  void startTimer() {
+    _resendButtonEnabled = false;
+    _timerSeconds = 60;
+    notifyListeners();
+
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (_timerSeconds > 0) {
+        _timerSeconds--;
+        notifyListeners();
+      } else {
+        _resendButtonEnabled = true;
+        timer.cancel();
+        notifyListeners();
+      }
+    });
+  }
+
+
+    bool _resendLoading = false;
+    bool get resendEnabled => _resendLoading; 
+
+    Future<void> resendOtp(OtpPhoneNum otpVerify, Function callback) async {
+      _resendLoading = true;
+      notifyListeners();
+      try {
+        ApiResponse apiResponse = await registerRepo.sendPhoneNumber(otpVerify);
+        _resendLoading = false;
+        if(apiResponse.response != null &&
+          apiResponse.response!.statusCode == 200){
+            
+            startTimer();
+            callback(true, apiResponse.response!.data['message']);
             notifyListeners();
           }
       } catch (e) {
