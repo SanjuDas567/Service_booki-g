@@ -47,10 +47,9 @@ class AppTextFormField extends StatelessWidget {
       controller: controller,
       maxLines: maxLine ?? 1,
       textCapitalization: capitalization,
-      maxLength: isPhoneNumber ? 10 : null,
+      maxLength: isPhoneNumber ? 15 : null,
       focusNode: focusNode,
       keyboardType: textInputType ?? TextInputType.text,
-      //keyboardType: TextInputType.number,
       initialValue: null,
       textInputAction: textInputAction ?? TextInputAction.next,
       onFieldSubmitted: (v) {

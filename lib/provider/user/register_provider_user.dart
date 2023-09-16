@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:glossy_flossy/models/user/form_data/otp_mobile_form_data.dart';
 import 'package:glossy_flossy/models/user/form_data/user_data.dart';
 import 'package:glossy_flossy/models/user/user_registration_response.dart';
 import 'package:glossy_flossy/provider/user/repo/register_repo.dart';
@@ -14,6 +15,12 @@ class UserProvider extends ChangeNotifier {
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
+
+  bool _isVerifyLoading = false;
+  bool get isVerifyLoading => _isVerifyLoading;
+
+   bool _isVerifyLoading2 = false;
+  bool get isVerifyLoading2 => _isVerifyLoading2;
 
   UserRegisterResponseModel? responseData;
 
@@ -62,4 +69,62 @@ class UserProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+    // otp verify check box:---------------------------------------------------------------------
+  bool verifyOtp = false;
+
+  void updateOtpValue (bool value) {
+    verifyOtp = value;
+    notifyListeners();
+  }
+
+    Future<void> sendPhoneNumberOtp(OtpPhoneNum pNumber, Function callback) async {
+      _isVerifyLoading = true;
+      notifyListeners();
+      try {
+        ApiResponse apiResponse = await registerRepo.sendPhoneNumber(pNumber);
+        _isVerifyLoading = false;
+        if(apiResponse.response != null &&
+          apiResponse.response!.statusCode == 200){
+            // final message = apiResponse.response!.data;
+            callback(true, apiResponse.response!.data['message']);
+            notifyListeners();
+          }
+      } catch (e) {
+        
+      }
+      notifyListeners();
+    }
+
+    Future<void> verifyPhoneNumber(OtpVerify otpVerify, Function callback) async {
+      _isVerifyLoading2 = true;
+      notifyListeners();
+      try {
+        ApiResponse apiResponse = await registerRepo.verifyPhoneNumber(otpVerify);
+        _isVerifyLoading2 = false;
+        if(apiResponse.response != null &&
+          apiResponse.response!.statusCode == 200){
+            // final message = apiResponse.response!.data;
+            callback(true, apiResponse.response!.data['message']);
+            notifyListeners();
+          } else if (apiResponse.response!.statusCode == 500) {
+            callback(false, apiResponse.response!.data['error']);
+            notifyListeners();
+          } else if (apiResponse.response!.statusCode == 401) {
+            callback(false, apiResponse.response!.data['error']);
+            notifyListeners();
+          }else if (apiResponse.response!.statusCode == 203) {
+            callback(false, apiResponse.response!.data['error']);
+            notifyListeners();
+          }
+      } catch (e) {
+        
+      }
+      notifyListeners();
+    }
+  
+
+  // otp verify check box:---------------------------------------------------------------------
+
+
 }

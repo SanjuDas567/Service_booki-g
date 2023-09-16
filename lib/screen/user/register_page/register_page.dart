@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:glossy_flossy/models/user/form_data/otp_mobile_form_data.dart';
 import 'package:glossy_flossy/models/user/form_data/user_data.dart';
 import 'package:glossy_flossy/provider/user/register_provider_user.dart';
+import 'package:glossy_flossy/screen/common/otp_screen/otp_screen.dart';
 import 'package:glossy_flossy/screen/user/login_page/login_page.dart';
 import 'package:glossy_flossy/utils/color_resources.dart';
 import 'package:glossy_flossy/utils/images.dart';
@@ -16,6 +18,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+
+  late UserProvider userProvider;
   DateTime selectedDate = DateTime.now();
 
   final _formKey = GlobalKey<FormState>();
@@ -30,7 +34,16 @@ class _RegisterPageState extends State<RegisterPage> {
   final _firstNameFocus = FocusNode();
   final _lastNameFocus = FocusNode();
   final _emailFocus = FocusNode();
-  // final _phoneNumberFocus = FocusNode();
+  final _phoneNumberFocus = FocusNode();
+  final _addressFocus = FocusNode();
+  final _passwordFocus = FocusNode();
+  final _confirmPasswordFocus = FocusNode();
+  @override
+  void initState() {
+    // TODO: implement initState
+    userProvider = Provider.of<UserProvider>(context, listen: false);
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -41,12 +54,12 @@ class _RegisterPageState extends State<RegisterPage> {
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     _addressController.dispose();
+    userProvider.clearImageUser();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-     Provider.of<UserProvider>(context, listen: false).clearImageUser();
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -133,31 +146,17 @@ class _RegisterPageState extends State<RegisterPage> {
                       const SizedBox(
                         height: 10,
                       ),
-                      AppTextFormField(
-                        hintText: 'Phone Number',
-                        controller: _phoneNumberController,
-                        isPhoneNumber: true,
-                        regExp: r'[0-9]',
-                        // focusNode: ,
-                        textInputType: TextInputType.number,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                     
+                      // const SizedBox(
+                      //   height: 10,
+                      // ),
                       AppTextFormField(
                         hintText: 'Address',
                         controller: _addressController,
                         regExp: r'^[0-9a-zA-Z\s\.,\-]+$',
-                        // focusNode: ,
+                        focusNode: _addressFocus,
                         textInputType: TextInputType.streetAddress,
                       ),
-                      // const SizedBox(
-                      //   height: 10,
-                      // ),
-                      // DatePickerDemo(
-                      //   controller: _dateController,
-                      //   hintText: 'Select Date Of Birth',
-                      // ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -167,7 +166,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: _passwordController,
                         allowSpecialCharactersAndNumbers: false,
                         regExp: r'',
-                        // focusNode: ,
+                        focusNode: _passwordFocus,
                         textInputType: TextInputType.visiblePassword,
                       ),
                       const SizedBox(
@@ -179,8 +178,57 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: _confirmPasswordController,
                         allowSpecialCharactersAndNumbers: false,
                         regExp: r'',
-                        // focusNode: ,
+                        focusNode: _confirmPasswordFocus,
                         textInputType: TextInputType.visiblePassword,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                       AppTextFormField(
+                        hintText: 'Phone Number',
+                        controller: _phoneNumberController,
+                        isPhoneNumber: true,
+                        regExp: r'[0-9]',
+                        focusNode: _phoneNumberFocus,
+                        textInputType: TextInputType.number,
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: userProvider.isVerifyLoading
+                            ? CircularProgressIndicator(
+                                color: ColorResources.GLOSSY_FLOSSY_YELLOW,
+                              )
+                            : !userProvider.verifyOtp
+                                ? TextButton(
+                                    onPressed: () {
+                                      phoneNumberSendig(
+                                          _phoneNumberController.text.trim());
+                                    },
+                                    child: const Text(
+                                      'verify',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                          color: ColorResources.SNACKBAR_RED),
+                                    ))
+                                : TextButton(
+                                    onPressed: () {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        content: Text('verified sussfully'),
+                                        behavior: SnackBarBehavior.floating,
+                                        backgroundColor:
+                                            ColorResources.SNACKBAR_RED,
+                                      ));
+                                    },
+                                    child: const Text(
+                                      'verified',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                          color: ColorResources.SNACKBAR_green),
+                                    ),
+                                  ),
                       ),
                       const SizedBox(
                         height: 30,
@@ -189,26 +237,56 @@ class _RegisterPageState extends State<RegisterPage> {
                           ? const CircularProgressIndicator(
                               color: Colors.yellow,
                             )
-                          : InkWell(
-                              onTap: () async {
-                                _controllerValidator();
-                              },
-                              child: Container(
-                                height: 40,
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                  color: ColorResources.GLOSSY_FLOSSY_YELLOW,
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: const Center(
-                                  child: Text(
-                                    'Sign Up',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                          : 
+                          // userProvider.verifyOtp
+                          //     ? 
+                              InkWell(
+                                  onTap: () async {
+                                    _controllerValidator();
+                                  },
+                                  child: Container(
+                                    height: 40,
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          ColorResources.GLOSSY_FLOSSY_YELLOW,
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: const Center(
+                                      child: Text(
+                                        'Sign Up',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ),
+                                )
+                              // : InkWell(
+                              //     onTap: () {
+                              //       ScaffoldMessenger.of(context)
+                              //           .showSnackBar(const SnackBar(
+                              //         content: Text(
+                              //             'Phone number verification pending'),
+                              //         backgroundColor: Colors.red,
+                              //       ));
+                              //       FocusScope.of(context).requestFocus(_phoneNumberFocus);
+                              //     },
+                              //     child: Container(
+                              //       height: 40,
+                              //       width: MediaQuery.of(context).size.width,
+                              //       decoration: BoxDecoration(
+                              //         color: Colors.yellow.shade100,
+                              //         borderRadius: BorderRadius.circular(15),
+                              //       ),
+                              //       child: const Center(
+                              //         child: Text(
+                              //           'Sign Up',
+                              //           style: TextStyle(
+                              //               fontWeight: FontWeight.bold),
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
                     ],
                   );
                 },
@@ -248,81 +326,86 @@ class _RegisterPageState extends State<RegisterPage> {
           content: Text('First name must be required'),
           backgroundColor: Colors.red,
         ));
+         FocusScope.of(context).requestFocus(_firstNameFocus);
       } else if (userLname.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('last name must be required'),
           backgroundColor: Colors.red,
         ));
+         FocusScope.of(context).requestFocus(_lastNameFocus);
       } else if (email.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Email must be required'),
           backgroundColor: Colors.red,
         ));
+         FocusScope.of(context).requestFocus(_emailFocus);
       } else if (!isEmailValid(email)) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Invalid email format'),
           backgroundColor: Colors.red,
         ));
-      } else if (phone.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Phone number must be required'),
-          backgroundColor: Colors.red,
-        ));
-      } else if (address.isEmpty) {
+         FocusScope.of(context).requestFocus(_emailFocus);
+      }  else if (address.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Address must be required'),
           backgroundColor: Colors.red,
         ));
+         FocusScope.of(context).requestFocus(_addressFocus);
       } else if (userPassword.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Password must be required'),
           backgroundColor: Colors.red,
         ));
+         FocusScope.of(context).requestFocus(_passwordFocus);
       } else if (userPassword.length < 8) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Password must be at least 8 characters long'),
           backgroundColor: Colors.red,
         ));
+         FocusScope.of(context).requestFocus(_passwordFocus);
       } else if (!userPassword.contains(RegExp(r'[A-Z]'))) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Password must contain at least one uppercase letter'),
           backgroundColor: Colors.red,
         ));
+         FocusScope.of(context).requestFocus(_passwordFocus);
       } else if (!userPassword.contains(RegExp(r'[a-z]'))) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Password must contain at least one lowercase letter'),
           backgroundColor: Colors.red,
         ));
+        FocusScope.of(context).requestFocus(_passwordFocus);
       } else if (!threeNumbersRegExp.hasMatch(userPassword)) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Password must contain exactly 3 numbers'),
           backgroundColor: Colors.red,
         ));
+        FocusScope.of(context).requestFocus(_passwordFocus);
       } else if (!userPassword.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Password must contain at least one special character'),
           backgroundColor: Colors.red,
         ));
+        FocusScope.of(context).requestFocus(_passwordFocus);
       } else if (_confirmPasswordController.text.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Confirm Password field must be required'),
           backgroundColor: Colors.red,
         ));
+        FocusScope.of(context).requestFocus(_confirmPasswordFocus);
       } else if (_confirmPasswordController.text != _passwordController.text) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Confirm Password is not same'),
           backgroundColor: Colors.red,
         ));
+        FocusScope.of(context).requestFocus(_confirmPasswordFocus);
+      } else if (phone.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Phone number must be required'),
+          backgroundColor: Colors.red,
+        ));
+         FocusScope.of(context).requestFocus(_phoneNumberFocus);
       } else {
-        // UserRegistrationModel userRegistrationModel = UserRegistrationModel();
-        // userRegistrationModel.userFname = userFname;
-        // userRegistrationModel.userLname = userLname;
-        // userRegistrationModel.email = email;
-        // userRegistrationModel.phone = phone;
-        // userRegistrationModel.address = address;
-        // userRegistrationModel.userPasword = userPassword;
-        // userRegistrationModel.userProfilePic = null;
-        // userRegistrationModel.appUser = 1;
         UserRegistration userRegistration = UserRegistration();
         userRegistration.userFname = userFname;
         userRegistration.userLname = userLname;
@@ -333,8 +416,17 @@ class _RegisterPageState extends State<RegisterPage> {
         userRegistration.appUser = 1;
 
         print(userRegistration.address);
-        Provider.of<UserProvider>(context, listen: false)
-            .userRegistration(userRegistration, route);
+        if (userProvider.verifyOtp) {
+          Provider.of<UserProvider>(context, listen: false)
+              .userRegistration(userRegistration, route);
+
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Phone number verification need to complete'),
+            backgroundColor: Colors.red,
+          ));
+           FocusScope.of(context).requestFocus(_phoneNumberFocus);
+        }
       }
     }
   }
@@ -351,14 +443,13 @@ class _RegisterPageState extends State<RegisterPage> {
         behavior: SnackBarBehavior.floating,
         backgroundColor: Colors.green,
       ));
-
+      Provider.of<UserProvider>(context, listen: false)
+              .updateOtpValue(false);
       await Navigator.pushReplacement(
         context,
-         CustomDownPageRoute(
-            child: LoginPage(),
-            direction: AxisDirection.up
-        ),
+        CustomDownPageRoute(child: LoginPage(), direction: AxisDirection.up),
       );
+       
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(errorMessage),
@@ -367,4 +458,44 @@ class _RegisterPageState extends State<RegisterPage> {
       ));
     }
   }
+
+// Otp api calling and routing :--------------------------------------------------------------------------------
+  void phoneNumberSendig(String pNumber) {
+    OtpPhoneNum otpPhoneNum = OtpPhoneNum(phoneNumber: '+91$pNumber');
+    if (_phoneNumberController.text.isNotEmpty) {
+      Provider.of<UserProvider>(context, listen: false)
+          .sendPhoneNumberOtp(otpPhoneNum, otpRoute);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Phone number required for verification'),
+        backgroundColor: Colors.red,
+      ));
+    }
+  }
+
+  otpRoute(bool isRoute, String otpMessage) async {
+    if (isRoute) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(otpMessage),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: ColorResources.SNACKBAR_green,
+      ));
+      Navigator.push(
+        context,
+        CustomDownPageRoute(
+          child: OtpScreen(
+            number: "+91${_phoneNumberController.text.trim()}",
+          ),
+          direction: AxisDirection.up,
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(otpMessage),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: ColorResources.SNACKBAR_RED,
+      ));
+    }
+  }
+  // Otp api calling and routing :--------------------------------------------------------------------------------
 }

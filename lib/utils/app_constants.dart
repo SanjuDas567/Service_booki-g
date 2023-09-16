@@ -22,6 +22,8 @@ class AppConstants {
   static const String USER_PROFILE_DATA = 'api/userlogin/detl/';
   static const String USER_EDIT_PROFILE_URI = 'api/user/updation';
   static const String USER_SERVICE_HISTORY_URI = 'api/servReg/select/';
+  static const String USER_SECTION_SEND_OTP_URI = 'api/otp/sendOTP';
+  static const String USER_SECTION_VERIFY_OTP_URI = 'api/otp/verifyOTP';
 
   //worker section :------------------------------------------------------------
   static const String WORKER_REGISTRATION_URI = 'api/employee/empInsert';

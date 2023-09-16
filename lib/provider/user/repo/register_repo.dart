@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:glossy_flossy/data/dio/dio_client.dart';
 import 'package:glossy_flossy/data/exeption/api_error_handler.dart';
+import 'package:glossy_flossy/models/user/form_data/otp_mobile_form_data.dart';
 import 'package:glossy_flossy/models/user/form_data/user_data.dart';
 import 'package:glossy_flossy/utils/api_response.dart';
 import 'package:glossy_flossy/utils/app_constants.dart';
@@ -38,6 +39,30 @@ class RegisterRepo {
       return ApiResponse.withError(
         ApiErrorHandler.getMessage(e),
       );
+    }
+  }
+
+  Future<ApiResponse> sendPhoneNumber(OtpPhoneNum pNumber) async {
+    try {
+      final response = await dioClient.post(
+        AppConstants.USER_SECTION_SEND_OTP_URI,
+        data: pNumber.toJson(),
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  Future<ApiResponse> verifyPhoneNumber(OtpVerify otpVerify) async {
+    try {
+      final response = await dioClient.post(
+        AppConstants.USER_SECTION_VERIFY_OTP_URI,
+        data: otpVerify.toJson(),
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
 }
