@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:glossy_flossy/models/user/form_data/otp_mobile_form_data.dart';
 import 'package:glossy_flossy/models/user/form_data/user_data.dart';
 import 'package:glossy_flossy/provider/user/register_provider_user.dart';
-import 'package:glossy_flossy/screen/common/otp_screen/otp_screen.dart';
+import 'package:glossy_flossy/screen/user/otp_screen/otp_screen.dart';
 import 'package:glossy_flossy/screen/user/login_page/login_page.dart';
 import 'package:glossy_flossy/utils/color_resources.dart';
 import 'package:glossy_flossy/utils/images.dart';
@@ -18,7 +18,6 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-
   late UserProvider userProvider;
   DateTime selectedDate = DateTime.now();
 
@@ -146,7 +145,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       const SizedBox(
                         height: 10,
                       ),
-                     
+
                       // const SizedBox(
                       //   height: 10,
                       // ),
@@ -184,7 +183,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       const SizedBox(
                         height: 10,
                       ),
-                       AppTextFormField(
+                      AppTextFormField(
                         hintText: 'Phone Number',
                         controller: _phoneNumberController,
                         isPhoneNumber: true,
@@ -237,56 +236,55 @@ class _RegisterPageState extends State<RegisterPage> {
                           ? const CircularProgressIndicator(
                               color: Colors.yellow,
                             )
-                          : 
+                          :
                           // userProvider.verifyOtp
-                          //     ? 
-                              InkWell(
-                                  onTap: () async {
-                                    _controllerValidator();
-                                  },
-                                  child: Container(
-                                    height: 40,
-                                    width: MediaQuery.of(context).size.width,
-                                    decoration: BoxDecoration(
-                                      color:
-                                          ColorResources.GLOSSY_FLOSSY_YELLOW,
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: const Center(
-                                      child: Text(
-                                        'Sign Up',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
+                          //     ?
+                          InkWell(
+                              onTap: () async {
+                                _controllerValidator();
+                              },
+                              child: Container(
+                                height: 40,
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                  color: ColorResources.GLOSSY_FLOSSY_YELLOW,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    'Sign Up',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                )
-                              // : InkWell(
-                              //     onTap: () {
-                              //       ScaffoldMessenger.of(context)
-                              //           .showSnackBar(const SnackBar(
-                              //         content: Text(
-                              //             'Phone number verification pending'),
-                              //         backgroundColor: Colors.red,
-                              //       ));
-                              //       FocusScope.of(context).requestFocus(_phoneNumberFocus);
-                              //     },
-                              //     child: Container(
-                              //       height: 40,
-                              //       width: MediaQuery.of(context).size.width,
-                              //       decoration: BoxDecoration(
-                              //         color: Colors.yellow.shade100,
-                              //         borderRadius: BorderRadius.circular(15),
-                              //       ),
-                              //       child: const Center(
-                              //         child: Text(
-                              //           'Sign Up',
-                              //           style: TextStyle(
-                              //               fontWeight: FontWeight.bold),
-                              //         ),
-                              //       ),
-                              //     ),
-                              //   ),
+                                ),
+                              ),
+                            )
+                      // : InkWell(
+                      //     onTap: () {
+                      //       ScaffoldMessenger.of(context)
+                      //           .showSnackBar(const SnackBar(
+                      //         content: Text(
+                      //             'Phone number verification pending'),
+                      //         backgroundColor: Colors.red,
+                      //       ));
+                      //       FocusScope.of(context).requestFocus(_phoneNumberFocus);
+                      //     },
+                      //     child: Container(
+                      //       height: 40,
+                      //       width: MediaQuery.of(context).size.width,
+                      //       decoration: BoxDecoration(
+                      //         color: Colors.yellow.shade100,
+                      //         borderRadius: BorderRadius.circular(15),
+                      //       ),
+                      //       child: const Center(
+                      //         child: Text(
+                      //           'Sign Up',
+                      //           style: TextStyle(
+                      //               fontWeight: FontWeight.bold),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
                     ],
                   );
                 },
@@ -326,49 +324,49 @@ class _RegisterPageState extends State<RegisterPage> {
           content: Text('First name must be required'),
           backgroundColor: Colors.red,
         ));
-         FocusScope.of(context).requestFocus(_firstNameFocus);
+        FocusScope.of(context).requestFocus(_firstNameFocus);
       } else if (userLname.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('last name must be required'),
           backgroundColor: Colors.red,
         ));
-         FocusScope.of(context).requestFocus(_lastNameFocus);
+        FocusScope.of(context).requestFocus(_lastNameFocus);
       } else if (email.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Email must be required'),
           backgroundColor: Colors.red,
         ));
-         FocusScope.of(context).requestFocus(_emailFocus);
+        FocusScope.of(context).requestFocus(_emailFocus);
       } else if (!isEmailValid(email)) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Invalid email format'),
           backgroundColor: Colors.red,
         ));
-         FocusScope.of(context).requestFocus(_emailFocus);
-      }  else if (address.isEmpty) {
+        FocusScope.of(context).requestFocus(_emailFocus);
+      } else if (address.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Address must be required'),
           backgroundColor: Colors.red,
         ));
-         FocusScope.of(context).requestFocus(_addressFocus);
+        FocusScope.of(context).requestFocus(_addressFocus);
       } else if (userPassword.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Password must be required'),
           backgroundColor: Colors.red,
         ));
-         FocusScope.of(context).requestFocus(_passwordFocus);
+        FocusScope.of(context).requestFocus(_passwordFocus);
       } else if (userPassword.length < 8) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Password must be at least 8 characters long'),
           backgroundColor: Colors.red,
         ));
-         FocusScope.of(context).requestFocus(_passwordFocus);
+        FocusScope.of(context).requestFocus(_passwordFocus);
       } else if (!userPassword.contains(RegExp(r'[A-Z]'))) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Password must contain at least one uppercase letter'),
           backgroundColor: Colors.red,
         ));
-         FocusScope.of(context).requestFocus(_passwordFocus);
+        FocusScope.of(context).requestFocus(_passwordFocus);
       } else if (!userPassword.contains(RegExp(r'[a-z]'))) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Password must contain at least one lowercase letter'),
@@ -404,7 +402,7 @@ class _RegisterPageState extends State<RegisterPage> {
           content: Text('Phone number must be required'),
           backgroundColor: Colors.red,
         ));
-         FocusScope.of(context).requestFocus(_phoneNumberFocus);
+        FocusScope.of(context).requestFocus(_phoneNumberFocus);
       } else {
         UserRegistration userRegistration = UserRegistration();
         userRegistration.userFname = userFname;
@@ -419,13 +417,12 @@ class _RegisterPageState extends State<RegisterPage> {
         if (userProvider.verifyOtp) {
           Provider.of<UserProvider>(context, listen: false)
               .userRegistration(userRegistration, route);
-
         } else {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('Phone number verification need to complete'),
             backgroundColor: Colors.red,
           ));
-           FocusScope.of(context).requestFocus(_phoneNumberFocus);
+          FocusScope.of(context).requestFocus(_phoneNumberFocus);
         }
       }
     }
@@ -443,13 +440,11 @@ class _RegisterPageState extends State<RegisterPage> {
         behavior: SnackBarBehavior.floating,
         backgroundColor: Colors.green,
       ));
-      Provider.of<UserProvider>(context, listen: false)
-              .updateOtpValue(false);
+      Provider.of<UserProvider>(context, listen: false).updateOtpValue(false);
       await Navigator.pushReplacement(
         context,
         CustomDownPageRoute(child: LoginPage(), direction: AxisDirection.up),
       );
-       
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(errorMessage),

@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:glossy_flossy/models/user/form_data/otp_mobile_form_data.dart';
 import 'package:glossy_flossy/models/worker/form_data/worker_register_model.dart';
 import 'package:glossy_flossy/models/worker/worker_register_responce_model.dart';
 import 'package:glossy_flossy/provider/worker/repo/register_screen_repo.dart';
@@ -91,7 +93,7 @@ class RegisterWorkerProvider extends ChangeNotifier {
 
   void clearImage() {
     _profileImage = null;
-    notifyListeners();
+    // notifyListeners();
   }
 
   Future<void> pickImage() async {
@@ -103,5 +105,118 @@ class RegisterWorkerProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  // otp verify check box:---------------------------------------------------------------------
+  bool verifyOtp = false;
+
+    bool _isVerifyLoading = false;
+  bool get isVerifyLoading => _isVerifyLoading;
+
+   bool _isVerifyLoading2 = false;
+  bool get isVerifyLoading2 => _isVerifyLoading2;
+
+  void updateOtpValue (bool value) {
+    verifyOtp = value;
+    notifyListeners();
+  }
+
+    Future<void> sendPhoneNumberOtp(OtpPhoneNum pNumber, Function callback) async {
+      _isVerifyLoading = true;
+      notifyListeners();
+      try {
+        ApiResponse apiResponse = await workerRegisterRepo.sendPhoneNumber(pNumber);
+        _isVerifyLoading = false;
+        if(apiResponse.response != null &&
+          apiResponse.response!.statusCode == 200){
+            // final message = apiResponse.response!.data;
+            startTimer();
+            callback(true, apiResponse.response!.data['message']);
+            notifyListeners();
+          }
+      } catch (e) {
+        
+      }
+      notifyListeners();
+    }
+
+    Future<void> verifyPhoneNumber(OtpVerify otpVerify, Function callback) async {
+      _isVerifyLoading2 = true;
+      notifyListeners();
+      try {
+        ApiResponse apiResponse = await workerRegisterRepo.verifyPhoneNumber(otpVerify);
+        _isVerifyLoading2 = false;
+        if(apiResponse.response != null &&
+          apiResponse.response!.statusCode == 200){
+            // final message = apiResponse.response!.data;
+            callback(true, apiResponse.response!.data['message']);
+            notifyListeners();
+          } else if (apiResponse.response!.statusCode == 500) {
+            callback(false, apiResponse.response!.data['error']);
+            notifyListeners();
+          } else if (apiResponse.response!.statusCode == 401) {
+            callback(false, apiResponse.response!.data['error']);
+            notifyListeners();
+          }else if (apiResponse.response!.statusCode == 203) {
+            callback(false, apiResponse.response!.data['error']);
+            notifyListeners();
+          }
+      } catch (e) {
+        
+      }
+      notifyListeners();
+    }
+// resent otp function :--------------------------------------------------------------------
+
+int _timerSeconds = 0; // Initial countdown time in seconds
+  bool _resendButtonEnabled = true;
+  late Timer _timer;
+  Timer get timer => _timer;
+
+  int get timerSeconds => _timerSeconds;
+  bool get resendButtonEnabled => _resendButtonEnabled;
+
+  void startTimer() {
+    _resendButtonEnabled = false;
+    _timerSeconds = 60;
+    notifyListeners();
+
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (_timerSeconds > 0) {
+        _timerSeconds--;
+        notifyListeners();
+      } else {
+        _resendButtonEnabled = true;
+        timer.cancel();
+        notifyListeners();
+      }
+    });
+  }
+
+
+    bool _resendLoading = false;
+    bool get resendEnabled => _resendLoading; 
+
+    Future<void> resendOtp(OtpPhoneNum otpVerify, Function callback) async {
+      _resendLoading = true;
+      notifyListeners();
+      try {
+        ApiResponse apiResponse = await workerRegisterRepo.sendPhoneNumber(otpVerify);
+        _resendLoading = false;
+        if(apiResponse.response != null &&
+          apiResponse.response!.statusCode == 200){
+            
+            startTimer();
+            callback(true, apiResponse.response!.data['message']);
+            notifyListeners();
+          }
+      } catch (e) {
+        
+      }
+      notifyListeners();
+    }
+  
+
+  // otp verify check box:---------------------------------------------------------------------
+
 
 }

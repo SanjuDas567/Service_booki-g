@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:glossy_flossy/models/user/form_data/otp_mobile_form_data.dart';
 import 'package:glossy_flossy/provider/user/register_provider_user.dart';
-import 'package:glossy_flossy/screen/common/otp_screen/widgets/otp_text_field.dart';
+import 'package:glossy_flossy/screen/user/otp_screen/widgets/otp_text_field.dart';
 import 'package:glossy_flossy/utils/color_resources.dart';
 import 'package:glossy_flossy/utils/custom_fonts.dart';
 import 'package:glossy_flossy/utils/images.dart';

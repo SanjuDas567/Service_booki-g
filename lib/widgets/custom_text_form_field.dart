@@ -19,6 +19,7 @@ class AppTextFormField extends StatelessWidget {
   final bool? readOnly;
   final bool allowSpecialCharactersAndNumbers;
   final dynamic regExp;
+  final bool? isPhnVerified;
 
   const AppTextFormField({
     this.controller,
@@ -36,7 +37,8 @@ class AppTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.readOnly,
     this.allowSpecialCharactersAndNumbers = true,
-    this.regExp,
+    this.regExp, 
+    this.isPhnVerified = false,
   });
 
   @override
@@ -79,7 +81,9 @@ class AppTextFormField extends StatelessWidget {
           ),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(18),
-              borderSide: const BorderSide(color: Colors.yellow))),
+              borderSide: const BorderSide(color: Colors.yellow)),
+              suffixIcon: isPhnVerified == true ? Icon(Icons.check,color: Colors.white,) : null,
+              ),
     );
   }
 }

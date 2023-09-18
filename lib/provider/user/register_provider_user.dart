@@ -30,9 +30,9 @@ class UserProvider extends ChangeNotifier {
 
   File? get profileImage => _profileImage;
 
-  void clearImageUser() {
+   clearImageUser() {
     _profileImage = null;
-    notifyListeners();
+    // notifyListeners();
   }
 
   Future<void> pickImage() async {
