@@ -76,8 +76,8 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
+                     SizedBox(
+                      height: MediaQuery.of(context).size.height / 15,
                     ),
                     Center(child: Image.asset(Images.GLOSSY_FLOSSY_LOGO)),
                     const SizedBox(
@@ -91,6 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                           Padding(
                             padding: const EdgeInsets.all(Dimensions.MARGIN_SIZE_SMALL),
                             child: Container(
+                              height: MediaQuery.of(context).size.height / 15.5,
                               decoration: BoxDecoration(
                                 color: Colors.grey.shade400,
                                 borderRadius: BorderRadius.circular(10.0),
@@ -130,6 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                               alignment: const Alignment(0, 0),
                               children: <Widget>[
                                 Container(
+                                  height: MediaQuery.of(context).size.height / 15.5,
                                   decoration: BoxDecoration(
                                     color: Colors.grey.shade400,
                                     borderRadius: BorderRadius.circular(Dimensions.MARGIN_SIZE_SMALL),

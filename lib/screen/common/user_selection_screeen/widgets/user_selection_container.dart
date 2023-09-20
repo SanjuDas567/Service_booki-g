@@ -37,7 +37,7 @@ class UserSelectionContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'User Login',
+                  'Customer Login',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 17,

@@ -34,7 +34,6 @@ class _LoginPageWorkerState extends State<LoginPageWorker> {
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const SizedBox(
                       height: 30,
@@ -66,7 +65,7 @@ class _LoginPageWorkerState extends State<LoginPageWorker> {
                       ),
                     ),
                      SizedBox(
-                      height: MediaQuery.of(context).size.height / 7.5,
+                      height: MediaQuery.of(context).size.height / 15,
                     ),
                     Center(child: Image.asset(Images.GLOSSY_FLOSSY_LOGO)),
                     const SizedBox(
@@ -80,6 +79,7 @@ class _LoginPageWorkerState extends State<LoginPageWorker> {
                           Padding(
                             padding: const EdgeInsets.all(10),
                             child: Container(
+                              height: MediaQuery.of(context).size.height / 16,
                               decoration: BoxDecoration(
                                 color: Colors.grey.shade400,
                                 borderRadius: BorderRadius.circular(10.0),
@@ -109,6 +109,7 @@ class _LoginPageWorkerState extends State<LoginPageWorker> {
                               alignment: const Alignment(0, 0),
                               children: <Widget>[
                                 Container(
+                                  height: MediaQuery.of(context).size.height / 16,
                                   decoration: BoxDecoration(
                                     color: Colors.grey.shade400,
                                     borderRadius: BorderRadius.circular(10.0),

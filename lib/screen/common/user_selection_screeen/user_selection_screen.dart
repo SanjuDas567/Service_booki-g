@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:glossy_flossy/screen/common/user_selection_screeen/widgets/admin_selection_container.dart';
 import 'package:glossy_flossy/screen/common/user_selection_screeen/widgets/user_selection_container.dart';
 import 'package:glossy_flossy/screen/common/user_selection_screeen/widgets/worker_selection_container.dart';
+import 'package:glossy_flossy/utils/images.dart';
 
 class UserSelectionScreen extends StatelessWidget {
   const UserSelectionScreen({super.key});
@@ -12,7 +13,7 @@ class UserSelectionScreen extends StatelessWidget {
       onWillPop: () async {
         return false;
       },
-      child: const Scaffold(
+      child:  Scaffold(
         backgroundColor: Colors.black,
         body: SafeArea(
           child: SingleChildScrollView(
@@ -24,13 +25,20 @@ class UserSelectionScreen extends StatelessWidget {
                   SizedBox(
                     height: 30,
                   ),
-                  Text(
-                    'Select \nuser type',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Select \nuser type',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Image.asset(Images.GLOSSY_FLOSSY_LOGO,
+                      height: MediaQuery.of(context).size.height / 15,),
+                    ],
                   ),
                   SizedBox(
                     height: 30,

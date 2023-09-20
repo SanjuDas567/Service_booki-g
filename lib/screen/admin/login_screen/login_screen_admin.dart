@@ -73,7 +73,7 @@ class _LoginPageAdminState extends State<LoginPageAdmin> {
                       ),
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height / 6.5,
+                      height: MediaQuery.of(context).size.height / 8.5,
                     ),
                     Center(child: Image.asset(Images.GLOSSY_FLOSSY_LOGO)),
                     SizedBox(
@@ -85,6 +85,7 @@ class _LoginPageAdminState extends State<LoginPageAdmin> {
                         Padding(
                           padding: const EdgeInsets.all(Dimensions.MARGIN_SIZE_SMALL),
                           child: Container(
+                            height: MediaQuery.of(context).size.height / 16,
                             decoration: BoxDecoration(
                               color: Colors.grey.shade400,
                               borderRadius: BorderRadius.circular(Dimensions.MARGIN_SIZE_SMALL),
@@ -114,6 +115,7 @@ class _LoginPageAdminState extends State<LoginPageAdmin> {
                             alignment: const Alignment(0, 0),
                             children: <Widget>[
                               Container(
+                                height: MediaQuery.of(context).size.height / 16,
                                 decoration: BoxDecoration(
                                   color: Colors.grey.shade400,
                                   borderRadius: BorderRadius.circular(Dimensions.MARGIN_SIZE_SMALL),
