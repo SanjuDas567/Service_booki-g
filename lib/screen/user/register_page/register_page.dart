@@ -54,29 +54,32 @@ class _RegisterPageState extends State<RegisterPage> {
     _confirmPasswordController.dispose();
     _addressController.dispose();
     userProvider.clearImageUser();
+    userProvider.verifyOtp
+    ? userProvider.disposeOtpValue(false)
+    : null;
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Image.asset(
-          Images.GLOSSY_FLOSSY_LOGO,
-          height: 35,
-        ),
-        centerTitle: true,
-      ),
-      body: Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SingleChildScrollView(
-              child: Consumer<UserProvider>(
-                builder: (context, userProvider, child) {
-                  return Column(
+    return Consumer<UserProvider>(
+      builder: (context, userProvider, child) {
+        return Scaffold(
+          backgroundColor: Colors.black,
+          appBar: AppBar(
+            backgroundColor: Colors.black,
+            title: Image.asset(
+              Images.GLOSSY_FLOSSY_LOGO,
+              height: 35,
+            ),
+            centerTitle: true,
+          ),
+          body: Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SingleChildScrollView(
+                  child: Column(
                     children: [
                       const Column(
                         children: [
@@ -96,7 +99,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         height: 20,
                       ),
                       GestureDetector(
-                        onTap: () => userProvider.pickImage(),
+                        onTap: () => userProvider.pickImage(imageSizeRoute),
                         child: CircleAvatar(
                           backgroundColor: Colors.yellow,
                           radius: 82,
@@ -286,11 +289,11 @@ class _RegisterPageState extends State<RegisterPage> {
                       //     ),
                       //   ),
                     ],
-                  );
-                },
-              ),
-            ),
-          )),
+                  ),
+                ),
+              )),
+        );
+      },
     );
   }
 
@@ -493,4 +496,15 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
   // Otp api calling and routing :--------------------------------------------------------------------------------
+
+  imageSizeRoute(bool isRoute, String message) {
+    if (isRoute) {
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(message),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: ColorResources.SNACKBAR_RED,
+      ));
+    }
+  }
 }

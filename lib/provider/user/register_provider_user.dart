@@ -35,13 +35,28 @@ class UserProvider extends ChangeNotifier {
     // notifyListeners();
   }
 
-  Future<void> pickImage() async {
+  
+  Future<void> pickImage( Function callback) async {
     final imagePicker = ImagePicker();
-    final pickedImage =
-        await imagePicker.pickImage(source: ImageSource.gallery);
+    final pickedImage = await imagePicker.pickImage(source: ImageSource.gallery);
+
     if (pickedImage != null) {
-      _profileImage = File(pickedImage.path);
-      notifyListeners();
+      final File selectedImage = File(pickedImage.path);
+      
+      // Check the size of the selected image
+      final int maxSizeInBytes = 10 * 1024 * 1024; // 10 MB
+      final int imageSize = await selectedImage.length();
+      
+      if (imageSize <= maxSizeInBytes) {
+        _profileImage = selectedImage;
+        notifyListeners();
+      } else {
+        // Show an error message or handle the oversized image
+        // You can display a snackbar, dialog, or any other UI element here
+        print('Image size exceeds the 10 MB limit.');
+        callback(false, 'Image size exceeds the 10 MB limit.');
+        notifyListeners();
+      }
     }
   }
 
@@ -73,6 +88,10 @@ class UserProvider extends ChangeNotifier {
 
     // otp verify check box:---------------------------------------------------------------------
   bool verifyOtp = false;
+
+  void disposeOtpValue(bool value) {
+    verifyOtp = value;
+  }
 
   void updateOtpValue (bool value) {
     verifyOtp = value;

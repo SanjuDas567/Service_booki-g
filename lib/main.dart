@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:glossy_flossy/di/service_locator.dart' as di;
@@ -34,16 +35,16 @@ final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // AwesomeNotifications().initialize(null, [
-  //   NotificationChannel(
-  //     channelKey: 'my_channel',
-  //     channelName: "My Channel",
-  //     defaultColor: Colors.yellow,
-  //     importance: NotificationImportance.High,
-  //     channelShowBadge: true,
-  //     channelDescription: 'Notification',
-  //   )
-  // ]);
+  AwesomeNotifications().initialize(null, [
+    NotificationChannel(
+      channelKey: 'my_channel',
+      channelName: "My Channel",
+      defaultColor: Colors.yellow,
+      importance: NotificationImportance.High,
+      channelShowBadge: true,
+      channelDescription: 'Notification',
+    )
+  ]);
   await Firebase.initializeApp();
   await FirebaseApi().initNotifications();
   await di.setup();

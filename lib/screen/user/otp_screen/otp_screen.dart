@@ -18,7 +18,7 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen> {
 
-  late UserProvider userProvider;
+  // late UserProvider userProvider;
 
   TextEditingController otp1 = TextEditingController();
   TextEditingController otp2 = TextEditingController();
@@ -27,19 +27,14 @@ class _OtpScreenState extends State<OtpScreen> {
   TextEditingController otp5 = TextEditingController();
   TextEditingController otp6 = TextEditingController();
 
-  @override
-  void initState() {
-    userProvider = Provider.of<UserProvider>(context, listen: false);
-    userProvider.startTimer();
-    // TODO: implement initState
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   userProvider = Provider.of<UserProvider>(context, listen: false);
+  //   userProvider.startTimer();
+  //   // TODO: implement initState
+  //   super.initState();
+  // }
 
-  @override
-  void dispose() {
-    userProvider.timer.cancel();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +51,7 @@ class _OtpScreenState extends State<OtpScreen> {
               SliverToBoxAdapter(
                 child: Consumer<UserProvider>(
                   builder: (context, userProvider, child) {
+                    //  userProvider.startTimer();
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
