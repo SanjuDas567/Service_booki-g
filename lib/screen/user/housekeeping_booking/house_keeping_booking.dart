@@ -6,6 +6,7 @@ import 'package:glossy_flossy/provider/user/house_keeping_provider.dart';
 import 'package:glossy_flossy/provider/user/login_provider_user.dart';
 import 'package:glossy_flossy/screen/user/housekeeping_booking/widgets/check_box.dart';
 import 'package:glossy_flossy/utils/color_resources.dart';
+import 'package:glossy_flossy/utils/custom_fonts.dart';
 import 'package:glossy_flossy/utils/images.dart';
 import 'package:glossy_flossy/widgets/custom_text_form_field.dart';
 import 'package:provider/provider.dart';
@@ -66,6 +67,7 @@ class _HouseKeepingBookingScreenState extends State<HouseKeepingBookingScreen> {
           houseKeepingProvider.clearGuteringCleaningImages();
           houseKeepingProvider.clearDrivewayImages();
           houseKeepingProvider.removeTime();
+          houseKeepingProvider.clearHouseTotalAmt();
   }
 
   @override
@@ -175,6 +177,29 @@ class _HouseKeepingBookingScreenState extends State<HouseKeepingBookingScreen> {
                                         regExp: r'^[a-zA-Z ]+$',
                                       ),
                                     ]
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                               Row(
+                            mainAxisAlignment: 
+                            MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Total Amount',
+                                style: poppinsRegular.copyWith(
+                                    color: ColorResources.GLOSSY_FLOSSY_WHITE,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(houseKeepingProvider.houseTotalAmount.toString(),style: poppinsRegular.copyWith(
+                                color: ColorResources.GLOSSY_FLOSSY_WHITE,
+                                fontSize: 18
+                              ),),
+                            ],
+                          ),
+                          SizedBox(
+                                height: 10,
                               ),
                   houseKeepingProvider.isBookingLoading
                       ? Center(

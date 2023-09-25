@@ -4,50 +4,51 @@
 
 import 'dart:convert';
 
-ServiceTypeModel commercialServiceTypeModelFromJson(String str) =>
-    ServiceTypeModel.fromJson(json.decode(str));
+CommercialServiceTypeModel commercialServiceTypeModelFromJson(String str) => CommercialServiceTypeModel.fromJson(json.decode(str));
 
-String commercialServiceTypeModelToJson(ServiceTypeModel data) =>
-    json.encode(data.toJson());
+String commercialServiceTypeModelToJson(CommercialServiceTypeModel data) => json.encode(data.toJson());
 
-class ServiceTypeModel {
-  int success;
-  List<ServiceTypeData> data;
+class CommercialServiceTypeModel {
+    int success;
+    List<CommercialServiceTypeData> data;
 
-  ServiceTypeModel({
-    required this.success,
-    required this.data,
-  });
+    CommercialServiceTypeModel({
+        required this.success,
+        required this.data,
+    });
 
-  factory ServiceTypeModel.fromJson(Map<String, dynamic> json) =>
-      ServiceTypeModel(
+    factory CommercialServiceTypeModel.fromJson(Map<String, dynamic> json) => CommercialServiceTypeModel(
         success: json["success"],
-        data: List<ServiceTypeData>.from(
-            json["data"].map((x) => ServiceTypeData.fromJson(x))),
-      );
+        data: List<CommercialServiceTypeData>.from(json["data"].map((x) => CommercialServiceTypeData.fromJson(x))),
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "success": success,
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
-      };
+    };
 }
 
-class ServiceTypeData {
-  int nameSlno;
-  String serviceName;
+class CommercialServiceTypeData {
+    int nameSlno;
+    String serviceName;
+    int servicePrice;
 
-  ServiceTypeData({
-    required this.nameSlno,
-    required this.serviceName,
-  });
+    CommercialServiceTypeData({
+        required this.nameSlno,
+        required this.serviceName,
+        required this.servicePrice,
+    });
 
-  factory ServiceTypeData.fromJson(Map<String, dynamic> json) => ServiceTypeData(
+    factory CommercialServiceTypeData.fromJson(Map<String, dynamic> json) => CommercialServiceTypeData(
         nameSlno: json["name_slno"],
         serviceName: json["service_name"],
-      );
+        servicePrice: json["service_price"],
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "name_slno": nameSlno,
         "service_name": serviceName,
-      };
+        "service_price": servicePrice,
+    };
 }
+

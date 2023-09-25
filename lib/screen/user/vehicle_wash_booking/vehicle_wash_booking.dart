@@ -1,11 +1,15 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:glossy_flossy/models/user/form_data/vehicle_service_booking.dart';
 import 'package:glossy_flossy/models/user/service_type_model.dart';
 import 'package:glossy_flossy/provider/user/login_provider_user.dart';
 import 'package:glossy_flossy/provider/user/vehicle_booking_provider.dart';
 import 'package:glossy_flossy/screen/user/vehicle_wash_booking/widgets/service_selection_check_box.dart';
+import 'package:glossy_flossy/services/paypal_payment.dart';
+import 'package:glossy_flossy/utils/app_constants.dart';
 import 'package:glossy_flossy/utils/color_resources.dart';
+import 'package:glossy_flossy/utils/custom_fonts.dart';
 import 'package:glossy_flossy/utils/images.dart';
 import 'package:glossy_flossy/widgets/custom_text_form_field.dart';
 import 'package:provider/provider.dart';
@@ -33,14 +37,14 @@ class _VehicleWashBookingState extends State<VehicleWashBooking> {
   final _vehicleNameControlller = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-   late VehicleBookingProvider vehicleProvider;
+  late VehicleBookingProvider vehicleProvider;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-       vehicleProvider =
+      vehicleProvider =
           Provider.of<VehicleBookingProvider>(context, listen: false);
 
       vehicleProvider.getServiceName(widget.data.typeSlno.toString());
@@ -51,12 +55,13 @@ class _VehicleWashBookingState extends State<VehicleWashBooking> {
   @override
   void dispose() {
     print('inside dispose vehicle booking');
-          vehicleProvider.updateCheckbox1(false);
-          vehicleProvider.updateCheckbox2(false);
-          vehicleProvider.updateCheckbox3(false);
-          vehicleProvider.updateCheckbox4(false);
-          vehicleProvider.updateCheckbox5(false);
-          vehicleProvider.removeTime();
+    vehicleProvider.updateCheckbox1(false);
+    vehicleProvider.updateCheckbox2(false);
+    vehicleProvider.updateCheckbox3(false);
+    vehicleProvider.updateCheckbox4(false);
+    vehicleProvider.updateCheckbox5(false);
+    vehicleProvider.removeTime();
+    vehicleProvider.clearTotalAmount();
     // TODO: implement dispose
     super.dispose();
   }
@@ -198,36 +203,62 @@ class _VehicleWashBookingState extends State<VehicleWashBooking> {
                             ],
                           ),
                           SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: 
+                            MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Total Amount',
+                                style: poppinsRegular.copyWith(
+                                    color: ColorResources.GLOSSY_FLOSSY_WHITE,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(vehicleProvider.totalAmount.toString(),style: poppinsRegular.copyWith(
+                                color: ColorResources.GLOSSY_FLOSSY_WHITE,
+                                fontSize: 18
+                              ),),
+                            ],
+                          ),
+                          SizedBox(
                             height: 30,
                           ),
                           vehicleProvider.vehicleBookingLoading
-                          ? Center(
-                            child: CircularProgressIndicator(
-                              color: ColorResources.GLOSSY_FLOSSY_YELLOW,
-                            ),
-                          )
-                          : InkWell(
-                            onTap: () {
-                              bookVehicleService();
-                            },
-                            child: Container(
-                              height: 40,
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.yellow),
-                                color: ColorResources.GLOSSY_FLOSSY_YELLOW,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  'Book wash',
-                                  style: TextStyle(
+                              ? Center(
+                                  child: CircularProgressIndicator(
+                                    color: ColorResources.GLOSSY_FLOSSY_YELLOW,
+                                  ),
+                                )
+                              : InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => PaypalPayment(amount: vehicleProvider.totalAmount,)
+                        ),
+                                    );
+                                    // bookVehicleService();
+                                  },
+                                  child: Container(
+                                    height: 40,
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.yellow),
                                       color:
-                                          ColorResources.GLOSSY_FLOSSY_BLACK),
+                                          ColorResources.GLOSSY_FLOSSY_YELLOW,
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: const Center(
+                                      child: Text(
+                                        'Book wash',
+                                        style: TextStyle(
+                                            color: ColorResources
+                                                .GLOSSY_FLOSSY_BLACK),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
                         ],
                       );
               },
@@ -245,11 +276,11 @@ class _VehicleWashBookingState extends State<VehicleWashBooking> {
     final userID =
         Provider.of<AuthProvider>(context, listen: false).getUserId();
 
-        String location = _locationController.text.trim();
-        String vehicleReg = _vehicleRegController.text.trim();
-        String vehicleName = _vehicleNameControlller.text.trim();
-        String serviceTime = vehicleProvider.servicetime.text.trim();
-        print(serviceTime);
+    String location = _locationController.text.trim();
+    String vehicleReg = _vehicleRegController.text.trim();
+    String vehicleName = _vehicleNameControlller.text.trim();
+    String serviceTime = vehicleProvider.servicetime.text.trim();
+    print(serviceTime);
     List serviceNameSl = [];
 
     if (vehicleProvider.checkbox1) serviceNameSl.add(1);
@@ -297,7 +328,7 @@ class _VehicleWashBookingState extends State<VehicleWashBooking> {
         content: Text(errorMessage),
         backgroundColor: Colors.green,
       ));
-          Navigator.of(context).pop();
+      Navigator.of(context).pop();
     }
   }
 }

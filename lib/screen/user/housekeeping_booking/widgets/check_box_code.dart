@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:glossy_flossy/provider/user/house_keeping_provider.dart';
+import 'package:glossy_flossy/utils/color_resources.dart';
 import 'package:provider/provider.dart';
 
 class CheckBoxCode extends StatelessWidget {
@@ -22,11 +23,18 @@ class CheckBoxCode extends StatelessWidget {
             style: TextStyle(color: Colors.white),
           ),
           value: houseKeepingProvider.checkbox1,
+          subtitle: Text('£ ${houseKeepingProvider
+                          .houseServiceTypeModel!.data[0].servicePrice}',style: TextStyle(color: ColorResources.SNACKBAR_green),
+                          ),
           onChanged: (value) {
             houseKeepingProvider.updateCheckbox1(value!);
-            houseKeepingProvider.checkbox1
-                ? houseKeepingProvider.setSofaId(1)
-                : houseKeepingProvider.clearSofaValetImage();
+             houseKeepingProvider.updateSofaValetAmt(
+              houseKeepingProvider
+                          .houseServiceTypeModel!.data[0].servicePrice
+             );
+             houseKeepingProvider.checkbox2
+                          ? null
+                          : houseKeepingProvider.clearSofaValetImage();
           },
         ),
         houseKeepingProvider.checkbox1
@@ -72,13 +80,19 @@ class CheckBoxCode extends StatelessWidget {
             houseKeepingProvider.houseServiceTypeModel!.data[1].serviceName,
             style: TextStyle(color: Colors.white),
           ),
+          subtitle: Text('£ ${houseKeepingProvider
+                          .houseServiceTypeModel!.data[1].servicePrice}',style: TextStyle(color: ColorResources.SNACKBAR_green),
+                          ),
+                    
           value: houseKeepingProvider.checkbox2,
           onChanged: (value) {
             houseKeepingProvider.updateCheckbox2(value!);
-            houseKeepingProvider.checkbox2
-                ? houseKeepingProvider.setCarpetId(2)
-                : houseKeepingProvider.clearcarpetImages();
+            houseKeepingProvider.updateCarpetCleanAmt(houseKeepingProvider
+                          .houseServiceTypeModel!.data[1].servicePrice);
             print(houseKeepingProvider.sofaId);
+            houseKeepingProvider.checkbox2
+                          ? null
+                          : houseKeepingProvider.clearcarpetImages();
           },
         ),
         houseKeepingProvider.checkbox2
@@ -126,11 +140,16 @@ class CheckBoxCode extends StatelessWidget {
             style: TextStyle(color: Colors.white),
           ),
           value: houseKeepingProvider.checkbox3,
+          subtitle: Text('£ ${houseKeepingProvider
+                          .houseServiceTypeModel!.data[2].servicePrice}',style: TextStyle(color: ColorResources.SNACKBAR_green),
+                          ),
           onChanged: (value) {
             houseKeepingProvider.updateCheckbox3(value!);
-            houseKeepingProvider.checkbox3
-                ? houseKeepingProvider.setStainId(3)
-                : houseKeepingProvider.clearStainImages();
+            houseKeepingProvider.updateStainRemovalAmt(houseKeepingProvider
+                          .houseServiceTypeModel!.data[2].servicePrice);
+                          houseKeepingProvider.checkbox2
+                          ? null
+                          : houseKeepingProvider.clearStainImages();
           },
         ),
         houseKeepingProvider.checkbox3
@@ -178,11 +197,16 @@ class CheckBoxCode extends StatelessWidget {
             style: TextStyle(color: Colors.white),
           ),
           value: houseKeepingProvider.checkbox4,
+          subtitle: Text('£ ${houseKeepingProvider
+                          .houseServiceTypeModel!.data[3].servicePrice}',style: TextStyle(color: ColorResources.SNACKBAR_green),
+                          ),
           onChanged: (value) {
             houseKeepingProvider.updateCheckbox4(value!);
-            houseKeepingProvider.checkbox4
-                ? houseKeepingProvider.setWindowId(4)
-                : houseKeepingProvider.clearWindowImages();
+            houseKeepingProvider.updateWindowCleaningAmt(houseKeepingProvider
+                          .houseServiceTypeModel!.data[3].servicePrice);
+                          houseKeepingProvider.checkbox2
+                          ? null
+                          : houseKeepingProvider.clearWindowImages();
           },
         ),
         houseKeepingProvider.checkbox4
@@ -230,11 +254,16 @@ class CheckBoxCode extends StatelessWidget {
             style: TextStyle(color: Colors.white),
           ),
           value: houseKeepingProvider.checkbox5,
+          subtitle: Text('£ ${houseKeepingProvider
+                          .houseServiceTypeModel!.data[4].servicePrice}',style: TextStyle(color: ColorResources.SNACKBAR_green),
+                          ),
           onChanged: (value) {
             houseKeepingProvider.updateCheckbox5(value!);
-            houseKeepingProvider.checkbox5
-                ? houseKeepingProvider.setGutterId(5)
-                : houseKeepingProvider.clearGuteringCleaningImages();
+            houseKeepingProvider.updateGutteringCleaningAmt(houseKeepingProvider
+                          .houseServiceTypeModel!.data[4].servicePrice);
+                          houseKeepingProvider.checkbox2
+                          ? null
+                          : houseKeepingProvider.clearGuteringCleaningImages();
           },
         ),
         houseKeepingProvider.checkbox5
@@ -281,12 +310,17 @@ class CheckBoxCode extends StatelessWidget {
             houseKeepingProvider.houseServiceTypeModel!.data[5].serviceName,
             style: TextStyle(color: Colors.white),
           ),
+          subtitle: Text('£ ${houseKeepingProvider
+                          .houseServiceTypeModel!.data[5].servicePrice}',style: TextStyle(color: ColorResources.SNACKBAR_green),
+                          ),
           value: houseKeepingProvider.checkbox6,
           onChanged: (value) {
             houseKeepingProvider.updateCheckbox6(value!);
-            houseKeepingProvider.checkbox6
-                ? houseKeepingProvider.setSofaId(6)
-                : houseKeepingProvider.clearDrivewayImages();
+            houseKeepingProvider.updateDriveWayAmt(houseKeepingProvider
+                          .houseServiceTypeModel!.data[5].servicePrice);
+                          houseKeepingProvider.checkbox2
+                          ? null
+                          : houseKeepingProvider.clearDrivewayImages();
           },
         ),
         houseKeepingProvider.checkbox6

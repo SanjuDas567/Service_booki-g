@@ -217,7 +217,8 @@ class _NotificationExpantionPanelState
                               },
                               onCancel: (params) {
                                 print('cancelled: $params');
-                              }),
+                              },
+                              ),
                         ),
                       );
                     },

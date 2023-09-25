@@ -31,19 +31,23 @@ class HouseKeepingTypeModel {
 class HouseKeepingData {
     int nameSlno;
     String serviceName;
+    int servicePrice;
 
     HouseKeepingData({
         required this.nameSlno,
         required this.serviceName,
+        required this.servicePrice,
     });
 
     factory HouseKeepingData.fromJson(Map<String, dynamic> json) => HouseKeepingData(
         nameSlno: json["name_slno"],
         serviceName: json["service_name"],
+        servicePrice: json["service_price"],
     );
 
     Map<String, dynamic> toJson() => {
         "name_slno": nameSlno,
         "service_name": serviceName,
+        "service_price": servicePrice,
     };
 }

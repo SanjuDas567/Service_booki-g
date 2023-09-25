@@ -20,7 +20,69 @@ class HouseKeepingProvider extends ChangeNotifier {
   bool checkbox5 = false;
   bool checkbox6 = false;
 
+  dynamic sofaValetAmt = 0;
+  dynamic carpetCleanAmt = 0;
+  dynamic stainRemovalAmt = 0;
+  dynamic windowCleaningAmt = 0;
+  dynamic gutteringCleaningAmt = 0;
+  dynamic driveWayAmt = 0;
+
 // update fuction :-------------------------------------------------------------
+  
+  dynamic houseTotalAmount = 0;
+
+  void clearHouseTotalAmt() {
+    houseTotalAmount = 0;
+  }
+
+  void updateSofaValetAmt(dynamic value) {
+    sofaValetAmt = value;
+    checkbox1 
+    ? houseTotalAmount += sofaValetAmt
+    : houseTotalAmount -= sofaValetAmt;
+    notifyListeners();
+  }
+
+  void updateCarpetCleanAmt(dynamic value) {
+    carpetCleanAmt = value;
+    checkbox2 
+    ? houseTotalAmount += carpetCleanAmt
+    : houseTotalAmount -= carpetCleanAmt;
+    notifyListeners();
+  }
+
+  void updateStainRemovalAmt(dynamic value) {
+    stainRemovalAmt = value;
+    checkbox3 
+    ? houseTotalAmount += stainRemovalAmt
+    : houseTotalAmount -= stainRemovalAmt;
+    notifyListeners();
+  }
+
+  void updateWindowCleaningAmt(dynamic value) {
+    windowCleaningAmt = value;
+    checkbox4 
+    ? houseTotalAmount += windowCleaningAmt
+    : houseTotalAmount -= windowCleaningAmt;
+    notifyListeners();
+  }
+
+  void updateGutteringCleaningAmt(dynamic value) {
+    gutteringCleaningAmt = value;
+    checkbox5 
+    ? houseTotalAmount += gutteringCleaningAmt
+    : houseTotalAmount -= gutteringCleaningAmt;
+    notifyListeners();
+  }
+
+   void updateDriveWayAmt(dynamic value) {
+    driveWayAmt = value;
+    checkbox6 
+    ? houseTotalAmount += driveWayAmt
+    : houseTotalAmount -= driveWayAmt;
+    notifyListeners();
+  }
+  
   void updateCheckbox1(bool value) {
     checkbox1 = value;
     notifyListeners();

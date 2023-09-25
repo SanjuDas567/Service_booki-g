@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:glossy_flossy/provider/user/commercial_providder.dart';
+import 'package:glossy_flossy/utils/color_resources.dart';
 import 'package:provider/provider.dart';
 
 class CheckBoxCommercial extends StatelessWidget {
@@ -30,8 +31,15 @@ class CheckBoxCommercial extends StatelessWidget {
                       style: TextStyle(color: Colors.white),
                     ),
                     value: checkBoxProvider.checkbox1,
+                     subtitle: Text('£ ${checkBoxProvider
+                          .commercialServiceTypeModel!.data[0].servicePrice}',style: TextStyle(color: ColorResources.SNACKBAR_green),
+                          ),
                     onChanged: (value) {
                       checkBoxProvider.updateCheckbox1(value!);
+                      checkBoxProvider.updateSofaValetAmt(
+              checkBoxProvider
+                          .commercialServiceTypeModel!.data[0].servicePrice
+             );
                       checkBoxProvider.checkbox1
                           ? null
                           : checkBoxProvider.clearSofaValetImage();
@@ -84,9 +92,16 @@ class CheckBoxCommercial extends StatelessWidget {
                           .commercialServiceTypeModel!.data[1].serviceName,
                       style: TextStyle(color: Colors.white),
                     ),
+                     subtitle: Text('£ ${checkBoxProvider
+                          .commercialServiceTypeModel!.data[1].servicePrice}',style: TextStyle(color: ColorResources.SNACKBAR_green),
+                          ),
                     value: checkBoxProvider.checkbox2,
                     onChanged: (value) {
                       checkBoxProvider.updateCheckbox2(value!);
+                      checkBoxProvider.updateCarpetCleanAmt(
+              checkBoxProvider
+                          .commercialServiceTypeModel!.data[1].servicePrice
+             );
                       checkBoxProvider.checkbox2
                           ? null
                           : checkBoxProvider.clearcarpetImages();
@@ -140,9 +155,16 @@ class CheckBoxCommercial extends StatelessWidget {
                           .commercialServiceTypeModel!.data[2].serviceName,
                       style: TextStyle(color: Colors.white),
                     ),
+                     subtitle: Text('£ ${checkBoxProvider
+                          .commercialServiceTypeModel!.data[2].servicePrice}',style: TextStyle(color: ColorResources.SNACKBAR_green),
+                          ),
                     value: checkBoxProvider.checkbox3,
                     onChanged: (value) {
                       checkBoxProvider.updateCheckbox3(value!);
+                      checkBoxProvider.updateStainRemovalAmt(
+              checkBoxProvider
+                          .commercialServiceTypeModel!.data[2].servicePrice
+             );
                       checkBoxProvider.checkbox3
                           ? null
                           : checkBoxProvider.clearStainImages();
@@ -195,9 +217,16 @@ class CheckBoxCommercial extends StatelessWidget {
                           .commercialServiceTypeModel!.data[3].serviceName,
                       style: TextStyle(color: Colors.white),
                     ),
+                     subtitle: Text('£ ${checkBoxProvider
+                          .commercialServiceTypeModel!.data[3].servicePrice}',style: TextStyle(color: ColorResources.SNACKBAR_green),
+                          ),
                     value: checkBoxProvider.checkbox4,
                     onChanged: (value) {
                       checkBoxProvider.updateCheckbox4(value!);
+                      checkBoxProvider.updateWindowCleaningAmt(
+              checkBoxProvider
+                          .commercialServiceTypeModel!.data[3].servicePrice
+             );
                       checkBoxProvider.checkbox4
                           ? null
                           : checkBoxProvider.clearWindowImages();
@@ -250,9 +279,16 @@ class CheckBoxCommercial extends StatelessWidget {
                           .commercialServiceTypeModel!.data[4].serviceName,
                       style: TextStyle(color: Colors.white),
                     ),
+                     subtitle: Text('£ ${checkBoxProvider
+                          .commercialServiceTypeModel!.data[4].servicePrice}',style: TextStyle(color: ColorResources.SNACKBAR_green),
+                          ),
                     value: checkBoxProvider.checkbox5,
                     onChanged: (value) {
                       checkBoxProvider.updateCheckbox5(value!);
+                      checkBoxProvider.updateGutteringCleaningAmt(
+              checkBoxProvider
+                          .commercialServiceTypeModel!.data[4].servicePrice
+             );
                       checkBoxProvider.checkbox5
                           ? null
                           : checkBoxProvider.clearGuteringCleaningImages();
@@ -306,9 +342,16 @@ class CheckBoxCommercial extends StatelessWidget {
                           .commercialServiceTypeModel!.data[5].serviceName,
                       style: TextStyle(color: Colors.white),
                     ),
+                     subtitle: Text('£ ${checkBoxProvider
+                          .commercialServiceTypeModel!.data[5].servicePrice}',style: TextStyle(color: ColorResources.SNACKBAR_green),
+                          ),
                     value: checkBoxProvider.checkbox6,
                     onChanged: (value) {
                       checkBoxProvider.updateCheckbox6(value!);
+                      checkBoxProvider.updateDriveWayAmt(
+              checkBoxProvider
+                          .commercialServiceTypeModel!.data[5].servicePrice
+             );
                       checkBoxProvider.checkbox6
                           ? null
                           : checkBoxProvider.clearDrivewayImages();

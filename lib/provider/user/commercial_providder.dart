@@ -19,7 +19,69 @@ class CommercialBookingProvider extends ChangeNotifier {
   bool checkbox5 = false;
   bool checkbox6 = false;
 
+  dynamic sofaValetAmt = 0;
+  dynamic carpetCleanAmt = 0;
+  dynamic stainRemovalAmt = 0;
+  dynamic windowCleaningAmt = 0;
+  dynamic gutteringCleaningAmt = 0;
+  dynamic driveWayAmt = 0;
+
 // update fuction :-------------------------------------------------------------
+  
+   dynamic commercialTotalAmount = 0;
+
+  void clearCommercialTotalAmt() {
+    commercialTotalAmount = 0;
+  }
+
+  void updateSofaValetAmt(dynamic value) {
+    sofaValetAmt = value;
+    checkbox1 
+    ? commercialTotalAmount += sofaValetAmt
+    : commercialTotalAmount -= sofaValetAmt;
+    notifyListeners();
+  }
+
+  void updateCarpetCleanAmt(dynamic value) {
+    carpetCleanAmt = value;
+    checkbox2 
+    ? commercialTotalAmount += carpetCleanAmt
+    : commercialTotalAmount -= carpetCleanAmt;
+    notifyListeners();
+  }
+
+  void updateStainRemovalAmt(dynamic value) {
+    stainRemovalAmt = value;
+    checkbox3 
+    ? commercialTotalAmount += stainRemovalAmt
+    : commercialTotalAmount -= stainRemovalAmt;
+    notifyListeners();
+  }
+
+  void updateWindowCleaningAmt(dynamic value) {
+    windowCleaningAmt = value;
+    checkbox4 
+    ? commercialTotalAmount += windowCleaningAmt
+    : commercialTotalAmount -= windowCleaningAmt;
+    notifyListeners();
+  }
+
+  void updateGutteringCleaningAmt(dynamic value) {
+    gutteringCleaningAmt = value;
+    checkbox5 
+    ? commercialTotalAmount += gutteringCleaningAmt
+    : commercialTotalAmount -= gutteringCleaningAmt;
+    notifyListeners();
+  }
+
+   void updateDriveWayAmt(dynamic value) {
+    driveWayAmt = value;
+    checkbox6 
+    ? commercialTotalAmount += driveWayAmt
+    : commercialTotalAmount -= driveWayAmt;
+    notifyListeners();
+  }
+  
   void updateCheckbox1(bool value) {
     checkbox1 = value;
     notifyListeners();
@@ -190,7 +252,7 @@ class CommercialBookingProvider extends ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  ServiceTypeModel? commercialServiceTypeModel;
+  CommercialServiceTypeModel? commercialServiceTypeModel;
 
   Future<void> getServiceName(String serviceId) async {
     _isLoading = true;
@@ -204,7 +266,7 @@ class CommercialBookingProvider extends ChangeNotifier {
       print(apiResponse.response!.data);
 
       final commercialServiceType =
-          ServiceTypeModel.fromJson(apiResponse.response!.data);
+          CommercialServiceTypeModel.fromJson(apiResponse.response!.data);
       commercialServiceTypeModel = commercialServiceType;
     }
     notifyListeners();

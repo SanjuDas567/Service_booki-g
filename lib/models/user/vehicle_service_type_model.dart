@@ -31,19 +31,23 @@ class VehicleServiceTypeModel {
 class VehicleServiceTypeData {
     int nameSlno;
     String serviceName;
+    int servicePrice;
 
     VehicleServiceTypeData({
         required this.nameSlno,
         required this.serviceName,
+        required this.servicePrice,
     });
 
     factory VehicleServiceTypeData.fromJson(Map<String, dynamic> json) => VehicleServiceTypeData(
         nameSlno: json["name_slno"],
         serviceName: json["service_name"],
+        servicePrice: json["service_price"],
     );
 
     Map<String, dynamic> toJson() => {
         "name_slno": nameSlno,
         "service_name": serviceName,
+        "service_price": servicePrice,
     };
 }

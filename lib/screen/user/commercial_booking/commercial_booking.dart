@@ -6,6 +6,7 @@ import 'package:glossy_flossy/provider/user/commercial_providder.dart';
 import 'package:glossy_flossy/provider/user/login_provider_user.dart';
 import 'package:glossy_flossy/screen/user/commercial_booking/widgets/check_box_design.dart';
 import 'package:glossy_flossy/utils/color_resources.dart';
+import 'package:glossy_flossy/utils/custom_fonts.dart';
 import 'package:glossy_flossy/utils/images.dart';
 import 'package:glossy_flossy/widgets/custom_text_form_field.dart';
 import 'package:provider/provider.dart';
@@ -47,6 +48,7 @@ class _CommercialBookingState extends State<CommercialBooking> {
       commercialProvider.clearGuteringCleaningImages();
       commercialProvider.clearDrivewayImages();
       commercialProvider.removeTime();
+      commercialProvider.clearCommercialTotalAmt();
 
       commercialProvider.getServiceName(widget.data.typeSlno.toString());
     });
@@ -151,6 +153,29 @@ class _CommercialBookingState extends State<CommercialBooking> {
                             regExp: r'^[a-zA-Z ]+$',
                           ),
                         ]),
+                        SizedBox(
+                                height: 10,
+                              ),
+                               Row(
+                            mainAxisAlignment: 
+                            MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Total Amount',
+                                style: poppinsRegular.copyWith(
+                                    color: ColorResources.GLOSSY_FLOSSY_WHITE,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(commercialProvider.commercialTotalAmount.toString(),style: poppinsRegular.copyWith(
+                                color: ColorResources.GLOSSY_FLOSSY_WHITE,
+                                fontSize: 18
+                              ),),
+                            ],
+                          ),
+                          SizedBox(
+                                height: 10,
+                              ),
                         commercialProvider.isBookingLoading
                             ? Center(
                                 child: CircularProgressIndicator(

@@ -15,7 +15,62 @@ class VehicleBookingProvider extends ChangeNotifier {
   bool checkbox4 = false;
   bool checkbox5 = false;
 
-  // update fuction :-------------------------------------------------------------
+   dynamic washAndWax = 0;
+   dynamic fullVelet = 0;
+   dynamic interiorValet = 0;
+   dynamic fullDetail = 0;
+   dynamic engineSteamWash = 0;
+
+   
+
+  // update function :-------------------------------------------------------------
+
+  dynamic totalAmount = 0;
+
+  void clearTotalAmount() {
+    totalAmount = 0;
+  }
+
+  void updateWashAndWax(dynamic value) {
+    washAndWax = value;
+    checkbox1 
+    ? totalAmount += washAndWax
+    : totalAmount -= washAndWax;
+    notifyListeners();
+  }
+
+  void updateFullVelet(dynamic value) {
+    fullVelet = value;
+     checkbox2 
+    ? totalAmount += fullVelet
+    : totalAmount -= fullVelet;
+    notifyListeners();
+  }
+
+  void updateInteriorValet(dynamic value) {
+    interiorValet = value;
+     checkbox3 
+    ? totalAmount += interiorValet
+    : totalAmount -= interiorValet;
+    notifyListeners();
+  }
+
+  void updateFullDetail(dynamic value) {
+    fullDetail = value;
+    checkbox4 
+    ? totalAmount += fullDetail
+    : totalAmount -= fullDetail;
+    notifyListeners();
+  }
+
+  void updateEngineSteamWash(dynamic value) {
+    engineSteamWash = value;
+     checkbox5 
+    ? totalAmount += engineSteamWash
+    : totalAmount -= engineSteamWash;
+    notifyListeners();
+  }
+
   void updateCheckbox1(bool value) {
     checkbox1 = value;
     notifyListeners();
@@ -40,7 +95,7 @@ class VehicleBookingProvider extends ChangeNotifier {
     checkbox5 = value;
     notifyListeners();
   }
-  // update fuction :----------------------------------------------------------
+  // update function :----------------------------------------------------------
 
   //  Api Calling :-------------------------------------------------------------
   bool _isLoading = false;

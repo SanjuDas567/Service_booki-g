@@ -29,8 +29,6 @@ class HomeScreenProvider extends ChangeNotifier {
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
       _isLoading = false;
-      print(apiResponse);
-      print('inside 200 service provider');
 
       final serviceType = ServiceTypeModel.fromJson(apiResponse.response!.data);
       serviceTypeModel = serviceType;

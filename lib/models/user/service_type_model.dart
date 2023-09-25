@@ -39,7 +39,7 @@ class ServiceData {
 
     factory ServiceData.fromJson(Map<String, dynamic> json) => ServiceData(
         typeSlno: json["type_slno"],
-        serviceType: json["service_type"],
+        serviceType:  json["service_type"] == null? '': json["service_type"],
     );
 
     Map<String, dynamic> toJson() => {
