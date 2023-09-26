@@ -5,12 +5,14 @@ import 'package:glossy_flossy/models/user/form_data/vehicle_service_booking.dart
 import 'package:glossy_flossy/models/user/service_type_model.dart';
 import 'package:glossy_flossy/provider/user/login_provider_user.dart';
 import 'package:glossy_flossy/provider/user/vehicle_booking_provider.dart';
+import 'package:glossy_flossy/screen/common/payment_confirm_screen/payment_confirm_screen.dart';
 import 'package:glossy_flossy/screen/user/vehicle_wash_booking/widgets/service_selection_check_box.dart';
 import 'package:glossy_flossy/services/paypal_payment.dart';
 import 'package:glossy_flossy/utils/app_constants.dart';
 import 'package:glossy_flossy/utils/color_resources.dart';
 import 'package:glossy_flossy/utils/custom_fonts.dart';
 import 'package:glossy_flossy/utils/images.dart';
+import 'package:glossy_flossy/widgets/custom_page_route.dart';
 import 'package:glossy_flossy/widgets/custom_text_form_field.dart';
 import 'package:provider/provider.dart';
 
@@ -206,8 +208,7 @@ class _VehicleWashBookingState extends State<VehicleWashBooking> {
                             height: 20,
                           ),
                           Row(
-                            mainAxisAlignment: 
-                            MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 'Total Amount',
@@ -216,10 +217,12 @@ class _VehicleWashBookingState extends State<VehicleWashBooking> {
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold),
                               ),
-                              Text(vehicleProvider.totalAmount.toString(),style: poppinsRegular.copyWith(
-                                color: ColorResources.GLOSSY_FLOSSY_WHITE,
-                                fontSize: 18
-                              ),),
+                              Text(
+                                vehicleProvider.totalAmount.toString(),
+                                style: poppinsRegular.copyWith(
+                                    color: ColorResources.GLOSSY_FLOSSY_WHITE,
+                                    fontSize: 18),
+                              ),
                             ],
                           ),
                           SizedBox(
@@ -233,10 +236,18 @@ class _VehicleWashBookingState extends State<VehicleWashBooking> {
                                 )
                               : InkWell(
                                   onTap: () {
-                                    Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => PaypalPayment(amount: vehicleProvider.totalAmount,)
-                        ),
+                                                Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) => PaypalPayment(amount: vehicleProvider.totalAmount,)
+                                    ),
+                                                );
+                                    Navigator.push(
+                                      context,
+                                      CustomDownPageRoute(
+                                          child: PaymentConfirmScreen(
+                                              amount:
+                                                  vehicleProvider.totalAmount),
+                                          direction: AxisDirection.up),
                                     );
                                     // bookVehicleService();
                                   },
