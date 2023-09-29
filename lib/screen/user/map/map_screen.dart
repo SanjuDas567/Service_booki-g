@@ -54,17 +54,17 @@ class MapScreen extends StatelessWidget {
             child: Icon(Icons.location_on_outlined),
           ),
           body: GoogleMap(
-            initialCameraPosition:
-                CameraPosition(target: currentLocation, zoom: 14),
-            onMapCreated: (controller) {
-              mapProvider.mapConttroller = controller;
-              mapProvider.addMarker('test', currentLocation);
-            },
-            markers: mapProvider.markers.values.toSet(),
-            mapToolbarEnabled: true,
-            zoomControlsEnabled: false,
-            mapType: MapType.hybrid,
-          ),
+              initialCameraPosition:
+                  CameraPosition(target: currentLocation, zoom: 14),
+              onMapCreated: (controller) {
+                mapProvider.mapConttroller = controller;
+                mapProvider.addMarker('test', currentLocation);
+              },
+              markers: mapProvider.markers.values.toSet(),
+              mapToolbarEnabled: true,
+              zoomControlsEnabled: false,
+              mapType: MapType.hybrid,
+            ), 
         );
       },
     );

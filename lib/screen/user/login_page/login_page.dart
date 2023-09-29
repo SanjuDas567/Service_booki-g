@@ -3,6 +3,7 @@ import 'package:glossy_flossy/models/user/login_model.dart';
 import 'package:glossy_flossy/provider/user/login_provider_user.dart';
 import 'package:glossy_flossy/screen/user/main_screen.dart/main_screen.dart';
 import 'package:glossy_flossy/screen/user/register_page/register_page.dart';
+import 'package:glossy_flossy/utils/custom_fonts.dart';
 import 'package:glossy_flossy/utils/dimentions.dart';
 import 'package:glossy_flossy/utils/images.dart';
 import 'package:glossy_flossy/widgets/custom_page_route.dart';
@@ -50,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(
                       height: 30,
                     ),
-                    const Padding(
+                     Padding(
                       padding: EdgeInsets.all(Dimensions.MARGIN_SIZE_SMALL),
                       child: Row(
                         children: [
@@ -58,19 +59,21 @@ class _LoginPageState extends State<LoginPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Welcome',
-                                style: TextStyle(
-                                    color: Colors.yellow,
+                                'Welcome back !',
+                                style: poppinsRegular.copyWith(
+                                   color: Colors.yellow,
                                     fontSize: 24,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold
+                                ),                               
                               ),
                               Text(
                                 'Login to continue',
-                                style: TextStyle(
-                                    color: Colors.white,
+                                style: poppinsRegular.copyWith(
+                                   color: Colors.white,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: Dimensions.FONT_SIZE_LARGE),
-                              )
+                                    fontSize: Dimensions.FONT_SIZE_LARGE
+                                ),
+                              ),
                             ],
                           ),
                         ],
@@ -91,7 +94,8 @@ class _LoginPageState extends State<LoginPage> {
                           Padding(
                             padding: const EdgeInsets.all(Dimensions.MARGIN_SIZE_SMALL),
                             child: Container(
-                              height: MediaQuery.of(context).size.height / 15.5,
+                              height: 50,
+                              // MediaQuery.of(context).size.height / 15.5,
                               decoration: BoxDecoration(
                                 color: Colors.grey.shade400,
                                 borderRadius: BorderRadius.circular(10.0),
@@ -131,7 +135,8 @@ class _LoginPageState extends State<LoginPage> {
                               alignment: const Alignment(0, 0),
                               children: <Widget>[
                                 Container(
-                                  height: MediaQuery.of(context).size.height / 15.5,
+                                  height: 50,
+                                  // MediaQuery.of(context).size.height / 15.5,
                                   decoration: BoxDecoration(
                                     color: Colors.grey.shade400,
                                     borderRadius: BorderRadius.circular(Dimensions.MARGIN_SIZE_SMALL),
@@ -238,7 +243,7 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "Don't have account?",
+                          "Don't have an account?",
                           style: TextStyle(color: Colors.white),
                         ),
                         InkWell(
@@ -255,7 +260,7 @@ class _LoginPageState extends State<LoginPage> {
                             );
                           },
                           child: const Text(
-                            ' create a new account',
+                            ' Create a new account',
                             style: TextStyle(color: Colors.yellow),
                           ),
                         )
@@ -274,7 +279,7 @@ class _LoginPageState extends State<LoginPage> {
   // login function
   bool isEmailValid(String email) {
     // Define the regular expression pattern for email validation
-    RegExp emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    RegExp emailRegExp = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
     return emailRegExp.hasMatch(email);
   }
 

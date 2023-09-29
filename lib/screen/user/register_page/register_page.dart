@@ -6,6 +6,7 @@ import 'package:glossy_flossy/screen/user/otp_screen/otp_screen.dart';
 import 'package:glossy_flossy/screen/user/login_page/login_page.dart';
 import 'package:glossy_flossy/utils/color_resources.dart';
 import 'package:glossy_flossy/utils/images.dart';
+import 'package:glossy_flossy/widgets/custom_multiline_textfield.dart';
 import 'package:glossy_flossy/widgets/custom_page_route.dart';
 import 'package:glossy_flossy/widgets/custom_text_form_field.dart';
 import 'package:provider/provider.dart';
@@ -152,10 +153,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       // const SizedBox(
                       //   height: 10,
                       // ),
-                      AppTextFormField(
+                      CustomMultilineTextField(
                         hintText: 'Address',
                         controller: _addressController,
-                        regExp: r'^[0-9a-zA-Z\s\.,\-]+$',
+                        regExp: r'^[a-zA-Z0-9&/.\- ()]+$',
                         focusNode: _addressFocus,
                         textInputType: TextInputType.streetAddress,
                       ),

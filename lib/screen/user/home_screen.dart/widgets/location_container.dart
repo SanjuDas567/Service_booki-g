@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:glossy_flossy/screen/user/map/search_places_screen.dart';
+import 'package:glossy_flossy/widgets/custom_page_route.dart';
 
 class LocationWidget extends StatelessWidget {
   const LocationWidget({super.key});
@@ -18,13 +20,21 @@ class LocationWidget extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                          color: Colors.yellow,
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Icon(Icons.location_on_outlined)),
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(
+                        context, CustomDownPageRoute(
+                          child: SearchPlacesScreen(),
+                          direction: AxisDirection.up));
+                    },
+                    child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                            color: Colors.yellow,
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Icon(Icons.location_on_outlined)),
+                  ),
                   SizedBox(
                     width: 10,
                   ),
