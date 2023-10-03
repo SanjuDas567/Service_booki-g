@@ -7,6 +7,7 @@ import 'package:glossy_flossy/screen/worker/income_screen/income_screen.dart';
 import 'package:glossy_flossy/screen/worker/notification_screen/notification_screen_worker.dart';
 import 'package:glossy_flossy/screen/worker/profile_screen/profile_screen_worker.dart';
 import 'package:glossy_flossy/screen/worker/servise_history/service_history_worker.dart';
+import 'package:glossy_flossy/screen/worker/upcoming_work_screen/upcoming_work_screen.dart';
 import 'package:glossy_flossy/screen/worker/work_screen/work_locaton_screen.dart';
 import 'package:glossy_flossy/utils/images.dart';
 import 'package:glossy_flossy/widgets/custom_page_route.dart';
@@ -25,7 +26,7 @@ class _MainScreenWorkerState extends State<MainScreenWorker> {
 
   final List _screens = [
     {"screen": HomeScreenWorker()},
-    // {"screen": const ChatScreen()},
+    {"screen": const UpcomingWork()},
     {"screen": const IncomeScreen()},
     {"screen": const WorkLocationScreen()},
     {"screen": const ProfileScreenWorker()},
@@ -197,6 +198,16 @@ class _MainScreenWorkerState extends State<MainScreenWorker> {
               ),
               label: 'Home',
               activeIcon: Icon(Icons.home_rounded),
+              // backgroundColor: Colors.white24,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.work_history_outlined,
+                color: Colors.white,
+              ),
+              activeIcon: Icon(Icons.work_history_rounded
+              ),
+              label: 'Future work',
               // backgroundColor: Colors.white24,
             ),
             BottomNavigationBarItem(

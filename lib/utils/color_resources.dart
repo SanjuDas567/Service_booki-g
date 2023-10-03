@@ -7,4 +7,5 @@ class ColorResources {
   static const GLOSSY_FLOSSY_YELLOWW = Color(0xffFEE400);
   static const SNACKBAR_RED = Colors.red;
   static const SNACKBAR_green = Colors.green;
+  static const GLOSSY_FLOSSY_GREY = Colors.grey;
 }
